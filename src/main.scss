@@ -1,0 +1,87 @@
+// Configurations
+@import './assets/sass/variables.scss';
+@import './assets/fontawesome/css/all.min.css';
+@import './assets/bootstrap/scss/bootstrap.scss';
+@import './assets/sass/mixins.scss';
+@import './App/App.scss';
+// @import './assets/sass/externalComponents.scss';
+
+// utilities
+@import './utilities/minitiatures/HoverableProduct/HoverableProduct.scss';
+@import './utilities/minitiatures/Checkbox/Checkbox.scss';
+@import './utilities/minitiatures/CodeInput/CodeInput.scss';
+@import './utilities/minitiatures/PagePreloader/PagePreloader.scss';
+@import './utilities/minitiatures/Toast/Toast.scss';
+@import './utilities/minitiatures/ResendEmailCountdown/ResendEmailCountdown.scss';
+@import './utilities/minitiatures/SmallText/SmallText.scss';
+@import './utilities/minitiatures/ImageInputDD/imageinputdd.scss';
+@import './utilities/minitiatures/RoundedImage/RoundedImage.scss';
+@import './utilities/minitiatures/CategorySelect/CategorySelect.scss';
+@import './utilities/minitiatures/Accordion/accordion.scss';
+@import './utilities/minitiatures/TablePlaceholder/TablePlaceholder.scss';
+@import './utilities/minitiatures/Price/Price.scss';
+@import './utilities/minitiatures/CountButton/CountButton.scss';
+
+
+// --------------------------------------------Components------------------------------------------
+
+// Customer
+.customer-container {
+    @import './App/Customer/Navbar/Navbar.scss';
+    @import './App/Customer/Navbar/UserDropdown/UserDropdown.scss';
+    @import './App/Customer/Navbar/Submenu/Submenu.scss';
+    @import './App/Customer/Homepage/Header/Header.scss';
+    @import './App/Customer/Homepage/Footer/Footer.scss';
+    @import './App/Customer/Homepage/Sections/Sections.scss';
+    @import './App/Customer/Homepage/Sections/Categories/Categories.scss';
+    @import './App/Customer/Homepage/Sections/Categories/ForBoth/ForBoth.scss';
+    @import './App/Customer/Homepage/Sections/Categories/ForTheBaby/ForTheBaby.scss';
+    @import './App/Customer/Homepage/Sections/Categories/ForTheMother/ForTheMother.scss';
+    @import './App/Customer/Homepage/Sections/Functionnalities/Functionnalities.scss';
+    @import './App/Customer/Homepage/Sections/FeaturedProducts/FeaturedProducts.scss';
+    @import './App/Customer/Homepage/Sections/Offers/Offers.scss';
+    @import './App/Customer/Guest/Auth/Auth.scss';
+    @import './App/Customer/Authenticated/User/User.scss';
+    @import './App/Customer/Authenticated/User/Profile/Profile.scss';
+    @import './App/Customer/Authenticated/User/Profile/Overview/Overview.scss';
+    @import './App/Customer/Category/Category.scss';
+    @import './App/Customer/Category/ProductsEmpty/ProductsEmpty.scss';
+    @import './App/Customer/Product/Product.scss';
+    @import './App/Customer/Product/LeftSide/LeftSide.scss';
+    @import './App/Customer/Product/RightSide/RightSide.scss';
+    @import './App/Customer/Navbar/Cart/CartButton.scss';
+    @import './App/Customer/Authenticated/Cart/Cart.scss';
+    @import './App/Customer/Authenticated/Cart/CartEmpty/CartEmpty.scss';
+    @import './App/Customer/Authenticated/Cart/CartSummary/CartSummary.scss';
+}
+
+// Admin
+.admin-container {
+    @import './App/Admin/Guest/Auth/Auth.scss';
+    @import './App/Admin/Authenticated/Dashboard/Dashboard.scss';
+    @import './App/Admin/Authenticated/Dashboard/Navbar/Navbar.scss';
+    @import './App/Admin/Authenticated/Dashboard/Sidebar/Sidebar.scss';
+    @import './App/Admin/Authenticated/Dashboard/Navbar/UserDropdown/UserDropdown.scss';
+    @import './App/Admin/Authenticated/Dashboard/Main/User/User.scss';
+    @import './App/Admin/Authenticated/Dashboard/Main/User/Profile/Profile.scss';
+    @import './App/Admin/Authenticated/Dashboard/Main/User/Profile/Overview/Overview.scss';
+    @import './App/Admin/Authenticated/Dashboard/Main/Categories/AddCategory/AddCategory.scss';
+    @import './App/Admin/Authenticated/Dashboard/Main/Categories/CategoriesList/CategoriesList.scss';
+    @import './App/Admin/Authenticated/Dashboard/Navbar/Search/Search.scss';
+}
+
+// CreatePortals 
+
+// ---------------------------------------------- Admin ----------------------------------------------
+
+// Categories
+@import './App/Admin/Authenticated/Dashboard/Main/Categories/AddCategory/AddCategory.scss';
+@import 'src/App/Admin/Authenticated/Dashboard/Main/Categories/AddCategory/SelectedCategory/SelectedCategory.scss';
+@import './App/Admin/Authenticated/Dashboard/Main/Categories/Categories.scss';
+@import './App/Admin/Authenticated/Dashboard/Main/Categories/DeleteCategory/DeleteCategory.scss';
+
+// Products
+
+@import './App/Admin/Authenticated/Dashboard/Main/Products/AddImages/AddImages.scss';
+@import './App/Admin/Authenticated/Dashboard/Main/Products/AddProduct/AddProduct.scss';
+@import './App/Admin/Authenticated/Dashboard/Main/Products/AddProduct/AddProductBody/AddProductBody.scss';

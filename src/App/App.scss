@@ -1,0 +1,51 @@
+$primary-font: 'Arista Pro';
+$fallback-font: Arial, sans-serif;
+
+@font-face {
+  font-family: $primary-font;
+  src: url("./assets/fonts/aristaPro/Arista-Pro-Bold-trial.ttf") format('truetype'),
+    url("./assets/fonts/aristaPro/Arista-Pro-Light-trial.woff") format('woff');
+  font-weight: light;
+}
+
+@font-face {
+  font-family: $primary-font;
+  src: url("./assets/fonts/aristaPro/Arista-Pro-Bold-trial.ttf") format('truetype'),
+    url("./assets/fonts/aristaPro/Arista-Pro-Bold-trial.woff") format('woff');
+  font-weight: bold;
+}
+
+@font-face {
+  font-family: $primary-font;
+  src: url("./assets/fonts/aristaPro/Arista-Pro-Regular-trial.ttf") format('truetype'),
+    url("./assets/fonts/aristaPro/Arista-Pro-Regular-trial.woff") format('woff');
+  font-weight: normal;
+}
+
+html {
+  font-size: 16px;
+  color: $dark;
+}
+
+body {
+  font-family: $primary-font, $fallback-font;
+  background-color: $light;
+  overflow-x: hidden;
+}
+
+.has-number {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 16px;
+}
+
+.text-align-center {
+  text-align: center;
+}
+
+.actions-dropdown {
+  .dropdown-toggle {
+    &::after {
+      display: none;
+    }
+  }
+}

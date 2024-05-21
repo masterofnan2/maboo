@@ -1,0 +1,33 @@
+.cart-summary {
+    min-height: 300px;
+    
+    .cart-details {
+        >div {
+            margin: .5rem 0;
+            opacity: .8;
+        }
+
+        h6 {
+            font-size: 1.1rem;
+            border-bottom: .5px solid rgba($dark, .5);
+        }
+
+        span {
+            text-align: end;
+        }
+
+        >div:last-child {
+            opacity: 1;
+
+            h6 {
+                font-weight: bold;
+                font-size: 1.3rem;
+                border-bottom-width: 2px;
+            }
+
+            span {
+                font-size: 1.1rem;
+            }
+        }
+    }
+}
