@@ -114,3 +114,7 @@ export const makeOrder = (cart_item_ids: number[]) => {
 export const getOrder = (id: string) => {
     return axios.get(`/order/get/${id}`);
 }
+
+export const search = (keywords: string) => {
+    return axios.get(`/search/small/${keywords}`);
+}

@@ -3,14 +3,15 @@ import { useCartSelection } from "../Cart";
 import arraySum from "../../../../../utilities/helpers/arraySum";
 import { CartItem } from "../../../../../utilities/constants/types";
 import Price from "../../../../../utilities/minitiatures/Price/Price";
-import { useSelector } from "react-redux";
-import { Rootstate } from "../../../../../utilities/redux/store";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, Rootstate } from "../../../../../utilities/redux/store";
 import valuesOf from "../../../../../utilities/helpers/valuesOf";
 import usePagePreloader from "../../../../../utilities/minitiatures/PagePreloader/hooks/usePagePreloader";
 import { makeOrder } from "../../../../../utilities/api/customer/actions";
 import { useNavigate } from "react-router-dom";
 import useToasts from "../../../../../utilities/minitiatures/Toast/hooks/useToasts";
 import Button from "../../../../../utilities/minitiatures/Button/Button";
+import { refreshCart } from "../../../../../utilities/redux/customer/customerSlice";
 
 const CartSummary = React.memo(() => {
     const { cartItems } = useCartSelection();
@@ -18,6 +19,7 @@ const CartSummary = React.memo(() => {
     const pagePreloader = usePagePreloader();
     const navigate = useNavigate();
     const toasts = useToasts();
+    const dispatch = useDispatch<AppDispatch>();
 
     const items = React.useMemo(() => cartItems.length > 0 ? cartItems : cart, [cartItems, cart]);
 
@@ -32,6 +34,7 @@ const CartSummary = React.memo(() => {
             makeOrder(itemIds)
                 .then(response => {
                     if (response.data?.order_id) {
+                        dispatch(refreshCart());
                         navigate(`/order/${response.data.order_id}`);
                     }
                 })
@@ -49,7 +52,7 @@ const CartSummary = React.memo(() => {
     }, [items, pagePreloader, toasts.push]);
 
     return <div className="cart-summary">
-        <Price amount={subTotal} className="cart-subtotal"/>
+        <Price amount={subTotal} className="cart-subtotal" />
         <Button
             type="button"
             className="btn btn-primary"

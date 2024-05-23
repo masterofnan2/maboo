@@ -1,0 +1,46 @@
+.search-container {
+    position: relative;
+
+    .search-body {
+        position: absolute;
+        background-color: $light;
+        border-radius: $border-radius;
+        box-shadow: 0 0 2px $dark;
+        height: 400px;
+        width: 300px;
+        z-index: 10;
+        right: 0;
+        padding: 1rem;
+        overflow: hidden;
+        display: flex;
+        justify-content: space-between;
+        flex-direction: column;
+    }
+
+    .form-control{
+        background-color: transparent;
+        border: none;
+        box-shadow: none;
+    }
+
+    .product-suggestions{
+        display: flex;
+        justify-content: space-between;
+
+        .product-suggestion{
+            display: flex;
+            flex-direction: column;
+            gap: .5rem;
+            cursor: pointer;
+
+            .squared-image{
+                height: 100px;
+            }
+
+            .product-title{
+                font-size: .8rem;
+                margin: 0;
+            }
+        }
+    }
+}
