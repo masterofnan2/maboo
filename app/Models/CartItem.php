@@ -16,7 +16,8 @@ class CartItem extends Model
         'quantity',
         'product_variant_id',
         'product_color_id',
-        'user_id'
+        'user_id',
+        'subtotal',
     ];
 
     public function product()

@@ -11,7 +11,7 @@ return new class extends Migration {
     public function up(): void
     {
         Schema::create('orders', function (Blueprint $table) {
-            $table->uuid('id')->primary()->unique();
+            $table->uuid('id')->primary();
             $table->timestamps();
             $table->integer('total_price')->default(0);
             $table->foreignId('transaction_id')->nullable();

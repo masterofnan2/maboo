@@ -18,6 +18,7 @@ return new class extends Migration {
             $table->foreignId('product_color_id')->nullable();
             $table->foreignId('product_variant_id')->nullable();
             $table->smallInteger('quantity')->default(1);
+            $table->integer('subtotal')->default(0);
             $table->timestamp('ordered_at')->nullable();
         });
     }

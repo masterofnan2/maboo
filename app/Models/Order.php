@@ -8,4 +8,19 @@ use Illuminate\Database\Eloquent\Model;
 class Order extends Model
 {
     use HasFactory;
+
+    public $incrementing = false; 
+    protected $keyType = 'string';
+
+    protected $fillable = [
+        'id',
+        'total_price',
+        'transaction_id',
+        'user_id',
+    ];
+
+    public function order_items()
+    {
+        return $this->hasMany(OrderItem::class);
+    }
 }

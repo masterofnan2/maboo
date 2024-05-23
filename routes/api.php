@@ -3,9 +3,15 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\Customer\CartController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
+
+Route::prefix('order')->controller(OrderController::class)->middleware('auth:sanctum')->group(function () {
+    Route::post('make', 'make');
+    Route::get('get/{id}', 'get');
+});
 
 Route::prefix('user')->controller(UserController::class)->middleware('auth:sanctum')->group(function () {
     Route::post('/update', 'update');

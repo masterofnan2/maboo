@@ -3,9 +3,11 @@
 namespace App\Providers\Actions;
 
 use App\Models\CartItem;
+use App\Models\Product;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\ValidationException;
 
 class CartActions extends Actions
 {
@@ -33,7 +35,14 @@ class CartActions extends Actions
 
     public function editCartItem(int $id, array $cartItem)
     {
-        $updated = CartItem::where('id', $id)->update($cartItem);
+        $item = CartItem::find($id);
+
+        if ($cartItem['quantity']) {
+            $subtotal = $this->getRowSubtotal($item->product_id, $cartItem['quantity']);
+            $cartItem['subtotal'] = $subtotal;
+        }
+
+        $updated = $item->update($cartItem);
         return $updated;
     }
 
@@ -46,30 +55,50 @@ class CartActions extends Actions
             return $this->editCartItem($existingCartItem->id, $cartItem);
         }
 
+        $subtotal = $this->getRowSubtotal($cartItem['product_id'], $cartItem['quantity']);
+        $cartItem['subtotal'] = $subtotal;
+
         $added = CartItem::create($cartItem);
         return boolval($added);
     }
 
-    public function getCartItems(): Collection
+    public function getCartItems(?array $ids = null): Collection
     {
         $CartItem = CartItem::with([
             'product' => function ($query) {
-                $query->with('images');
+                $query->with('images', 'merchant');
             }
             ,
             'product_variant',
             'product_color'
         ])
             ->where('user_id', $this->user->id)
-            ->where('ordered_at', null)
-            ->get();
+            ->where('ordered_at', null);
 
-        return $CartItem;
+        if ($ids && !empty($ids)) {
+            $CartItem = $CartItem->whereIn('id', $ids);
+        }
+
+        return $CartItem->get();
     }
 
     public function deleteCartItems(array $cartItemIds): bool
     {
         $deleted = CartItem::whereIn('id', $cartItemIds)->delete();
         return $deleted;
+    }
+
+    public function getRowSubtotal($productId, $quantity): int
+    {
+        $product = Product::find($productId);
+
+        if ($product) {
+            $subtotal = ($product->sale_price > 0 ? $product->sale_price : $product->price) * $quantity;
+            return $subtotal;
+        } else {
+            throw ValidationException::withMessages([
+                'product_id' => 'The product does not exist'
+            ]);
+        }
     }
 }

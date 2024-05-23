@@ -90,7 +90,7 @@ class ProductsController extends Controller
 
     public function get(ProductActions $productActions, Request $request)
     {
-        $product = Product::with('images', 'category')
+        $product = Product::with('images', 'category', 'merchant')
             ->where('slug', $request->slug)
             ->first();
 
