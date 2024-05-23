@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Scopes\OrderItem\WithCartItemScope;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -17,5 +18,10 @@ class OrderItem extends Model
     public function cart_item()
     {
         return $this->belongsTo(CartItem::class);
+    }
+
+    protected static function booted(): void
+    {
+        static::addGlobalScope(new WithCartItemScope);
     }
 }

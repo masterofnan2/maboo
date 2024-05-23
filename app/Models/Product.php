@@ -2,6 +2,9 @@
 
 namespace App\Models;
 
+use App\Models\Scopes\Product\WithCategoryScope;
+use App\Models\Scopes\Product\WithImagesScope;
+use App\Models\Scopes\Product\WithMerchantScope;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -33,5 +36,12 @@ class Product extends Model
     public function merchant()
     {
         return $this->belongsTo(User::class, 'user_id');
+    }
+
+    protected static function booted(): void
+    {
+        static::addGlobalScope(new WithMerchantScope);
+        static::addGlobalScope(new WithImagesScope);
+        static::addGlobalScope(new WithCategoryScope);
     }
 }

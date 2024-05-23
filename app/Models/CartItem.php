@@ -2,6 +2,9 @@
 
 namespace App\Models;
 
+use App\Models\Scopes\CartItem\WithProductColorScope;
+use App\Models\Scopes\CartItem\WithProductScope;
+use App\Models\Scopes\CartItem\WithProductVariantScope;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -33,5 +36,12 @@ class CartItem extends Model
     public function product_variant()
     {
         return $this->belongsTo(ProductVariant::class, 'product_variant_id');
+    }
+
+    protected static function booted(): void
+    {
+        static::addGlobalScope(new WithProductScope);
+        static::addGlobalScope(new WithProductColorScope);
+        static::addGlobalScope(new WithProductVariantScope);
     }
 }

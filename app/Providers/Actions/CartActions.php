@@ -64,15 +64,7 @@ class CartActions extends Actions
 
     public function getCartItems(?array $ids = null): Collection
     {
-        $CartItem = CartItem::with([
-            'product' => function ($query) {
-                $query->with('images', 'merchant');
-            }
-            ,
-            'product_variant',
-            'product_color'
-        ])
-            ->where('user_id', $this->user->id)
+        $CartItem = CartItem::where('user_id', $this->user->id)
             ->where('ordered_at', null);
 
         if ($ids && !empty($ids)) {

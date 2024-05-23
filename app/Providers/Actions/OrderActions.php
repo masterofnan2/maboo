@@ -2,30 +2,24 @@
 
 namespace App\Providers\Actions;
 
+use App\Models\CartItem;
 use App\Models\Order;
 use App\Models\OrderItem;
+use App\Providers\Helpers\Helpers;
 
 class OrderActions extends Actions
 {
     public function getOrder(string $id)
     {
-        $order = Order::with([
-            'order_items' => function ($query) {
-                $query->with([
-                    'cart_item' => function ($query) {
-                        $query->with([
-                            'product' => function ($query) {
-                                $query->with('images', 'merchant');
-                            },
-                            'product_variant',
-                            'product_color',
-                        ]);
-                    }
-                ]);
-            }
-        ]);
+        return Order::find($id);
+    }
 
-        return $order->find($id);
+    protected function orderCartItems(array $cartItemIds)
+    {
+        CartItem::whereIn('id', $cartItemIds)
+            ->update([
+                'ordered_at' => Helpers::getIsoString(date_create())
+            ]);
     }
 
     protected function toFormatedOrderItem(int $cartItemId, string $orderId)
@@ -44,6 +38,7 @@ class OrderActions extends Actions
             $orderItemsData[] = $this->toFormatedOrderItem($cartItemId, $orderId);
         }
 
+        $this->orderCartItems($cartItemIds);
         return OrderItem::insert($orderItemsData);
     }
 }

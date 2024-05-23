@@ -19,7 +19,7 @@ class ProductActions
 
     public function getProduct(int $id)
     {
-        $product = Product::with('images')->find($id);
+        $product = Product::find($id);
         return $product;
     }
 
@@ -95,8 +95,7 @@ class ProductActions
     public function getProductsOf(?int $userId, ?string $userType): Collection
     {
         $products = Product::Select('products.*')
-            ->join('users', 'users.id', '=', 'products.user_id')
-            ->with('images', 'category');
+            ->join('users', 'users.id', '=', 'products.user_id');
 
         if ($userId) {
             $products = $products->where('user_id', $userId);

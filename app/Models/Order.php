@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Scopes\Order\WithOrderItemsScope;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -22,5 +23,10 @@ class Order extends Model
     public function order_items()
     {
         return $this->hasMany(OrderItem::class);
+    }
+
+    protected static function booted(): void
+    {
+        static::addGlobalScope(new WithOrderItemsScope);
     }
 }

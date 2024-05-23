@@ -90,10 +90,7 @@ class ProductsController extends Controller
 
     public function get(ProductActions $productActions, Request $request)
     {
-        $product = Product::with('images', 'category', 'merchant')
-            ->where('slug', $request->slug)
-            ->first();
-
+        $product = Product::where('slug', $request->slug)->first();
         return response()->json(['product' => $product]);
     }
 }

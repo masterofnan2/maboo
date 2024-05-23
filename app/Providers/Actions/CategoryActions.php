@@ -54,9 +54,7 @@ class CategoryActions
         $relatedCategoryIds = [$category_id];
         $this->allChildrenIds($category_id, $relatedCategoryIds);
 
-        $products = Product::whereIn('category_id', $relatedCategoryIds)
-            ->with('images', 'category')
-            ->get();
+        $products = Product::whereIn('category_id', $relatedCategoryIds)->get();
 
         return $products;
     }
