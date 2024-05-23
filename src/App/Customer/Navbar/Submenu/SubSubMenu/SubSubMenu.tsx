@@ -1,5 +1,5 @@
 import React from "react";
-import { CategoriesHierarchy } from "../../../../../utilities/types/types";
+import { CategoriesHierarchy } from "../../../../../utilities/constants/types";
 import { Link } from "react-router-dom";
 import categoryPathname from "../../../../../utilities/helpers/categoryPathname";
 

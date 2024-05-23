@@ -2,7 +2,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { Rootstate } from "../../../../../../../utilities/redux/store";
 import ProductRow from "./ProductRow/ProductRow";
-import { Product } from "../../../../../../../utilities/types/types";
+import { Product } from "../../../../../../../utilities/constants/types";
 import Button from "../../../../../../../utilities/minitiatures/Button/Button";
 import { useDeleteProduct } from "../Products";
 import Checkbox from "../../../../../../../utilities/minitiatures/Checkbox/Checkbox";

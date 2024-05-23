@@ -1,6 +1,6 @@
 import React from "react";
 import { Modal } from "react-bootstrap";
-import { Category } from "../../types/types";
+import { Category } from "../../constants/types";
 import randomString from "../../helpers/randomString";
 import RoundedImage from "../RoundedImage/RoundedImage";
 import appImage from "../../helpers/appImage";

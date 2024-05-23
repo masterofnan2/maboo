@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, Rootstate } from "../../../../../../../../utilities/redux/store";
 import SellerRequestRow from "./SellerRequestRow/SellerRequestRow";
 import Button from "../../../../../../../../utilities/minitiatures/Button/Button";
-import { User } from "../../../../../../../../utilities/types/types";
+import { User } from "../../../../../../../../utilities/constants/types";
 import Checkbox from "../../../../../../../../utilities/minitiatures/Checkbox/Checkbox";
 import { validateUser } from "../../../../../../../../utilities/api/admin/actions";
 import usePagePreloader from "../../../../../../../../utilities/minitiatures/PagePreloader/hooks/usePagePreloader";

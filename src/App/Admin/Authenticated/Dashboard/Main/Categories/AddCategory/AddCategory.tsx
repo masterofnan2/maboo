@@ -9,7 +9,7 @@ import useToasts from "../../../../../../../utilities/minitiatures/Toast/hooks/u
 import { useDispatch } from "react-redux";
 import { refreshCategories } from "../../../../../../../utilities/redux/admin/adminSlice";
 import { AppDispatch } from "../../../../../../../utilities/redux/store";
-import { Category } from "../../../../../../../utilities/types/types";
+import { Category } from "../../../../../../../utilities/constants/types";
 import Input from "../../../../../../../utilities/minitiatures/Input/Input";
 import SelectedCategory from "./SelectedCategory/SelectedCategory";
 import useCategorySelect from "../../../../../../../utilities/minitiatures/CategorySelect/hooks/useCategorySelect";

@@ -1,5 +1,5 @@
 import React from "react";
-import { Product } from "../../../../../../../../utilities/types/types";
+import { Product } from "../../../../../../../../utilities/constants/types";
 import RoundedImage from "../../../../../../../../utilities/minitiatures/RoundedImage/RoundedImage";
 import SmallText from "../../../../../../../../utilities/minitiatures/SmallText/SmallText";
 import appImage from "../../../../../../../../utilities/helpers/appImage";

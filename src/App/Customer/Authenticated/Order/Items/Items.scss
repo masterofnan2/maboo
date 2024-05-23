@@ -1,0 +1,30 @@
+.items-container{
+    .item-row{
+        display: flex;
+        margin: 0 0 2rem;
+        gap: 1rem;
+
+        .squared-image{
+            height: 10rem;
+        }
+    }
+
+    .product-title{
+        font-size: 1.2rem;
+        font-weight: bold;
+    }
+
+    .product-description{
+        font-size: 1rem;
+        opacity: .8;
+    }
+    
+    .item-subtitle{
+        font-size: 1rem;
+        opacity: .6;;
+    }
+
+    .price-container{
+        font-size: 1.4rem;
+    }
+}

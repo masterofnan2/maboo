@@ -9,6 +9,7 @@ import DoublePrice from "../../../../utilities/minitiatures/DoublePrice/DoublePr
 import { addToCart } from "../../../../utilities/api/customer/actions";
 import { refreshCart } from "../../../../utilities/redux/customer/customerSlice";
 import useToasts from "../../../../utilities/minitiatures/Toast/hooks/useToasts";
+import ProductMerchant from "../../../../utilities/minitiatures/ProductMerchant/ProductMerchant";
 
 const RightSide = React.memo(() => {
 
@@ -81,7 +82,12 @@ const RightSide = React.memo(() => {
                 type="button"
                 className="btn btn-outline-dark btn-sm col"
                 onClick={handleAddToCart}
-                options={{loading: state.loading}}>Ajouter au panier</Button>
+                options={{loading: state.loading}}><i className="fa fa-cart-plus"></i> Ajouter au panier</Button>
+        </div>
+
+        <div className="product-merchant">
+            <h6>Marchand: </h6>
+            <ProductMerchant merchant={product.merchant}/>
         </div>
     </div>
 })

@@ -1,5 +1,5 @@
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit"
-import { Category, Product, User } from "../../types/types";
+import { Category, Product, User } from "../../constants/types";
 import { getAdminProducts, getAdminRequests, getAllCategories, getAuth, getSellerRequests } from "../../api/admin/actions";
 
 interface AdminState {

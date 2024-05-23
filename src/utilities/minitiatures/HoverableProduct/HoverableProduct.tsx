@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Product } from "../../types/types";
+import { Product } from "../../constants/types";
 import appImage from "../../helpers/appImage";
 import DoublePrice from "../DoublePrice/DoublePrice";
 import Button from "../Button/Button";

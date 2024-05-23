@@ -1,6 +1,7 @@
 import React from "react";
 import Fade from "../Fade/Fade";
 import { GlobalsContext } from "../../globals/GlobalsProvider";
+import { createPortal } from "react-dom";
 
 export type PagePreloaderRef = {
     current: typeof defaultPreloader
@@ -32,7 +33,7 @@ const PagePreloader = () => {
         disable
     }), [enable, disable]);
 
-    return <Fade
+    return createPortal(<Fade
         from={{ opacity: 0 }}
         visible={active}
         className="page-preloader"
@@ -54,7 +55,7 @@ L82,35.7z">
                     to="360 50 50" repeatCount="indefinite"></animateTransform>
             </path>
         </svg>
-    </Fade>
+    </Fade>, document.body)
 }
 
 export default PagePreloader;

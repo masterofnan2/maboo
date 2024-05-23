@@ -1,5 +1,5 @@
 import React from "react";
-import { Category } from "../../../../../../../../utilities/types/types";
+import { Category } from "../../../../../../../../utilities/constants/types";
 import RoundedImage from "../../../../../../../../utilities/minitiatures/RoundedImage/RoundedImage";
 import Checkbox from "../../../../../../../../utilities/minitiatures/Checkbox/Checkbox";
 import appImage from "../../../../../../../../utilities/helpers/appImage";

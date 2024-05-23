@@ -106,3 +106,11 @@ export const updateCartItem = (id: number, payload: {
 }) => {
     return axios.put(`/cart/update/${id}`, payload);
 }
+
+export const makeOrder = (cart_item_ids: number[]) => {
+    return axios.post('/order/make', { cart_item_ids });
+}
+
+export const getOrder = (id: string) => {
+    return axios.get(`/order/get/${id}`);
+}

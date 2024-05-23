@@ -1,39 +1,62 @@
 import React from "react";
-import Button from "../../../../../utilities/minitiatures/Button/Button";
 import { useCartSelection } from "../Cart";
 import arraySum from "../../../../../utilities/helpers/arraySum";
-import { CartItem } from "../../../../../utilities/types/types";
+import { CartItem } from "../../../../../utilities/constants/types";
 import Price from "../../../../../utilities/minitiatures/Price/Price";
 import { useSelector } from "react-redux";
 import { Rootstate } from "../../../../../utilities/redux/store";
-import Input from "../../../../../utilities/minitiatures/Input/Input";
+import valuesOf from "../../../../../utilities/helpers/valuesOf";
+import usePagePreloader from "../../../../../utilities/minitiatures/PagePreloader/hooks/usePagePreloader";
+import { makeOrder } from "../../../../../utilities/api/customer/actions";
+import { useNavigate } from "react-router-dom";
+import useToasts from "../../../../../utilities/minitiatures/Toast/hooks/useToasts";
+import Button from "../../../../../utilities/minitiatures/Button/Button";
 
 const CartSummary = React.memo(() => {
     const { cartItems } = useCartSelection();
     const cart = useSelector((state: Rootstate) => state.customer.cart!);
+    const pagePreloader = usePagePreloader();
+    const navigate = useNavigate();
+    const toasts = useToasts();
+
+    const items = React.useMemo(() => cartItems.length > 0 ? cartItems : cart, [cartItems, cart]);
 
     const subTotal = React.useMemo(() => {
-        return arraySum<CartItem>(cart, (cartItem) => (cartItem.product.sale_price || cartItem.product.price) * cartItem.quantity);
-    }, [cart]);
+        return arraySum<CartItem>(items, (cartItem) => cartItem.subtotal);
+    }, [items]);
 
-    return <div className="cart-summary col-3 bg-warning rounded d-flex flex-column justify-content-between p-5 py-4">
-        <div className="">
-            <Input type="text" name="promo_code" placeholder="Code promo" />
-        </div>
-        <div className="cart-details">
-            <div>
-                <h6>Sous-total</h6>
-                <span><Price amount={subTotal} /></span>
-            </div>
-            <div>
-                <h6>Total</h6>
-                <span><Price amount={subTotal} /></span>
-            </div>
-        </div>
+    const handleMakeOrder = React.useCallback(() => {
+        const itemIds = valuesOf<number>('id', items);
+        if (itemIds.length > 0) {
+            pagePreloader.enable();
+            makeOrder(itemIds)
+                .then(response => {
+                    if (response.data?.order_id) {
+                        navigate(`/order/${response.data.order_id}`);
+                    }
+                })
+                .catch(() => {
+                    toasts.push({
+                        title: "Impossible d'initier la commande",
+                        content: "Une erreur s'est produite lors du traitement de votre demande, veuillez reéssayer",
+                        type: "danger"
+                    });
+                })
+                .finally(() => {
+                    pagePreloader.disable();
+                })
+        }
+    }, [items, pagePreloader, toasts.push]);
+
+    return <div className="cart-summary">
+        <Price amount={subTotal} className="cart-subtotal"/>
         <Button
             type="button"
             className="btn btn-primary"
-            disabled={cartItems?.length === 0}>Commander {cartItems && <span className="has-number">({cartItems.length})</span>}</Button>
+            onClick={handleMakeOrder}>
+            Commander (<span className="has-number">
+                {cartItems.length || cart.length}</span>)
+        </Button>
     </div>
 });
 

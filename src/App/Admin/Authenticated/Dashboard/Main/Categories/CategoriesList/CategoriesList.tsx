@@ -4,7 +4,7 @@ import { Rootstate } from "../../../../../../../utilities/redux/store";
 import CategoryItem from "./CategoryItem/CategoryItem";
 import getParentCategory from "../../../../../../../utilities/helpers/getParentCategory";
 import Button from "../../../../../../../utilities/minitiatures/Button/Button";
-import { Category } from "../../../../../../../utilities/types/types";
+import { Category } from "../../../../../../../utilities/constants/types";
 import Checkbox from "../../../../../../../utilities/minitiatures/Checkbox/Checkbox";
 import { useDeleteCategory } from "../Categories";
 import { useFilterRow } from "../../../../../../../utilities/hooks/admin/useFilterRow";

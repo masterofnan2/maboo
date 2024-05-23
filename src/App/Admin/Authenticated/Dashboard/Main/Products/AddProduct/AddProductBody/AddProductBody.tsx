@@ -4,7 +4,7 @@ import Input from "../../../../../../../../utilities/minitiatures/Input/Input";
 import SelectedCategory from "../../../Categories/AddCategory/SelectedCategory/SelectedCategory";
 import Button from "../../../../../../../../utilities/minitiatures/Button/Button";
 import useCategorySelect from "../../../../../../../../utilities/minitiatures/CategorySelect/hooks/useCategorySelect";
-import { Category } from "../../../../../../../../utilities/types/types";
+import { Category } from "../../../../../../../../utilities/constants/types";
 import AddImages from "../../AddImages/AddImages";
 import NumberInput from "../../../../../../../../utilities/minitiatures/NumberInput/NumberInput";
 import toFormatedString from "../../../../../../../../utilities/helpers/toFormatedString";

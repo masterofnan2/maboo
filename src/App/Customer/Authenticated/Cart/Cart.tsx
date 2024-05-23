@@ -2,15 +2,15 @@ import React from "react";
 import CartItemsList from "./CartItemsList/CartItemsList";
 import { useSelector } from "react-redux";
 import { Rootstate } from "../../../../utilities/redux/store";
-import { CartItem } from "../../../../utilities/types/types";
-import TablePlaceholder from "../../../../utilities/minitiatures/TablePlaceholder/TablePlaceholder";
+import { CartItem } from "../../../../utilities/constants/types";
 import CartEmpty from "./CartEmpty/CartEmpty";
 import CartSummary from "./CartSummary/CartSummary";
+import Loading from "../../../../utilities/minitiatures/Loading/Loading";
 
 const CartContext = React.createContext({
     selection: {
-        cartItems: null as CartItem[] | null,
-        setCartItems: function (cartItems: CartItem[] | null) { cartItems }
+        cartItems: [] as CartItem[],
+        setCartItems: function (cartItems: CartItem[]) { cartItems }
     }
 });
 
@@ -23,13 +23,13 @@ const Cart = React.memo(() => {
 
     const [state, setState] = React.useState({
         selection: {
-            cartItems: null as CartItem[] | null,
+            cartItems: [] as CartItem[],
         }
     });
 
     const selection = React.useMemo(() => ({
         cartItems: state.selection.cartItems,
-        setCartItems: (cartItems: CartItem[] | null) => {
+        setCartItems: (cartItems: CartItem[]) => {
             setState(s => ({ ...s, selection: { ...s.selection, cartItems } }))
         }
     }), [state.selection.cartItems]);
@@ -37,11 +37,11 @@ const Cart = React.memo(() => {
     return <CartContext.Provider value={{ selection }}>
         <div className="cart-container">
             {cart && cart.length === 0 && <CartEmpty />}
-            {cart && cart.length > 0 && <div className="d-flex col-12 justify-content-around">
+            {cart && cart.length > 0 && <>
                 <CartItemsList />
                 <CartSummary />
-            </div>}
-            {!cart && <TablePlaceholder />}
+            </>}
+            {!cart && <Loading />}
         </div>
     </CartContext.Provider>
 });

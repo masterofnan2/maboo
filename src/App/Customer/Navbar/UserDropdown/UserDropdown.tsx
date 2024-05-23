@@ -5,20 +5,12 @@ import { Link } from "react-router-dom";
 import { Rootstate } from "../../../../utilities/redux/store";
 import SmallText from "../../../../utilities/minitiatures/SmallText/SmallText";
 import appImage from "../../../../utilities/helpers/appImage";
-
-const account = <><i className="fa fa-user"></i> Compte</>;
-
-const guestActions = <>
-    <Dropdown.Item as={Link} to={'/auth/login'}>Se connecter</Dropdown.Item>
-    <Dropdown.Item as={Link} to={'/auth/signup'}>S'inscrire</Dropdown.Item>
-</>
-
-const authActions = <>
-    <Dropdown.Item as={Link} to={'/user/profile'}>Profil</Dropdown.Item>
-</>
+import { useLogout } from "../Navbar";
+import Button from "../../../../utilities/minitiatures/Button/Button";
 
 const UserDropdown = React.memo(() => {
     const user = useSelector((state: Rootstate) => state.customer.auth);
+    const logout = useLogout();
 
     const userProfile = React.useMemo(() => {
         if (user) {
@@ -33,6 +25,23 @@ const UserDropdown = React.memo(() => {
             </>
         }
     }, [user]);
+
+    const account = React.useMemo(() => <><i className="fa fa-user"></i> Compte</>, []);
+
+    const authActions = React.useMemo(() => <>
+        <Dropdown.Item as={Link} to={'/user/profile'}>Profil</Dropdown.Item>
+        <Dropdown.Item
+            as={Button}
+            onClick={logout.toggle}
+            type="button">
+            <i className="fa fa-power-off"></i> Se déconnecter
+        </Dropdown.Item>
+    </>, [logout.toggle]);
+
+    const guestActions = React.useMemo(() => <>
+        <Dropdown.Item as={Link} to={'/auth/login'}>Se connecter</Dropdown.Item>
+        <Dropdown.Item as={Link} to={'/auth/signup'}>S'inscrire</Dropdown.Item>
+    </>, []);
 
     return <Dropdown className="user-dropdown">
         <Dropdown.Toggle variant="btn" className="btn-sm">

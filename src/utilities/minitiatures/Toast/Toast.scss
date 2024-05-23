@@ -14,13 +14,13 @@
         z-index: 10;
         background-color: $light;
         box-shadow: 0 0 2px 2px rgba($dark, .2);
+        border-radius: $border-radius;
 
         .toast-header {
             display: flex;
             border-bottom: 1px solid $success;
             justify-content: space-between;
             align-items: center;
-            // height: 50px;
             padding: .5rem;
 
             h5 {
@@ -47,21 +47,26 @@
         }
     }
 
+    .toast-item.success,
+    .toast.item.danger {
+        .toast-header {
+
+            h5,
+            button {
+                color: $light;
+            }
+        }
+    }
+
     .toast-item.success {
         .toast-header {
             background-color: $success;
-            color: $light;
         }
     }
 
     .toast-item.danger {
         .toast-header {
             background-color: $danger;
-
-            h5,
-            button {
-                color: $light;
-            }
         }
     }
 }

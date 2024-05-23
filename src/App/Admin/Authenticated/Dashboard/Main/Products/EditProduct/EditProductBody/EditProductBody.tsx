@@ -7,7 +7,7 @@ import SelectedCategory from "../../../Categories/AddCategory/SelectedCategory/S
 import Input from "../../../../../../../../utilities/minitiatures/Input/Input";
 import AddImages from "../../AddImages/AddImages";
 import { useEditProduct } from "../../Products";
-import { Category } from "../../../../../../../../utilities/types/types";
+import { Category } from "../../../../../../../../utilities/constants/types";
 import useCategorySelect from "../../../../../../../../utilities/minitiatures/CategorySelect/hooks/useCategorySelect";
 import useToasts from "../../../../../../../../utilities/minitiatures/Toast/hooks/useToasts";
 import { Image } from "../../../../../../../../utilities/minitiatures/ImageInputDD/ImageInputDD";

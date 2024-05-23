@@ -2,7 +2,7 @@ import React from "react";
 import FormFloating from "../../../../../../utilities/minitiatures/FormFloating/FormFloating";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, Rootstate } from "../../../../../../utilities/redux/store";
-import { User } from "../../../../../../utilities/types/types";
+import { User } from "../../../../../../utilities/constants/types";
 import handleInputBlur from "../../../../../../utilities/helpers/handleInputBlur";
 import getFormData from "../../../../../../utilities/helpers/getFormData";
 import getValidationMessages from "../../../../../../utilities/helpers/getValidationMessages";

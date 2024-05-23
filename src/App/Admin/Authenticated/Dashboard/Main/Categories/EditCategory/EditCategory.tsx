@@ -5,7 +5,7 @@ import { useCategoryEdit } from "../Categories";
 import Input from "../../../../../../../utilities/minitiatures/Input/Input";
 import ImageInputDD, { Image } from "../../../../../../../utilities/minitiatures/ImageInputDD/ImageInputDD";
 import SelectedCategory from "../AddCategory/SelectedCategory/SelectedCategory";
-import { Category } from "../../../../../../../utilities/types/types";
+import { Category } from "../../../../../../../utilities/constants/types";
 import appImage from "../../../../../../../utilities/helpers/appImage";
 import getValidationMessages from "../../../../../../../utilities/helpers/getValidationMessages";
 import { updateCategory } from "../../../../../../../utilities/api/admin/actions";

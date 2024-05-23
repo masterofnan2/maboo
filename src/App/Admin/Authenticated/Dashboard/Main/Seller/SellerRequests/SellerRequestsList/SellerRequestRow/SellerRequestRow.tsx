@@ -1,5 +1,5 @@
 import React from "react";
-import { User } from "../../../../../../../../../utilities/types/types";
+import { User } from "../../../../../../../../../utilities/constants/types";
 import RoundedImage from "../../../../../../../../../utilities/minitiatures/RoundedImage/RoundedImage";
 import appImage from "../../../../../../../../../utilities/helpers/appImage";
 import { Dropdown } from "react-bootstrap";

@@ -16,11 +16,13 @@
 @import './utilities/minitiatures/SmallText/SmallText.scss';
 @import './utilities/minitiatures/ImageInputDD/imageinputdd.scss';
 @import './utilities/minitiatures/RoundedImage/RoundedImage.scss';
+@import './utilities/minitiatures/SquaredImage/SquaredImage.scss';
 @import './utilities/minitiatures/CategorySelect/CategorySelect.scss';
 @import './utilities/minitiatures/Accordion/accordion.scss';
 @import './utilities/minitiatures/TablePlaceholder/TablePlaceholder.scss';
 @import './utilities/minitiatures/Price/Price.scss';
 @import './utilities/minitiatures/CountButton/CountButton.scss';
+@import './utilities/minitiatures/Loading/Loading.scss';
 
 
 // --------------------------------------------Components------------------------------------------
@@ -53,6 +55,11 @@
     @import './App/Customer/Authenticated/Cart/Cart.scss';
     @import './App/Customer/Authenticated/Cart/CartEmpty/CartEmpty.scss';
     @import './App/Customer/Authenticated/Cart/CartSummary/CartSummary.scss';
+    @import './App/Customer/Authenticated/Cart/CartItemsList/CartItemsList.scss';
+    @import './App/Customer/Authenticated/Order/Order.scss';
+    @import './App/Customer/Authenticated/Order/PaymentMethod/PaymentMethod.scss';
+    @import './App/Customer/Authenticated/Order/Items/Items.scss';
+    @import './App/Customer/Authenticated/Order/OrderSummary/OrderSummary.scss';
 }
 
 // Admin
@@ -85,3 +92,10 @@
 @import './App/Admin/Authenticated/Dashboard/Main/Products/AddImages/AddImages.scss';
 @import './App/Admin/Authenticated/Dashboard/Main/Products/AddProduct/AddProduct.scss';
 @import './App/Admin/Authenticated/Dashboard/Main/Products/AddProduct/AddProductBody/AddProductBody.scss';
+
+
+// -----------------------------------------------Customer -------------------------------------------
+
+// Navbar
+
+@import './App/Customer/Navbar/LogoutDialog/LogoutDialog.scss';

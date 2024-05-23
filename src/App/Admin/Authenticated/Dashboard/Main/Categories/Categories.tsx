@@ -4,7 +4,7 @@ import AddCategory from "./AddCategory/AddCategory";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, Rootstate } from "../../../../../../utilities/redux/store";
 import { refreshCategories } from "../../../../../../utilities/redux/admin/adminSlice";
-import { Category } from "../../../../../../utilities/types/types";
+import { Category } from "../../../../../../utilities/constants/types";
 import EditCategory from "./EditCategory/EditCategory";
 import DeleteCategory from "./DeleteCategory/DeleteCategory";
 import Fade from "../../../../../../utilities/minitiatures/Fade/Fade";

@@ -1,8 +1,6 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, Rootstate } from "../../../../../utilities/redux/store";
-import CartRow from "./CartRow/CartRow";
-import Button from "../../../../../utilities/minitiatures/Button/Button";
 import Checkbox from "../../../../../utilities/minitiatures/Checkbox/Checkbox";
 import { useCartSelection } from "../Cart";
 import { deleteCartItems } from "../../../../../utilities/api/customer/actions";
@@ -10,6 +8,9 @@ import valuesOf from "../../../../../utilities/helpers/valuesOf";
 import { refreshCart } from "../../../../../utilities/redux/customer/customerSlice";
 import useToasts from "../../../../../utilities/minitiatures/Toast/hooks/useToasts";
 import usePagePreloader from "../../../../../utilities/minitiatures/PagePreloader/hooks/usePagePreloader";
+import CartItem from "./CartItem/CartItem";
+import Button from "../../../../../utilities/minitiatures/Button/Button";
+import Fade from "../../../../../utilities/minitiatures/Fade/Fade";
 
 const CartItemsList = React.memo(() => {
     const cart = useSelector((state: Rootstate) => state.customer.cart);
@@ -21,19 +22,11 @@ const CartItemsList = React.memo(() => {
     const handleSelectAll = React.useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
         const { checked } = e.target;
         if (checked) {
-            cartSelection.setCartItems(cart);
+            cartSelection.setCartItems(cart!);
         } else {
             cartSelection.setCartItems([]);
         }
-    }, [cartSelection.setCartItems]);
-
-    const toggleSelection = React.useCallback(() => {
-        if (cartSelection.cartItems) {
-            cartSelection.setCartItems(null);
-        } else {
-            cartSelection.setCartItems([]);
-        }
-    }, [cartSelection])
+    }, [cartSelection.setCartItems, cart]);
 
     const handleDelete = React.useCallback((cartItemId?: number) => {
         if (cartItemId || cartSelection.cartItems) {
@@ -50,7 +43,7 @@ const CartItemsList = React.memo(() => {
                         type: "success",
                     });
 
-                    cartSelection.setCartItems(null);
+                    cartSelection.setCartItems([]);
                 })
                 .catch(() => {
                     toasts.push({
@@ -65,46 +58,32 @@ const CartItemsList = React.memo(() => {
         }
     }, [cartSelection, toasts.push, pagePreloader]);
 
-    return <div className="cart-items-list-container col-8">
-        <table className="table align-middle">
-            <thead>
-                <tr>
-                    {cartSelection.cartItems &&
-                        <th>
-                            <Checkbox
-                                label="Tout"
-                                checked={cart?.length === cartSelection.cartItems.length}
-                                onChange={handleSelectAll} />
-                        </th>}
-                    <th className="col-1"></th>
-                    <th className="col-3">Titre</th>
-                    <th className="col-2">Quantité</th>
-                    <th className="col-2">Sous-total</th>
-                    <th className="col-2 text-align-center">
-                        {cartSelection.cartItems ?
-                            <Button
-                                type="button"
-                                className="btn text-danger"
-                                onClick={() => handleDelete()}
-                                disabled={cartSelection.cartItems.length === 0}>
-                                Supprimer <span className="has-number">({cartSelection.cartItems.length})</span>
-                            </Button> :
-                            <Button
-                                type="button"
-                                className="btn btn-outline-dark btn-sm"
-                                onClick={toggleSelection}>Séléctionner</Button>}
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                {cart?.length && cart.map((cartItem, key) => {
-                    return <CartRow
-                        CartItem={cartItem}
-                        key={key}
-                        onDelete={handleDelete} />
-                })}
-            </tbody>
-        </table>
+    return <div className="cart-items-list-container">
+        <div className="cart-items-list-actions px-5">
+            <h5 className="cart-items-title">Articles <span className="has-number">({cart?.length})</span></h5>
+            <div className="d-flex gap-2 align-items-center">
+                <Checkbox
+                    label="Tout"
+                    checked={cartSelection.cartItems.length === cart?.length}
+                    onChange={handleSelectAll}
+                    className="py-2" />
+
+                <Fade
+                    from={{ opacity: 0 }}
+                    visible={cartSelection.cartItems.length > 0}>
+                    <Button
+                        type="button"
+                        className="btn text-danger"
+                        onClick={() => handleDelete()}>Supprimer <span className="has-number">({cartSelection.cartItems.length})</span></Button>
+                </Fade>
+            </div>
+        </div>
+
+        <div className="cart-items px-5">
+            {cart?.map(item => {
+                return <CartItem cartItem={item} onDelete={handleDelete} key={item.id} />
+            })}
+        </div>
     </div>
 });
 

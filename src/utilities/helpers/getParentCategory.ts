@@ -1,4 +1,4 @@
-import { Category } from "../types/types";
+import { Category } from "../constants/types";
 
 function getParentCategory(category: Category, categories: Category[]): Category | null {
     if (category.parent_id) {

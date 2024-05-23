@@ -1,6 +1,6 @@
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit"
 import { getAuth, getCart, getCategories, getCategoryProducts, getFeaturedProducts, getProduct } from "../../api/customer/actions";
-import { CartItem, CategoriesHierarchy, Product, User } from "../../types/types";
+import { CartItem, CategoriesHierarchy, Product, User } from "../../constants/types";
 
 interface CustomerState {
     auth: User | false | null,

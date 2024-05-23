@@ -10,6 +10,7 @@ export type User = {
     phone_number: string,
     image: string | null,
     validated_at: string | null,
+    type: 'ADMIN' | 'CUSTOMER' | 'SELLER' | 'PROFESSIONNAL',
 };
 
 export type Category = {
@@ -48,6 +49,7 @@ export type Product = {
     category: Category | null,
     inStock: number,
     slug: string,
+    merchant: User,
 }
 
 export type CartItem = {
@@ -60,4 +62,24 @@ export type CartItem = {
     user_id: number,
     quantity: number,
     product: Product,
+    subtotal: number,
+}
+
+export type OrderItem = {
+    id: number,
+    created_at: string,
+    updated_at: string,
+    order_id: string,
+    cart_item_id: number,
+    cart_item: CartItem,
+}
+
+export type Order = {
+    id: string,
+    created_at: string,
+    updated_at: string,
+    total_price: number,
+    transaction_id: number | null,
+    user_id: number,
+    order_items: OrderItem[],
 }

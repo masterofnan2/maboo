@@ -1,5 +1,5 @@
 import React from "react";
-import { Category } from "../../../../../../../../utilities/types/types";
+import { Category } from "../../../../../../../../utilities/constants/types";
 import appImage from "../../../../../../../../utilities/helpers/appImage";
 import { Dropdown } from "react-bootstrap";
 import RoundedImage from "../../../../../../../../utilities/minitiatures/RoundedImage/RoundedImage";

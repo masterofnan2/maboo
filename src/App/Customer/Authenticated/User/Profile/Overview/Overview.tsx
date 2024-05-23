@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, Rootstate } from "../../../../../../utilities/redux/store";
-import { User } from "../../../../../../utilities/types/types";
+import { User } from "../../../../../../utilities/constants/types";
 import appImage from "../../../../../../utilities/helpers/appImage";
 import fileIsImage from "../../../../../../utilities/helpers/fileIsImage";
 import useToasts from "../../../../../../utilities/minitiatures/Toast/hooks/useToasts";

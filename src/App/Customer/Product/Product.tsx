@@ -5,6 +5,7 @@ import { AppDispatch, Rootstate } from "../../../utilities/redux/store";
 import { refreshProduct } from "../../../utilities/redux/customer/customerSlice";
 import LeftSide from "./LeftSide/LeftSide";
 import RightSide from "./RightSide/RightSide";
+import Loading from "../../../utilities/minitiatures/Loading/Loading";
 
 const Product = React.memo(() => {
     const dispatch = useDispatch<AppDispatch>();
@@ -23,6 +24,7 @@ const Product = React.memo(() => {
             <LeftSide />
             <RightSide />
         </>}
+        {!product && <Loading />}
     </div>
 })
 

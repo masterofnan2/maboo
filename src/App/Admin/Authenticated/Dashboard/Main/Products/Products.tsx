@@ -7,7 +7,7 @@ import EditProduct from "./EditProduct/EditProduct";
 import { refreshCategories, refreshProducts } from "../../../../../../utilities/redux/admin/adminSlice";
 import { AppDispatch, Rootstate } from "../../../../../../utilities/redux/store";
 import { useDispatch, useSelector } from "react-redux";
-import { Product } from "../../../../../../utilities/types/types";
+import { Product } from "../../../../../../utilities/constants/types";
 import ProductsEmpty from "./ProductsEmpty/ProductsEmpty";
 import TablePlaceholder from "../../../../../../utilities/minitiatures/TablePlaceholder/TablePlaceholder";
 
