@@ -9,12 +9,9 @@ lerna-debug.log*
 
 node_modules
 
-src/assets/fontawesome
-./src/assets/fontawesome
 dist
 dist-ssr
 *.local
-*.svg
 
 # Editor directories and files
 .vscode/*
