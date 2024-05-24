@@ -15,9 +15,6 @@ jobs:
           key: ${{ runner.os }}-composer-${{ hashFiles('composer.lock') }}
           restore-keys: |
             ${{ runner.os }}-composer-
-
-      - name: Install PHP Dependencies with Composer
-        uses: ramsey/composer-install@3.0.0
                     
       - name: Upload from root dir via FTP
         uses: airvzxf/ftp-deployment-action@latest
