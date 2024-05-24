@@ -16,9 +16,9 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-composer-
 
-      - name: Install Composer Dependencies
-        uses: luminsports/github-action-composer@main
-
+      - name: install-and-cache-composer-dependencies
+        uses: lukekortunov/php-composer-install-and-cache@v1
+            
       - name: Upload from root dir via FTP
         uses: airvzxf/ftp-deployment-action@latest
         with:
