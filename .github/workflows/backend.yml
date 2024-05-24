@@ -8,7 +8,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      # Here is the deployment action
+      
+      - uses: actions/cache@v3  
+        with:
+          path: ~/.composer/vendor
+          key: ${{ runner.os }}-composer-${{ hashFiles('composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-composer-
+
+      - name: Install Composer Dependencies
+        uses: ramsey/composer-install@v6
+
       - name: Upload from root dir via FTP
         uses: airvzxf/ftp-deployment-action@latest
         with:
