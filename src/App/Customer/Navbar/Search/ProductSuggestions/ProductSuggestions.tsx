@@ -6,9 +6,11 @@ import { refreshFeaturedProducts } from "../../../../../utilities/redux/customer
 import SquaredImage from "../../../../../utilities/minitiatures/SquaredImage/SquaredImage";
 import DoublePrice from "../../../../../utilities/minitiatures/DoublePrice/DoublePrice";
 import { useNavigate } from "react-router-dom";
+import appImage from "../../../../../utilities/helpers/appImage";
+import Fade from "../../../../../utilities/minitiatures/Fade/Fade";
 
 type Props = {
-    products: Product[] | null
+    products: Product[] | null,
 }
 
 const ProductSuggestions = React.memo((props: Props) => {
@@ -24,20 +26,24 @@ const ProductSuggestions = React.memo((props: Props) => {
         !featuredProducts && dispatch(refreshFeaturedProducts());
     }, [featuredProducts]);
 
-    return <div className="product-suggestions flex-wrap">
+    return <Fade
+        className="product-suggestions flex-wrap"
+        show={Boolean(suggestions?.length)}>
+
         <h5 className="product-suggestion-title col-12">Produits suggérés</h5>
         {suggestions?.map((product) => {
             return <div
                 className="product-suggestion"
+                key={product.id}
                 onClick={() => navigate(`/product/${product.slug}`)}>
-                <SquaredImage image={product.images[0]?.name} />
+                <SquaredImage image={appImage(product.images[0]?.name)} />
                 <h6 className="product-title">{product.title}</h6>
                 <DoublePrice
                     firstPrice={product.price}
                     secondPrice={product.sale_price || undefined} />
             </div>
         })}
-    </div>
+    </Fade>
 });
 
 export default ProductSuggestions;

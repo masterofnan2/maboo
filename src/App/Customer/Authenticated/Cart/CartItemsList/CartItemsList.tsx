@@ -60,7 +60,7 @@ const CartItemsList = React.memo(() => {
 
     return <div className="cart-items-list-container">
         <div className="cart-items-list-actions px-5">
-            <h5 className="cart-items-title">Articles <span className="has-number">({cart?.length})</span></h5>
+            <h5 className="cart-items-title">Articles <span >({cart?.length})</span></h5>
             <div className="d-flex gap-2 align-items-center">
                 <Checkbox
                     label="Tout"
@@ -68,13 +68,11 @@ const CartItemsList = React.memo(() => {
                     onChange={handleSelectAll}
                     className="py-2" />
 
-                <Fade
-                    from={{ opacity: 0 }}
-                    visible={cartSelection.cartItems.length > 0}>
+                <Fade show={cartSelection.cartItems.length > 0}>
                     <Button
                         type="button"
                         className="btn text-danger"
-                        onClick={() => handleDelete()}>Supprimer <span className="has-number">({cartSelection.cartItems.length})</span></Button>
+                        onClick={() => handleDelete()}>Supprimer <span >({cartSelection.cartItems.length})</span></Button>
                 </Fade>
             </div>
         </div>

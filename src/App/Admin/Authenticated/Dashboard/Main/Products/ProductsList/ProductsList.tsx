@@ -100,7 +100,7 @@ const ProductsList = React.memo(() => {
                 </th>
             </tr>
         </thead>
-        <tbody className="has-number">
+        <tbody >
             {products?.map(product => {
                 const row = <ProductRow
                     product={product}

@@ -47,7 +47,7 @@ const Confirmation = () => {
             <label htmlFor="code-input-0">
                 <h3 className="display-6 mb-1">Veuillez Confirmer votre email</h3>
                 <p className="confirmation-message">
-                    Nous avons envoyé un email à <span className="user-email has-number">{user.email}</span>,
+                    Nous avons envoyé un email à <span className="user-email  ">{user.email}</span>,
                     Veuillez consulter votre boite de réception.
                 </p>
             </label>

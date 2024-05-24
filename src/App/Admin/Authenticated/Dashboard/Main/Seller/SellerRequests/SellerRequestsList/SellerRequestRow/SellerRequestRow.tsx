@@ -39,8 +39,8 @@ const SellerRequestRow = (props: Props) => {
         </td>
         <td>{seller.name}</td>
         <td>{seller.firstname}</td>
-        <td className="has-number">{seller.email}</td>
-        <td className="has-number">{new Date(seller.created_at).toLocaleDateString()}</td>
+        <td >{seller.email}</td>
+        <td >{new Date(seller.created_at).toLocaleDateString()}</td>
         <td className="text-align-center">
             <Dropdown className="actions-dropdown">
                 <Dropdown.Toggle variant="">

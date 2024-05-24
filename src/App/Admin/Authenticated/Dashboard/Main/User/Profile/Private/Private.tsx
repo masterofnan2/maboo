@@ -135,16 +135,14 @@ const Private = React.memo(() => {
             label={<><i className="fa fa-home"></i> Adresse</>}
             defaultValue={user.adress}
             options={{
-                className: 'col-5 has-number',
+                className: 'col-5  ',
             }}
             onBlur={handleBlur}
         />
 
         <Fade
             className="d-flex justify-content-end col-12"
-            from={{ opacity: 0 }}
-            visible={state.hasChanges}
-            animateEnter={true}>
+            show={state.hasChanges}>
             <Button
                 type="submit"
                 className="btn btn-secondary"

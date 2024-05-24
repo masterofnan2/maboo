@@ -57,7 +57,7 @@ const CategoryItem = React.memo((props: Props) => {
         <td><RoundedImage image={appImage(category.image)} /></td>
         <td className="">{category.name}</td>
         <td className="">{parentCategory?.name || 'Non défini'}</td>
-        <td className="has-number">{new Date(category.created_at).toLocaleDateString()}</td>
+        <td >{new Date(category.created_at).toLocaleDateString()}</td>
         <td className="text-align-center">
             <Dropdown className="actions-dropdown">
                 <Dropdown.Toggle variant="">

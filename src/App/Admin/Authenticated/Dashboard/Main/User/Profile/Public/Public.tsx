@@ -116,7 +116,7 @@ const Public = React.memo(() => {
         />
 
         <FormFloating
-            className="has-number"
+            
             type="email"
             name="email"
             id="email"
@@ -132,9 +132,7 @@ const Public = React.memo(() => {
 
         <Fade
             className="d-flex justify-content-end col-12"
-            from={{ opacity: 0 }}
-            visible={state.hasChanges}
-            animateEnter={true}>
+            show={state.hasChanges}>
             <Button
                 type="submit"
                 className="btn btn-secondary"

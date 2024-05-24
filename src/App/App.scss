@@ -1,24 +1,21 @@
-$primary-font: 'Arista Pro';
-$fallback-font: Arial, sans-serif;
+$fallback-font: 'Varela Round', 'Arial', 'sans-serif';
+$primary-font: 'Linotte';
 
 @font-face {
   font-family: $primary-font;
-  src: url("./assets/fonts/aristaPro/Arista-Pro-Bold-trial.ttf") format('truetype'),
-    url("./assets/fonts/aristaPro/Arista-Pro-Light-trial.woff") format('woff');
+  src: url("./assets/fonts/linotteJC/Linotte Light.woff") format('woff');
   font-weight: light;
 }
 
 @font-face {
   font-family: $primary-font;
-  src: url("./assets/fonts/aristaPro/Arista-Pro-Bold-trial.ttf") format('truetype'),
-    url("./assets/fonts/aristaPro/Arista-Pro-Bold-trial.woff") format('woff');
+  src: url("./assets/fonts/linotteJC/Linotte Bold.woff") format('woff');
   font-weight: bold;
 }
 
 @font-face {
   font-family: $primary-font;
-  src: url("./assets/fonts/aristaPro/Arista-Pro-Regular-trial.ttf") format('truetype'),
-    url("./assets/fonts/aristaPro/Arista-Pro-Regular-trial.woff") format('woff');
+  src: url("./assets/fonts/linotteJC/Linotte Regular.woff") format('woff');
   font-weight: normal;
 }
 
@@ -31,11 +28,6 @@ body {
   font-family: $primary-font, $fallback-font;
   background-color: $light;
   overflow-x: hidden;
-}
-
-.has-number {
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 16px;
 }
 
 .text-align-center {

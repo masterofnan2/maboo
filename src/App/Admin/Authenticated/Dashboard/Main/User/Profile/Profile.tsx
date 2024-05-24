@@ -8,7 +8,7 @@ import Fade from "../../../../../../../utilities/minitiatures/Fade/Fade";
 
 const Profile = React.memo(() => {
 
-    return <Fade from={{ opacity: 0 }} visible={true} animateEnter={true} className="container profile-container">
+    return <Fade show={true} className="container profile-container">
         <Overview />
         <Accordion className="profile-accordion">
             <Accordion.Item eventKey="0">

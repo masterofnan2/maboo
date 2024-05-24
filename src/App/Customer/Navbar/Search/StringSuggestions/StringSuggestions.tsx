@@ -1,29 +1,34 @@
 import React from "react";
-import { Category, Product, User } from "../../../../../utilities/constants/types";
+import { Product, User } from "../../../../../utilities/constants/types";
+import { Link } from "react-router-dom";
+import Fade from "../../../../../utilities/minitiatures/Fade/Fade";
 
 type Props = {
     products: Product[] | null,
     sellers: User[] | null,
-    categories: Category[] | null,
     keywords: string,
+    show: boolean,
 }
 
 const StringSuggestions = React.memo((props: Props) => {
-    const { categories = [], products = [], sellers = [], keywords} = props;
+    const { products, sellers, keywords, show } = props;
 
-    const text = React.useMemo(() => {}, []);
+    const format = React.useCallback((text: string) => {
+        const formated = text.toLowerCase().replace(keywords.toLowerCase(), `<strong>${keywords}</strong>`);
+        return formated;
+    }, [keywords]);
 
-    return <ul className="string-suggestions">
-        {products!.map(product => {
-            return <li>{product.title}</li>
+    return <Fade
+        className="string-suggestions"
+        show={show}>
+        {products?.map(product => {
+            return <Link to={`/search/${product.title}`} key={product.id} dangerouslySetInnerHTML={{ __html: format(product.title) }} />
         })}
-        {sellers!.map(seller => {
-            return <li>{seller.name} {seller.firstname}</li>
+        {sellers?.map(seller => {
+            const text = `${seller.name} ${seller.firstname}`;
+            return <Link to={`/search/${text}`} key={seller.id} dangerouslySetInnerHTML={{ __html: format(text) }} />
         })}
-        {categories!.map(category => {
-            return <li>{category.name}</li>
-        })}
-    </ul>
+    </Fade>
 })
 
 export default StringSuggestions;

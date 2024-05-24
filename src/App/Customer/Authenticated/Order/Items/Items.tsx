@@ -31,7 +31,7 @@ const Items = React.memo(() => {
                             className="item-subtitle">
                             quantité:
                         </span> <span
-                            className="has-number">
+                            >
                             {item.quantity}
                         </span>
                     </div>

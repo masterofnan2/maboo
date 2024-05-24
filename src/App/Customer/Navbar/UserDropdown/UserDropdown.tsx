@@ -29,7 +29,8 @@ const UserDropdown = React.memo(() => {
     const account = React.useMemo(() => <><i className="fa fa-user"></i> Compte</>, []);
 
     const authActions = React.useMemo(() => <>
-        <Dropdown.Item as={Link} to={'/user/profile'}>Profil</Dropdown.Item>
+        <Dropdown.Item as={Link} to={'/user/profile'}>
+            <i className="fa fa-user"></i> Profil</Dropdown.Item>
         <Dropdown.Item
             as={Button}
             onClick={logout.toggle}

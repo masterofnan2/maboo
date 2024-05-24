@@ -105,7 +105,7 @@ const PasswordForgotten = () => {
         <Carousel.Item>
             <div className="password-forgotten-container text-align-center">
                 <h5 className="display-6">Lien de réinitialisation de mot de passe envoyée.</h5>
-                <p className="col-10 has-number">{sentMessage(state.email)}</p>
+                <p className="col-10  ">{sentMessage(state.email)}</p>
                 <ResendEmailCountdown initConfirmation={resendEmail} />
             </div>
         </Carousel.Item>

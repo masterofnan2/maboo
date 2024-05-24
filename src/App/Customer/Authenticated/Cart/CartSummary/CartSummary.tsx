@@ -57,7 +57,7 @@ const CartSummary = React.memo(() => {
             type="button"
             className="btn btn-primary"
             onClick={handleMakeOrder}>
-            Commander (<span className="has-number">
+            Commander (<span >
                 {cartItems.length || cart.length}</span>)
         </Button>
     </div>

@@ -50,7 +50,7 @@ const PhoneNumberInput = React.memo((props: Props) => {
         }
     }, [props.onChange, state, initialCountry, initialPhoneNumber]);
 
-    return <div className={`input-group has-number ${className}`}>
+    return <div className={`input-group   ${className}`}>
         <select
             className="form-select"
             value={state.country}

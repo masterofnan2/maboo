@@ -18,18 +18,16 @@ const SellerRequests = React.memo(() => {
     }, [requests]);
 
     return <div className="seller-requests-container">
-        <Fade from={{ opacity: 0 }} visible={Boolean(requests?.length)} animateEnter>
+        <Fade show={Boolean(requests?.length)}>
             <SellerRequestsList />
         </Fade>
 
-        <Fade from={{ opacity: 0 }} visible={!requests} animateEnter>
+        <Fade show={!requests}>
             <TablePlaceholder />
         </Fade>
 
         <Fade
-            from={{ opacity: 0 }}
-            visible={requests?.length === 0}
-            animateEnter>
+            show={requests?.length === 0}>
             <RequestsEmpty />
         </Fade>
     </div >

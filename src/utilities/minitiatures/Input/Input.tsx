@@ -8,13 +8,14 @@ type CustomProps = {
 
 type InputProps = React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>;
 
-const Input = React.memo((props: InputProps & CustomProps) => {
+const Input = React.forwardRef((props: InputProps & CustomProps, ref: React.ForwardedRef<HTMLInputElement | null>) => {
     const { options, className = '', ...inputProps } = props;
 
     return <>
         <input
             {...inputProps}
-            className={`form-control ${className} ${options?.error && 'is-invalid'}`} />
+            className={`form-control ${className} ${options?.error && 'is-invalid'}`}
+            ref={ref} />
         {options?.error &&
             <p className="invalid-feedback">{options.error}</p>}
     </>

@@ -25,13 +25,13 @@ const Category = React.memo(() => {
 
     return <div className="category-container container">
 
-        <Fade from={{ opacity: 0 }} visible={Boolean(products && products.length > 0)} animateEnter className="d-flex flex-wrap gap-4 col-12">
+        <Fade show={Boolean(products && products.length > 0)} className="d-flex flex-wrap gap-4 col-12">
             {products && products.length > 0 && products.map(product => {
                 return <HoverableProduct product={product} key={product.id} />
             })}
         </Fade>
 
-        <Fade from={{ opacity: 0 }} visible={!products} animateEnter={true} className="d-flex flex-wrap gap-4 col-12">
+        <Fade show={!products} className="d-flex flex-wrap gap-4 col-12">
             {randomArray.map((random, key) => {
                 random;
                 return <HoverableProductPlaceholder
@@ -40,7 +40,7 @@ const Category = React.memo(() => {
             })}
         </Fade>
 
-        <Fade from={{ opacity: 0 }} visible={products?.length === 0} animateEnter={true}>
+        <Fade show={products?.length === 0}>
             <ProductsEmpty />
         </Fade>
     </div>

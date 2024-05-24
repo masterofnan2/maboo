@@ -94,7 +94,7 @@
             box-shadow: none;
             background-color: transparent;
             transition: border-bottom .3s ease-in-out;
-            font-family: $fallback-font;
+            // font-family: $fallback-font;
 
             &:focus {
                 border-bottom: 3px solid $warning;

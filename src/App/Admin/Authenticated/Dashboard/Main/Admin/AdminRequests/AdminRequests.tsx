@@ -18,16 +18,16 @@ const AdminRequests = React.memo(() => {
     }, [requests]);
 
     return <div className="admin-requests-container">
-        <Fade from={{ opacity: 0 }} visible={Boolean(requests?.length)} animateEnter>
+        <Fade show={Boolean(requests?.length)}>
             <AdminRequestsList />
         </Fade>
 
-        <Fade from={{ opacity: 0 }} visible={!requests} animateEnter>
+        <Fade show={!requests}>
             <TablePlaceholder />
         </Fade>
 
         <Fade
-            from={{ opacity: 0 }}
+            
             visible={requests?.length === 0}
             animateEnter>
             <RequestsEmpty />

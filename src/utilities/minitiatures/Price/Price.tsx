@@ -8,7 +8,7 @@ type Props = {
 
 const Price = React.memo((props: Props) => {
     const {amount, className = '', dashed} = props;
-    return <div className={`price-container ${dashed && 'dashed'} has-number ${className}`}>
+    return <div className={`price-container ${dashed && 'dashed'}   ${className}`}>
         {amount.toLocaleString('fr-Fr')} <small>Ariary</small>
     </div>
 })

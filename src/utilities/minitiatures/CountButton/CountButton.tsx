@@ -35,7 +35,7 @@ const CountButton = React.memo((props: Props) => {
 
     return <div className={`btn-group count-button ${className}`}>
         <button type="button" className="btn col-3" onClick={decrement}>-</button>
-        <NumberInput className="btn has-number" value={count} onChange={handleChange} />
+        <NumberInput className="btn  " value={count} onChange={handleChange} />
         <button type="button" className="btn col-3" onClick={increment}>+</button>
     </div>
 })

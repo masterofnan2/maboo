@@ -39,8 +39,8 @@ const AdminRequestRow = (props: Props) => {
         </td>
         <td>{admin.name}</td>
         <td>{admin.firstname}</td>
-        <td className="has-number">{admin.email}</td>
-        <td className="has-number">{new Date(admin.created_at).toLocaleDateString()}</td>
+        <td >{admin.email}</td>
+        <td >{new Date(admin.created_at).toLocaleDateString()}</td>
         <td className="text-align-center">
             <Dropdown className="actions-dropdown">
                 <Dropdown.Toggle variant="">

@@ -1,8 +1,8 @@
 import { GlobalsContext } from "../../globals/GlobalsProvider";
-import Fade from "../Fade/Fade";
 import React from "react";
 import useToasts from "./hooks/useToasts";
 import useWatchRedirections from "./hooks/useWatchRedirections";
+import { AnimatePresence, motion } from "framer-motion";
 
 export type Toast = {
     id?: string,
@@ -75,48 +75,50 @@ const ToastItem = React.memo((props: Toast) => {
     }, [duration, pop, id]);
 
 
-    return <Fade
-        from={{ opacity: 0, transform: "translateX(5rem)" }}
-        className={`toast-item ${type}`}
-        id={id}
-        animateEnter={true}
-        visible={visible}>
-        <div className="toast-header">
-            <h5>{icon(type)} {title}</h5>
-            <button
-                className="btn"
-                onClick={handleClose}>
-                <i className="fa fa-close"></i>
-            </button>
-        </div>
-        <div className="toast-body">
-            <p>{content}</p>
-        </div>
-    </Fade>
+    return <AnimatePresence>
+        {visible && <motion.div
+            className={`toast-item ${type}`}
+            id={id}
+            initial={{ opacity: 0, x: -30 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: 30 }}>
+            <div className="toast-header">
+                <h5>{icon(type)} {title}</h5>
+                <button
+                    className="btn"
+                    onClick={handleClose}>
+                    <i className="fa fa-close"></i>
+                </button>
+            </div>
+            <div className="toast-body">
+                <p>{content}</p>
+            </div>
+        </motion.div>}
+    </AnimatePresence>
 });
 
 const Toasts = React.memo(() => {
     const [toasts, setToasts] = React.useState([] as ToastList);
     const { toastRef } = React.useContext(GlobalsContext);
 
-    
+
     const pop = React.useCallback((id: string) => {
         setToasts(t => [...t].filter(toast => toast.id !== id));
     }, []);
-    
+
     const push = React.useCallback((toast: Toast) => {
         const id = TOASTPREFIX + (toast.id || Math.round((Math.random() * 100000)));
         const type = toast.type || "default";
         const duration = toast.duration || 6000;
-        
+
         setToasts(t => [...t, { ...toast, id, type, duration }]);
     }, []);
-    
+
     toastRef.current = React.useMemo(() => ({
         push,
         pop
     }), [push, pop]);
-    
+
     useWatchRedirections(push);
 
     if (toasts.length > 0) {

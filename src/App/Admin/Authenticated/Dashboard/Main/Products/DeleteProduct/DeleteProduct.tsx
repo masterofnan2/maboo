@@ -68,7 +68,7 @@ const DeleteProduct = React.memo(() => {
                         <RoundedImage
                             image={appImage(product.images[0]?.name || null) || undefined} />
 
-                        <div className="has-number">
+                        <div >
                             {product.title}
                         </div>
                     </div>

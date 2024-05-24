@@ -141,7 +141,7 @@ const AddProductBody = React.memo((props: Props) => {
                     id="product-title"
                     onChange={handleChange}
                     value={state.inputValues.title}
-                    className="has-number"
+                    
                     options={{ error: state.validationMessages?.title }} />
             </div>
             <div className="col-5 my-3">
@@ -149,7 +149,7 @@ const AddProductBody = React.memo((props: Props) => {
                     Description du produit *
                 </label>
                 <textarea
-                    className="form-control has-number"
+                    className="form-control  "
                     id="product-description"
                     onChange={handleChange}
                     name="description" value={state.inputValues.description}>
@@ -167,7 +167,7 @@ const AddProductBody = React.memo((props: Props) => {
                     onChange={handleNumberInputChange}
                     value={toFormatedString(state.inputValues.price)}
                     maxLength={8}
-                    className="has-number"
+                    
                     options={{ error: state.validationMessages?.price }} />
             </div>
             <div className="col-5 my-3">
@@ -180,7 +180,7 @@ const AddProductBody = React.memo((props: Props) => {
                     name="inStock"
                     value={toFormatedString(state.inputValues.inStock)}
                     maxLength={8}
-                    className="has-number"
+                    
                     options={{ error: state.validationMessages?.inStock }} />
             </div>
             <div className="col-5 my-3 d-flex justify-content-between">
@@ -199,7 +199,7 @@ const AddProductBody = React.memo((props: Props) => {
                     type="text"
                     name="sale_price"
                     id="product-sale-price"
-                    className="has-number"
+                    
                     placeholder="Prix en promotion"
                     aria-describedby="produc-sale-price-help"
                     onChange={handleNumberInputChange}

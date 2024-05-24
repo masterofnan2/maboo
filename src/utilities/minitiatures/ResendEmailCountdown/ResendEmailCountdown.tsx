@@ -40,16 +40,12 @@ const ResendEmailCountdown = React.memo((props: Props) => {
     return <div>
         Vous n'avez reçu aucun email? <br />
         <Fade
-            animateEnter={true}
-            from={{ opacity: 0 }}
-            visible={countdown > 1}
+            show={countdown > 1}
             className="wait-message">
-            Vous pouvez demander un autre code dans <span className="has-number">{countdown}</span>
+            Vous pouvez demander un autre code dans <span >{countdown}</span>
         </Fade>
         <Fade
-            from={{ opacity: 0 }}
-            animateEnter={true}
-            visible={countdown === 0}>
+            show={countdown === 0}>
             <Button
                 type="button"
                 className="btn-primary mt-2"
