@@ -17,7 +17,7 @@ jobs:
             ${{ runner.os }}-composer-
 
       - name: Install Composer Dependencies
-        uses: ramsey/composer-install@v6
+      - uses: luminsports/github-action-composer@main
 
       - name: Upload from root dir via FTP
         uses: airvzxf/ftp-deployment-action@latest
