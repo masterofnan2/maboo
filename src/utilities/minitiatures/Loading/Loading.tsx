@@ -1,8 +1,9 @@
 import React from "react";
 import { createPortal } from "react-dom";
+import Fade from "../Fade/Fade";
 
 const Loading = React.memo(() => {
-    return createPortal(<div className="loading-container">
+    return createPortal(<Fade className="loading-container" show>
         <svg
             className="cart"
             role="img"
@@ -24,7 +25,7 @@ const Loading = React.memo(() => {
                 </g>
             </g>
         </svg>
-    </div>, document.body);
+    </Fade>, document.body);
 })
 
 export default Loading;

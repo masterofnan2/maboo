@@ -159,6 +159,7 @@ const AddProductBody = React.memo((props: Props) => {
                 <label htmlFor="product-price">
                     Prix du produit *
                 </label>
+
                 <NumberInput
                     type="text"
                     placeholder="prix du produit"
@@ -172,6 +173,7 @@ const AddProductBody = React.memo((props: Props) => {
             </div>
             <div className="col-5 my-3">
                 <label htmlFor="product-instock">Nombre en stock *</label>
+                
                 <NumberInput
                     onChange={handleNumberInputChange}
                     type="text"
@@ -180,7 +182,6 @@ const AddProductBody = React.memo((props: Props) => {
                     name="inStock"
                     value={toFormatedString(state.inputValues.inStock)}
                     maxLength={8}
-                    
                     options={{ error: state.validationMessages?.inStock }} />
             </div>
             <div className="col-5 my-3 d-flex justify-content-between">

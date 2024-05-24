@@ -6,6 +6,7 @@ import { refreshProduct } from "../../../utilities/redux/customer/customerSlice"
 import LeftSide from "./LeftSide/LeftSide";
 import RightSide from "./RightSide/RightSide";
 import Loading from "../../../utilities/minitiatures/Loading/Loading";
+import Fade from "../../../utilities/minitiatures/Fade/Fade";
 
 const Product = React.memo(() => {
     const dispatch = useDispatch<AppDispatch>();
@@ -19,13 +20,13 @@ const Product = React.memo(() => {
         }
     }, [product]);
 
-    return <div className="product-container container">
+    return <Fade className="product-container container" show>
         {product && <>
             <LeftSide />
             <RightSide />
         </>}
         {!product && <Loading />}
-    </div>
+    </Fade>
 })
 
 export default Product;

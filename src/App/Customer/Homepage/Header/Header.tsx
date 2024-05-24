@@ -1,7 +1,11 @@
 import React from "react"
+import { motion } from "framer-motion";
 
 const Header = React.memo(() => {
-    return <header className="header-container">
+    return <motion.header
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1, transition: { delay: .3, duration: .5 } }}
+        className="header-container">
         <div className="header-gradient">
             <div className="header-content mx-5">
                 <h3 className="display-5 text-secondary">Petit Trésors, Grands Bonheurs</h3>
@@ -12,7 +16,7 @@ const Header = React.memo(() => {
                 <button className="btn btn-outline-light header-action">Nos Abonnements <i className="fa fa-chevron-down"></i></button>
             </div>
         </div>
-    </header>
+    </motion.header>
 });
 
 export default Header;

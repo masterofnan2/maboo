@@ -1,9 +1,14 @@
 import React from 'react'
 import Checkbox from '../../../../../../utilities/minitiatures/Checkbox/Checkbox';
 import { Link } from 'react-router-dom';
+import { motion } from "framer-motion";
+
 
 const Offer2 = React.memo(() => {
-    return <div className='subscription-item'>
+    return <motion.div
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1, transition: { delay: .5 } }}
+        className='subscription-item'>
         <div>
             <div className='subscription-name'>Trimium</div>
             <div className='subscription-price'>200.000 Ariary</div>
@@ -57,7 +62,7 @@ const Offer2 = React.memo(() => {
             type='button'
             className='btn btn-outline-dark'><i className="fa-solid fa-crown"></i> Je m'abonne
         </Link>
-    </div>
+    </motion.div>
 });
 
 export default Offer2

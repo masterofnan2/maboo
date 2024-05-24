@@ -35,7 +35,9 @@ const Search = React.memo(() => {
         }
     }, [inputRef, state.show]);
 
-    const noResults = React.useMemo(() => Boolean((state.products && state.products.length === 0) && (state.sellers && state.sellers.length === 0)), []);
+    const noResults = React.useMemo(() => Boolean(
+        (state.products && state.products.length === 0) && (state.sellers && state.sellers.length === 0)
+    ), [state.products, state.sellers]);
 
     return <div className="search-container">
         <button

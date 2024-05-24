@@ -2,9 +2,13 @@ import React from "react";
 import ForTheBaby from "./ForTheBaby/ForTheBaby";
 import ForTheMother from "./ForTheMother/ForTheMother";
 import ForBoth from "./ForBoth/ForBoth";
+import { motion } from "framer-motion";
 
 const Categories = React.memo(() => {
-    return <section className="categories-container container">
+    return <motion.section
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1, transition: { delay: .3, duration: .5 } }}
+        className="categories-container container">
         <div className="section-information">
             <h5 className="section-title display-6">Nous l'avons</h5>
             <p className="section-description">
@@ -17,7 +21,7 @@ const Categories = React.memo(() => {
             <ForBoth />
             <ForTheMother />
         </div>
-    </section>
+    </motion.section>
 });
 
 export default Categories;

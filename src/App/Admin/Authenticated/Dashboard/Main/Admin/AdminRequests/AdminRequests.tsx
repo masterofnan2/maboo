@@ -26,10 +26,7 @@ const AdminRequests = React.memo(() => {
             <TablePlaceholder />
         </Fade>
 
-        <Fade
-            
-            visible={requests?.length === 0}
-            animateEnter>
+        <Fade show={requests?.length === 0}>
             <RequestsEmpty />
         </Fade>
     </div >

@@ -4,10 +4,11 @@ import Private from "./Private/Private";
 import Public from "./Public/Public";
 import { Accordion } from "react-bootstrap";
 import Connection from "./Connection/Connection";
+import Fade from "../../../../../utilities/minitiatures/Fade/Fade";
 
 const Profile = React.memo(() => {
 
-    return <div className="container profile-container">
+    return <Fade className="container profile-container" show>
         <Overview />
         <Accordion className="profile-accordion">
             <Accordion.Item eventKey="0">
@@ -41,7 +42,7 @@ const Profile = React.memo(() => {
                 </Accordion.Collapse>
             </Accordion.Item>
         </Accordion>
-    </div >
+    </Fade>
 });
 
 export default Profile;

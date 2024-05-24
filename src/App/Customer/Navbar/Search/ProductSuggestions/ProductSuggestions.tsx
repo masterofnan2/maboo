@@ -28,7 +28,8 @@ const ProductSuggestions = React.memo((props: Props) => {
 
     return <Fade
         className="product-suggestions flex-wrap"
-        show={Boolean(suggestions?.length)}>
+        show={Boolean(suggestions?.length)}
+        layout>
 
         <h5 className="product-suggestion-title col-12">Produits suggérés</h5>
         {suggestions?.map((product) => {
@@ -36,7 +37,8 @@ const ProductSuggestions = React.memo((props: Props) => {
                 className="product-suggestion"
                 key={product.id}
                 onClick={() => navigate(`/product/${product.slug}`)}>
-                <SquaredImage image={appImage(product.images[0]?.name)} />
+                <SquaredImage
+                    image={appImage(product.images[0]?.name)} />
                 <h6 className="product-title">{product.title}</h6>
                 <DoublePrice
                     firstPrice={product.price}

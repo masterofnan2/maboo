@@ -1,9 +1,10 @@
 import React from "react";
 import { Link, Outlet } from "react-router-dom";
 import logo from '../../../../assets/icons/maboo.png';
+import Fade from "../../../../utilities/minitiatures/Fade/Fade";
 
 const Auth = React.memo(() => {
-    return <div className="auth-container">
+    return <Fade className="auth-container" show>
         <div className="left-side"></div>
         <div className="right-side">
             <div className="static">
@@ -17,7 +18,7 @@ const Auth = React.memo(() => {
                 <Outlet />
             </div>
         </div>
-    </div>
+    </Fade>
 });
 
 export default Auth;

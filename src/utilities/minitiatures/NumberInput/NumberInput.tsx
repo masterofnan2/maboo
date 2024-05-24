@@ -1,16 +1,21 @@
 import React from "react";
 import Input from "../Input/Input";
 
-type CustomProps = {
-    onChange: (number: '' | number, e?: React.ChangeEvent<HTMLInputElement>) => void
+type Props = {
+    type?: string,
+    placeholder?: string,
+    id?: string,
+    name?: string,
+    value?: string,
+    maxLength?: number,
+    onChange: (number: '' | number, e?: React.ChangeEvent<HTMLInputElement>) => void,
     options?: {
         error?: string,
-    }
+    },
+    [key: string]: any,
 }
 
-type InputProps = React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>;
-
-const NumberInput = React.forwardRef((props: CustomProps & InputProps, ref: any) => {
+const NumberInput = React.forwardRef((props: Props, ref: any) => {
     const { onChange, options, ...inputProps } = props;
 
     const handleChange = React.useCallback((e: React.ChangeEvent<HTMLInputElement>) => {

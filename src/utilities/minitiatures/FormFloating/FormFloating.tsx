@@ -1,5 +1,7 @@
 import React from "react";
 import getElementProps from "../../helpers/getElementProps";
+import { motion } from "framer-motion";
+import Fade from "../Fade/Fade";
 
 type Props = {
     label: string | React.JSX.Element,
@@ -16,15 +18,16 @@ const FormFloating = React.memo((props: Props) => {
     const { className = '', options } = props;
 
     return <div className={`form-floating ${options?.className || ''}`}>
-        <input
+        <motion.input
             {...inputProps}
-            className={`form-control ${(options?.error && 'is-invalid ')} ${className}`} />
+            className={`form-control ${(options?.error && 'is-invalid ')} ${className}`}
+            layout/>
         <label htmlFor={props.id}>
             {props.label}
         </label>
-        {options?.error && <p className="invalid-feedback">
-            {options.error}
-        </p>}
+        <Fade className="invalid-feedback" show={Boolean(options?.error)}>
+            {options?.error}
+        </Fade>
     </div>
 });
 

@@ -4,6 +4,8 @@ import { useSelector } from "react-redux";
 import { Rootstate } from "../../../../utilities/redux/store";
 import { useParams } from "react-router-dom";
 import appImage from "../../../../utilities/helpers/appImage";
+import Fade from "../../../../utilities/minitiatures/Fade/Fade";
+import SquaredImage from "../../../../utilities/minitiatures/SquaredImage/SquaredImage";
 
 const LeftSide = React.memo(() => {
 
@@ -19,7 +21,7 @@ const LeftSide = React.memo(() => {
     }, []);
 
 
-    return <div className="left-side-container">
+    return <Fade className="left-side-container" show>
         {product.images.length > 0 ? <>
             <Carousel
                 activeIndex={state.activeIndex}
@@ -28,7 +30,9 @@ const LeftSide = React.memo(() => {
                 className="product-image-carousel">
                 {product.images.map(image => {
                     return <Carousel.Item key={image.id}>
-                        <img src={appImage(image.name)} className="product-carousel-image" />
+                        <SquaredImage
+                            image={appImage(image.name)}
+                            className="product-carousel-image"/>
                     </Carousel.Item>
                 })}
             </Carousel>
@@ -47,7 +51,7 @@ const LeftSide = React.memo(() => {
 
             </div>
         </>}
-    </div>
+    </Fade>
 })
 
 export default LeftSide;

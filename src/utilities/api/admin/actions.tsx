@@ -21,7 +21,7 @@ export const login = (payload: {
 }
 
 export const getAuth = () => {
-    return axios.disableReloadOnUnauthorized().get('/admin/auth/user');
+    return axios.disableRedirectOnUnauthorized().get('/admin/auth/user');
 }
 
 export const makeEmailConfirmation = () => {

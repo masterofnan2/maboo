@@ -1,8 +1,12 @@
 import React from "react";
 import { Carousel } from "react-bootstrap";
+import { motion } from "framer-motion";
 
 const Functionnalities = React.memo(() => {
-    return <section className="functionnalities-container">
+    return <motion.section
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1, transition: { delay: .3, duration: .5 } }}
+        className="functionnalities-container">
         <div className="section-information container">
             <h5 className="section-title display-6">Faites-nous confiance</h5>
             <p className="section-description">
@@ -52,7 +56,7 @@ const Functionnalities = React.memo(() => {
                 </div>
             </Carousel.Item>
         </Carousel>
-    </section>
+    </motion.section>
 });
 
 export default Functionnalities;

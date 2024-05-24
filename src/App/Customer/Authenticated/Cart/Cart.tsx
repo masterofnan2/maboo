@@ -6,6 +6,7 @@ import { CartItem } from "../../../../utilities/constants/types";
 import CartEmpty from "./CartEmpty/CartEmpty";
 import CartSummary from "./CartSummary/CartSummary";
 import Loading from "../../../../utilities/minitiatures/Loading/Loading";
+import Fade from "../../../../utilities/minitiatures/Fade/Fade";
 
 const CartContext = React.createContext({
     selection: {
@@ -35,14 +36,14 @@ const Cart = React.memo(() => {
     }), [state.selection.cartItems]);
 
     return <CartContext.Provider value={{ selection }}>
-        <div className="cart-container">
+        <Fade className="cart-container" show>
             {cart && cart.length === 0 && <CartEmpty />}
             {cart && cart.length > 0 && <>
                 <CartItemsList />
                 <CartSummary />
             </>}
             {!cart && <Loading />}
-        </div>
+        </Fade>
     </CartContext.Provider>
 });
 

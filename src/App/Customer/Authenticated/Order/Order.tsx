@@ -7,6 +7,7 @@ import { useParams } from "react-router-dom";
 import { getOrder } from "../../../../utilities/api/customer/actions";
 import { useRedirect } from "../../../../utilities/hooks/customer/useRedirect";
 import * as Types from "../../../../utilities/constants/types";
+import Fade from "../../../../utilities/minitiatures/Fade/Fade";
 
 export const ORANGEMONEY = "ORANGEMONEY";
 export const MVOLA = "MVOLA";
@@ -21,7 +22,7 @@ const OrderContext = React.createContext({
     },
     order: null as Types.Order | null,
 });
-    
+
 export const usePaymentMethod = () => {
     return React.useContext(OrderContext).paymentMethod;
 }
@@ -53,7 +54,7 @@ const Order = React.memo(() => {
             getOrder(orderId)
                 .then((response) => {
                     const order = response.data.order as Types.Order;
-                    
+
                     if (order.transaction_id) {
                         redirect();
                     } else {
@@ -76,7 +77,7 @@ const Order = React.memo(() => {
 
     return <OrderContext.Provider value={{ paymentMethod, order: state.order }}>
         {state.order &&
-            <div className="order-container container">
+            <Fade className="order-container container" show>
                 <div className="col-8">
                     <PaymentMethod />
                     <Items />
@@ -84,7 +85,7 @@ const Order = React.memo(() => {
                 <div className="col-3">
                     <OrderSummary />
                 </div>
-            </div>}
+            </Fade>}
         {!state.order && <Loading />}
     </OrderContext.Provider>
 })

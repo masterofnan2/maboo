@@ -76,15 +76,15 @@ const Categories = React.memo(() => {
         <div className="categories-container">
             <AddCategory />
 
-            <Fade from={{ opacity: 0 }} visible={Boolean(categories && categories.length > 0)} animateEnter={true}>
+            <Fade show={Boolean(categories && categories.length > 0)}>
                 <CategoriesList />
             </Fade>
 
-            <Fade from={{ opacity: 0 }} visible={!categories} animateEnter={true}>
+            <Fade show={!categories}>
                 <TablePlaceholder />
             </Fade>
 
-            <Fade from={{ opacity: 0 }} visible={categories?.length === 0} animateEnter={true}>
+            <Fade show={categories?.length === 0}>
                 <CategoriesEmpty />
             </Fade>
 

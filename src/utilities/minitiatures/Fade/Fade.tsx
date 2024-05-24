@@ -6,11 +6,13 @@ type Props = {
     show: boolean,
     className?: string,
     id?: string,
+    layout?: boolean,
 };
 
 const variants = {
     visible: {
-        opacity: 1
+        opacity: 1,
+        transition: { delay: .3, duration: .4 }
     },
     hidden: {
         opacity: 0

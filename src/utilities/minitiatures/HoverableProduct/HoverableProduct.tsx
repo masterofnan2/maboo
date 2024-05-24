@@ -4,11 +4,7 @@ import { Product } from "../../constants/types";
 import appImage from "../../helpers/appImage";
 import DoublePrice from "../DoublePrice/DoublePrice";
 import Button from "../Button/Button";
-import { addToCart } from "../../api/customer/actions";
-import useToasts from "../Toast/hooks/useToasts";
-import { useDispatch } from "react-redux";
-import { AppDispatch } from "../../redux/store";
-import { refreshCart } from "../../redux/customer/customerSlice";
+import { useAddToCart } from "../../api/customer/hooks";
 
 type Props = {
     product: Product,
@@ -16,8 +12,7 @@ type Props = {
 };
 
 const HoverableProduct = React.memo((props: Props) => {
-    const toasts = useToasts();
-    const dispatch = useDispatch<AppDispatch>();
+    const addToCart = useAddToCart();
     const { product, className = '' } = React.useMemo(() => props, [props]);
 
     const [state, setState] = React.useState({
@@ -25,32 +20,15 @@ const HoverableProduct = React.memo((props: Props) => {
     });
 
     const handleAddToCart = React.useCallback(() => {
-        setState(s => ({ ...s, loading: true }));
-
         addToCart({
-            product_id: product.id,
-            quantity: 1,
+            payload: {
+                product_id: product.id,
+                quantity: 1
+            },
+            onInit: () => setState(s => ({ ...s, loading: true })),
+            onFinally: () => setState(s => ({ ...s, loading: false }))
         })
-            .then(() => {
-                toasts.push({
-                    title: "Ajouté au panier",
-                    content: "Votre panier a été mis à jour avec succès",
-                    type: "success",
-                })
-
-                dispatch(refreshCart());
-            })
-            .catch(() => {
-                toasts.push({
-                    title: "Impossible d'ajouter au panier",
-                    content: "Une erreur s'est produite lors de l'ajout au panier, veuillez réessayer plus tard",
-                    type: "danger"
-                })
-            })
-            .finally(() => {
-                setState(s => ({ ...s, loading: false }));
-            })
-    }, [product.id, toasts.push]);
+    }, [product.id]);
 
     return <div className={"hoverable-product " + className}>
         <div className="product-image-container">

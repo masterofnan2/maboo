@@ -1,22 +1,20 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { AppDispatch, Rootstate } from "../../../../utilities/redux/store";
+import { Rootstate } from "../../../../utilities/redux/store";
 import SmallText from "../../../../utilities/minitiatures/SmallText/SmallText";
 import CountButton from "../../../../utilities/minitiatures/CountButton/CountButton";
 import Button from "../../../../utilities/minitiatures/Button/Button";
 import DoublePrice from "../../../../utilities/minitiatures/DoublePrice/DoublePrice";
-import { addToCart } from "../../../../utilities/api/customer/actions";
-import { refreshCart } from "../../../../utilities/redux/customer/customerSlice";
-import useToasts from "../../../../utilities/minitiatures/Toast/hooks/useToasts";
 import ProductMerchant from "../../../../utilities/minitiatures/ProductMerchant/ProductMerchant";
+import Fade from "../../../../utilities/minitiatures/Fade/Fade";
+import { useAddToCart } from "../../../../utilities/api/customer/hooks";
 
 const RightSide = React.memo(() => {
 
+    const addToCart = useAddToCart();
     const slug = useParams().slug!;
     const product = useSelector((state: Rootstate) => state.customer.products[slug]!);
-    const dispatch = useDispatch<AppDispatch>();
-    const toasts = useToasts();
 
     const [state, setState] = React.useState({
         count: 1,
@@ -28,35 +26,17 @@ const RightSide = React.memo(() => {
     }, []);
 
     const handleAddToCart = React.useCallback(() => {
-        setState(s => ({ ...s, loading: true }));
-
         addToCart({
-            product_id: product.id,
-            quantity: state.count,
+            payload: {
+                product_id: product.id,
+                quantity: state.count
+            },
+            onInit: () => setState(s => ({ ...s, loading: true })),
+            onFinally: () => setState(s => ({ ...s, loading: false }))
         })
-            .then(() => {
-                toasts.push({
-                    title: "Ajouté au panier",
-                    content: "Votre panier a été mis à jour avec succès",
-                    type: "success",
-                })
+    }, [product.id, state.count]);
 
-                dispatch(refreshCart());
-            })
-            .catch(() => {
-                toasts.push({
-                    title: "Impossible d'ajouter au panier",
-                    content: "Une erreur s'est produite lors de l'ajout au panier, veuillez réessayer plus tard",
-                    type: "danger"
-                })
-            })
-            .finally(() => {
-                setState(s => ({ ...s, loading: false }));
-            })
-    }, [product.id, toasts.push, state.count]);
-
-
-    return <div className="right-side-container">
+    return <Fade className="right-side-container" show>
         <div className="product-hierarchy">
             {`${product.category?.name} / ${product.title}`}
         </div>
@@ -82,14 +62,14 @@ const RightSide = React.memo(() => {
                 type="button"
                 className="btn btn-outline-dark btn-sm col"
                 onClick={handleAddToCart}
-                options={{loading: state.loading}}><i className="fa fa-cart-plus"></i> Ajouter au panier</Button>
+                options={{ loading: state.loading }}><i className="fa fa-cart-plus"></i> Ajouter au panier</Button>
         </div>
 
         <div className="product-merchant">
             <h6>Marchand: </h6>
-            <ProductMerchant merchant={product.merchant}/>
+            <ProductMerchant merchant={product.merchant} />
         </div>
-    </div>
+    </Fade>
 })
 
 export default RightSide;

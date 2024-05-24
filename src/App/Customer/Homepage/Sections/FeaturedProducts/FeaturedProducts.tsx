@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, Rootstate } from "../../../../../utilities/redux/store";
 import { refreshFeaturedProducts } from "../../../../../utilities/redux/customer/customerSlice";
 import generateArray from "../../../../../utilities/helpers/generateArray";
+import { motion } from "framer-motion";
+
 const FeaturedProducts = React.memo(() => {
     const products = useSelector((state: Rootstate) => state.customer.featuredProducts);
     const dispatch = useDispatch<AppDispatch>();
@@ -14,7 +16,10 @@ const FeaturedProducts = React.memo(() => {
         }
     }, [products]);
 
-    return <section className="featured-products container">
+    return <motion.section
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1, transition: { delay: .3, duration: .5 } }}
+        className="featured-products container">
         <div className="section-information">
             <h5 className="display-6">
                 Nos produits, les Vôtres
@@ -30,10 +35,10 @@ const FeaturedProducts = React.memo(() => {
             }) :
                 generateArray(5).map((random, key) => {
                     random;
-                    return <HoverableProductPlaceholder key={key} index={key}/>
+                    return <HoverableProductPlaceholder key={key} index={key} />
                 })}
         </div>
-    </section>
+    </motion.section>
 });
 
 export default FeaturedProducts;

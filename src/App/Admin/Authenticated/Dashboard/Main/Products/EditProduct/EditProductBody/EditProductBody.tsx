@@ -236,7 +236,6 @@ const EditProductBody = React.memo(() => {
                     onChange={handleNumberInputChange}
                     value={toFormatedString(state.inputValues.price)}
                     maxLength={8}
-                    
                     options={{ error: state.validationMessages?.price }} />
             </div>
             <div className="col-5 my-3">
@@ -268,7 +267,6 @@ const EditProductBody = React.memo(() => {
                     type="text"
                     name="sale_price"
                     id="product-sale-price"
-                    
                     placeholder="Prix en promotion"
                     aria-describedby="product-sale-price-help"
                     onChange={handleNumberInputChange}

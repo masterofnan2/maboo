@@ -1,18 +1,27 @@
 import React from "react";
+import { motion } from "framer-motion";
 
 type Props = {
     image?: string,
+    className?: string,
+    layout?: boolean,
 }
 
 const SquaredImage = React.memo((props: Props) => {
-    const { image } = props;
+    const { image, className = '', layout } = props;
+    const motionProps = {} as { [key: string]: any };
+
+    if (layout) {
+        motionProps.layoutId = image;
+    }
 
     if (image) {
-        return <img
-            className="squared-image"
-            src={image} />
+        return <motion.img
+            className={`squared-image ${className}`}
+            src={image}
+            {...motionProps} />
     } else {
-        return <div className="squared-image"></div>
+        return <div className={`squared-image ${className}`}></div>
     }
 })
 

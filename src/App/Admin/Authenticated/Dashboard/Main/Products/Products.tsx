@@ -76,13 +76,13 @@ const Products = React.memo(() => {
 
     return <ProductsContext.Provider value={{ edit, onDelete }}>
         <div className="products-container">
-            <Fade from={{ opacity: 0 }} visible={Boolean(products && products.length > 0)} animateEnter={true}>
+            <Fade show={Boolean(products && products.length > 0)}>
                 <ProductsList />
             </Fade>
-            <Fade from={{ opacity: 0 }} visible={products?.length === 0} animateEnter={true}>
+            <Fade show={products?.length === 0}>
                 <ProductsEmpty />
             </Fade>
-            <Fade from={{ opacity: 0 }} visible={!products} animateEnter={true}>
+            <Fade show={!products}>
                 <TablePlaceholder />
             </Fade>
             <AddProduct />

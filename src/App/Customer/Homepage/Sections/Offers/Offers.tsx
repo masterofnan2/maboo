@@ -3,8 +3,14 @@ import Offer1 from "./Offer1/Offer1";
 import Offer2 from "./Offer2/Offer2";
 import Offer3 from "./Offer3/Offer3";
 
+import { motion } from "framer-motion";
+
+
 const Offers = React.memo(() => {
-    return <section className="offers-container">
+    return <motion.section
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1, transition: { delay: .3, duration: .5 } }}
+        className="offers-container">
         <div className="section-information">
             <h5 className="display-6">Nos Offres</h5>
             <p>
@@ -20,7 +26,7 @@ const Offers = React.memo(() => {
                 </div>
             </div>
         </div>
-    </section>
+    </motion.section>
 });
 
 export default Offers;
