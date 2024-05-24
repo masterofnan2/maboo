@@ -2,6 +2,7 @@ name: Deploy Backend on Push
 on:
   push:
     branches: [ Backend ]
+  workflow_dispatch:
 jobs:
   build:
     runs-on: ubuntu-latest
