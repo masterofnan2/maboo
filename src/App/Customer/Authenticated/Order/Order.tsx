@@ -12,14 +12,16 @@ export const ORANGEMONEY = "ORANGEMONEY";
 export const MVOLA = "MVOLA";
 export const AIRTELMONEY = "AIRTELMONEY";
 
+type PaymentMethod = typeof ORANGEMONEY | typeof MVOLA | typeof AIRTELMONEY;
+
 const OrderContext = React.createContext({
     paymentMethod: {
-        setCurrent: (method: string) => { method },
-        current: ORANGEMONEY
+        setCurrent: (method: PaymentMethod) => { method },
+        current: ORANGEMONEY as PaymentMethod
     },
     order: null as Types.Order | null,
 });
-
+    
 export const usePaymentMethod = () => {
     return React.useContext(OrderContext).paymentMethod;
 }
@@ -34,14 +36,14 @@ const Order = React.memo(() => {
 
     const [state, setState] = React.useState({
         paymentMethod: {
-            current: ORANGEMONEY,
+            current: ORANGEMONEY as PaymentMethod,
         },
         order: null as Types.Order | null,
     });
 
     const paymentMethod = React.useMemo(() => ({
         current: state.paymentMethod.current,
-        setCurrent: (method: string) => {
+        setCurrent: (method: PaymentMethod) => {
             setState(s => ({ ...s, paymentMethod: { ...s.paymentMethod, current: method } }));
         }
     }), [state.paymentMethod.current]);

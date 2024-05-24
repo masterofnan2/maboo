@@ -118,3 +118,10 @@ export const getOrder = (id: string) => {
 export const search = (keywords: string) => {
     return axios.get(`/search/small/${keywords}`);
 }
+
+export const initOrderTransaction = (payload: {
+    order_id: string,
+    method: 'ORANGEMONEY' | 'AIRTELMONEY' | 'MVOLA'
+}) => {
+    return axios.post('/transaction/order/make', payload);
+}
