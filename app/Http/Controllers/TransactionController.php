@@ -11,10 +11,10 @@ class TransactionController extends Controller
 {
     public function makeOrder(Request $request, OrderActions $orderActions)
     {
+        $transactionData = $response = [];
+
         $order_id = $request->order_id;
         $method = $request->method;
-
-        $transactionData = $response = [];
 
         $order = $orderActions->getOrder($order_id);
 
