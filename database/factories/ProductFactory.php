@@ -20,11 +20,11 @@ class ProductFactory extends Factory
             'title' => fake()->colorName(),
             'description' => fake()->sentences(5, true),
             'user_id' => 1,
-            'price' => fake()->numberBetween(10000, 10000000),
+            'price' => fake()->numberBetween(200, 900),
             'inStock' => fake()->numberBetween(10, 100),
             'category_id' => fake()->numberBetween(1, 20),
             'slug' => fake()->slug(),
-            'sale_price' => 0,
+            'sale_price' => fake()->numberBetween(0, 100),
         ];
     }
 }

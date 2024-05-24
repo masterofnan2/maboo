@@ -6,8 +6,19 @@ use App\Http\Controllers\Customer\CartController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\SearchController;
+use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
+
+Route::prefix('transaction')->controller(TransactionController::class)->group(function () {
+    Route::prefix('order')->group(function () {
+        Route::post('make', 'makeOrder');
+    });
+    
+    Route::prefix('status')->group(function () {
+        Route::post('orange-money/:transactionnable_id', 'orangeMoneyStatus');
+    });
+});
 
 Route::prefix('search')->controller(SearchController::class)->group(function () {
     Route::get('/small/{query}', 'small');

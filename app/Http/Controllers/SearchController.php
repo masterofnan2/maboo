@@ -25,10 +25,6 @@ class SearchController extends Controller
                 ->orWhere('firstname', 'like', $keywords)
                 ->limit(2)
                 ->get();
-
-            $results['categories'] = Category::where('name', 'like', $keywords)
-                ->limit(2)
-                ->get();
         }
 
         return response()->json($results);

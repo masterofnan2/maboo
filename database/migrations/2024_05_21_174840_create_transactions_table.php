@@ -16,6 +16,8 @@ return new class extends Migration {
             $table->string('description')->default('');
             $table->foreignId('transactionnable_id');
             $table->string('status', 20)->nullable();
+            $table->string('method', 20);
+            $table->foreignId('user_id');
         });
     }
 

@@ -20,7 +20,7 @@ class CartActions extends Actions
 
     public function getSimilarCartItem(array $cartItem): CartItem|Model|null
     {
-        $CartItem = CartItem::where('product_id', $cartItem['product_id']);
+        $CartItem = CartItem::where('product_id', $cartItem['product_id'])->where('ordered_at', null);
 
         if (isset($cartItem['product_color_id']) && !empty($cartItem['product_color_id'])) {
             $CartItem = $CartItem->where('product_color_id', $cartItem['product_color_id']);

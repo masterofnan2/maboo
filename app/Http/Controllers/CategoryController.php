@@ -82,7 +82,6 @@ class CategoryController extends Controller
         return response()->json(['hierarchy' => $hierarchy]);
     }
 
-
     public function products(CategoryActions $categoryActions, Request $request)
     {
         $products = $categoryActions->getProducts($request->id);
