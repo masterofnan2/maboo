@@ -1,0 +1,28 @@
+name: Deploy Frontend on Push
+on:
+  push:
+    branches: [ Frontend ]
+  workflow_dispatch:
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Use Node.js 18
+        uses: actions/setup-node@v3
+
+      - name: Install dependencies
+        run: npm install  # Or yarn install, depending on your project
+
+      - name: Build for production
+        run: npm run build  # Or yarn build, adjust the script name     
+        
+      - name: Upload from root dir via FTP
+        uses: airvzxf/ftp-deployment-action@latest
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          user: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local_dir: "./dist"
+          remote_dir: "/htdocs"
