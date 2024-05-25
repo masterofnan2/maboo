@@ -19,8 +19,8 @@ jobs:
       - name: Upload from root dir via FTP
         uses: airvzxf/ftp-deployment-action@latest
         with:
-          server: ${{ secrets.FTP_SERVER }}
-          user: ${{ secrets.FTP_USERNAME }}
-          password: ${{ secrets.FTP_PASSWORD }}
+          server: ${{ secrets.BACKEND_FTP_SERVER }}
+          user: ${{ secrets.BACKEND_FTP_USERNAME }}
+          password: ${{ secrets.BACKEND_FTP_PASSWORD }}
           local_dir: "./"
-          remote_dir: "/htdocs/api"
+          remote_dir: "/htdocs"
