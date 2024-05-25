@@ -13,6 +13,7 @@ class Transaction extends Model
         'description',
         'transactionnable_id',
         'status',
-        'method'
+        'method',
+        'user_id',
     ];
 }

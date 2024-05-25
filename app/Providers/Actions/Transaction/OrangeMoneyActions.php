@@ -104,7 +104,7 @@ class OrangeMoneyActions
         $postfields = json_encode([
             'merchant_key' => MERCHANTKEY,
             'currency' => CURRENCY,
-            'order_id' => ORDERIDPREFIX . $this->order_id,
+            'order_id' => ORDERIDPREFIX . uniqid(),
             'amount' => $this->amount,
             'return_url' => $this->returnUrl,
             'cancel_url' => $this->cancelUrl,
@@ -124,7 +124,8 @@ class OrangeMoneyActions
 
         $success = curl_exec($curl);
 
-        if (!$success) throw new HttpException(500, curl_error($curl));
+        if (!$success)
+            throw new HttpException(500, curl_error($curl));
 
         $response = json_decode($success);
 

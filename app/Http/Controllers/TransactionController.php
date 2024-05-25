@@ -30,11 +30,11 @@ class TransactionController extends Controller
                     ->initTransaction();
 
                 $notificationToken = $details->notif_token;
-                $paymentToken = $details->payToken;
+                $paymentToken = $details->pay_token;
 
                 $transactionData['description'] = json_encode([
-                    'notificationToken' => $notificationToken,
-                    'paymentToken' => $paymentToken,
+                    'notif_token' => $notificationToken,
+                    'payment_token' => $paymentToken,
                 ]);
 
                 $response['payment_url'] = $details->payment_url;
@@ -50,15 +50,21 @@ class TransactionController extends Controller
             'transaction_id' => $transaction->id
         ]);
 
-        return response()->json($response); 
+        return response()->json($response);
     }
 
     public function orangeMoneyStatus(string $transactionnable_id, Request $request)
     {
         $transaction = Transaction::where('transactionnable_id', $transactionnable_id)->first();
         $description = json_decode($transaction?->description);
+        
+        file_put_contents('transaction_logs.tsx', [
+            'transactionnable_id' => $transactionnable_id,
+            'transaction' => $transaction,
+            'request' => $request->all(),
+        ]);
 
-        if ($description?->notificationToken !== $request->notif_token) {
+        if ($description?->notif_token !== $request->notif_token) {
             abort(403);
         }
 

@@ -14,7 +14,7 @@ return new class extends Migration {
             $table->id();
             $table->timestamps();
             $table->string('description')->default('');
-            $table->foreignId('transactionnable_id');
+            $table->foreignUuid('transactionnable_id');
             $table->string('status', 20)->nullable();
             $table->string('method', 20);
             $table->foreignId('user_id');
