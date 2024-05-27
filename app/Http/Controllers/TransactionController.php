@@ -3,13 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\Models\Transaction;
+use App\Notifications\Transaction\AdminTransactionNotification;
+use App\Notifications\Transaction\CustomerTransactionNotification;
 use App\Providers\Actions\OrderActions;
 use App\Providers\Actions\Transaction\OrangeMoneyActions;
+use App\Providers\Actions\UserActions;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Notification;
 
 class TransactionController extends Controller
 {
-    public function makeOrder(Request $request, OrderActions $orderActions)
+    public function purchaseOrder(Request $request, OrderActions $orderActions)
     {
         $transactionData = $response = [];
 
@@ -41,7 +45,6 @@ class TransactionController extends Controller
                 break;
 
             default:
-                # code...
                 break;
         }
 
@@ -55,18 +58,22 @@ class TransactionController extends Controller
 
     public function orangeMoneyStatus(string $transactionnable_id, Request $request)
     {
-        $transaction = Transaction::where('transactionnable_id', $transactionnable_id)->first();
+        $transaction = Transaction::where('transactionnable_id', $transactionnable_id)->with('user')->first();
+        $user = $transaction->user;
+
         $description = json_decode($transaction?->description);
-        
-        file_put_contents('transaction_logs.tsx', [
-            'transactionnable_id' => $transactionnable_id,
-            'transaction' => $transaction,
-            'request' => $request->all(),
-        ]);
 
         if ($description?->notif_token !== $request->notif_token) {
             abort(403);
         }
+
+        Notification::send(
+            $user,
+            new CustomerTransactionNotification($transactionnable_id, $request->status)
+        );
+
+        (new UserActions())
+            ->notifyAdmins(new AdminTransactionNotification($request->status, $user));
 
         $transaction->update([
             'status' => $request->status

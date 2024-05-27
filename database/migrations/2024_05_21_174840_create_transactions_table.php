@@ -18,6 +18,7 @@ return new class extends Migration {
             $table->string('status', 20)->nullable();
             $table->string('method', 20);
             $table->foreignId('user_id');
+            $table->string('type', 10)->default('ORDER');
         });
     }
 

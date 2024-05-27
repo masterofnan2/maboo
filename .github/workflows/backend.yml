@@ -19,8 +19,8 @@ jobs:
       - name: Upload from root dir via FTP
         uses: airvzxf/ftp-deployment-action@latest
         with:
-          server: ${{ secrets.BACKEND_FTP_SERVER }}
-          user: ${{ secrets.BACKEND_FTP_USERNAME }}
-          password: ${{ secrets.BACKEND_FTP_PASSWORD }}
+          server: ${{ secrets.FTP_SERVER }}
+          user: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
           local_dir: "./"
-          remote_dir: "/htdocs"
+          remote_dir: "/domains/maboo-preprod.c1.is/public_html/api"

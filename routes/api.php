@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix('transaction')->controller(TransactionController::class)->group(function () {
     Route::prefix('order')->group(function () {
-        Route::post('make', 'makeOrder');
+        Route::post('make', 'purchaseOrder');
     });
     
     Route::prefix('status')->group(function () {
