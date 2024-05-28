@@ -1,8 +1,8 @@
 import React from "react";
-import SquaredImage from "../../../../../utilities/minitiatures/SquaredImage/SquaredImage";
-import mvola from '../../../../../assets/icons/Mvola.png';
-import orangeMoney from '../../../../../assets/icons/orange-money.jpeg';
-import airtelMoney from '../../../../../assets/icons/airtel-money.png';
+import SquaredImage from "../../../../../../utilities/minitiatures/SquaredImage/SquaredImage";
+import mvola from '../../../../../../assets/icons/Mvola.png';
+import orangeMoney from '../../../../../../assets/icons/orange-money.jpeg';
+import airtelMoney from '../../../../../../assets/icons/airtel-money.png';
 import { AIRTELMONEY, MVOLA, ORANGEMONEY, usePaymentMethod } from "../Order";
 
 const PaymentMethod = React.memo(() => {
@@ -46,6 +46,6 @@ const PaymentMethod = React.memo(() => {
             </label>
         </form>
     </div>
-})
+});
 
 export default PaymentMethod;

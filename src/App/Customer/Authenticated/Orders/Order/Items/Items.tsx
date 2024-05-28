@@ -4,7 +4,7 @@ import SquaredImage from "../../../../../utilities/minitiatures/SquaredImage/Squ
 import ProductMerchant from "../../../../../utilities/minitiatures/ProductMerchant/ProductMerchant";
 import Price from "../../../../../utilities/minitiatures/Price/Price";
 import SmallText from "../../../../../utilities/minitiatures/SmallText/SmallText";
-import { useOrder } from "../Order";
+import { useOrder } from "../Order/Order";
 import { fakeCartItem } from "../../../../../utilities/constants/fakes";
 
 const Items = React.memo(() => {

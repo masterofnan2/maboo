@@ -1,13 +1,13 @@
 import React from "react";
-import Items from "./Items/Items";
+import Items from "../Items/Items";
 import PaymentMethod from "./PaymentMethod/PaymentMethod";
 import OrderSummary from "./OrderSummary/OrderSummary";
-import Loading from "../../../../utilities/minitiatures/Loading/Loading";
+import Loading from "../../../../../utilities/minitiatures/Loading/Loading";
 import { useParams } from "react-router-dom";
-import { getOrder } from "../../../../utilities/api/customer/actions";
-import { useRedirect } from "../../../../utilities/hooks/customer/useRedirect";
-import * as Types from "../../../../utilities/constants/types";
-import Fade from "../../../../utilities/minitiatures/Fade/Fade";
+import { getOrder } from "../../../../../utilities/api/customer/actions";
+import { useRedirect } from "../../../../../utilities/hooks/customer/useRedirect";
+import * as Types from "../../../../../utilities/constants/types";
+import Fade from "../../../../../utilities/minitiatures/Fade/Fade";
 
 export const ORANGEMONEY = "ORANGEMONEY";
 export const MVOLA = "MVOLA";
@@ -55,7 +55,7 @@ const Order = React.memo(() => {
                 .then((response) => {
                     const order = response.data.order as Types.Order;
 
-                    if (order.transaction_id) {
+                    if (order.transaction?.status === "SUCCESS") {
                         redirect();
                     } else {
                         setState(s => ({ ...s, order }));
@@ -76,17 +76,17 @@ const Order = React.memo(() => {
     }, [state.order, getOrderInfo]);
 
     return <OrderContext.Provider value={{ paymentMethod, order: state.order }}>
-        {state.order &&
-            <Fade className="order-container container" show>
-                <div className="col-8">
-                    <PaymentMethod />
-                    <Items />
-                </div>
-                <div className="col-3">
-                    <OrderSummary />
-                </div>
-            </Fade>}
-        {!state.order && <Loading />}
+        <Loading show={!state.order} />
+        <Fade className="order-container container" show={Boolean(state.order)}>
+            <div className="col-8">
+                <PaymentMethod />
+                {state.order &&
+                    <Items order={state.order} />}
+            </div>
+            <div className="col-3">
+                <OrderSummary />
+            </div>
+        </Fade>
     </OrderContext.Provider>
 })
 

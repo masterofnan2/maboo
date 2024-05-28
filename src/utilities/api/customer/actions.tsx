@@ -125,3 +125,11 @@ export const initOrderTransaction = (payload: {
 }) => {
     return axios.post('/transaction/order/make', payload);
 }
+
+export const getAllOrders = () => {
+    return axios.get('/order/all');
+}
+
+export const deleteOrder = (order_id: string) => {
+    return axios.delete(`/order/delete/${order_id}`)
+}

@@ -11,7 +11,7 @@ import { makeOrder } from "../../../../../utilities/api/customer/actions";
 import { useNavigate } from "react-router-dom";
 import useToasts from "../../../../../utilities/minitiatures/Toast/hooks/useToasts";
 import Button from "../../../../../utilities/minitiatures/Button/Button";
-import { refreshCart } from "../../../../../utilities/redux/customer/customerSlice";
+import { refreshAllOrders, refreshCart } from "../../../../../utilities/redux/customer/customerSlice";
 
 const CartSummary = React.memo(() => {
     const { cartItems } = useCartSelection();
@@ -35,7 +35,8 @@ const CartSummary = React.memo(() => {
                 .then(response => {
                     if (response.data?.order_id) {
                         dispatch(refreshCart());
-                        navigate(`/order/${response.data.order_id}`);
+                        dispatch(refreshAllOrders());
+                        navigate(`/orders/order/${response.data.order_id}`);
                     }
                 })
                 .catch(() => {

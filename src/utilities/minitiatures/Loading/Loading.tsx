@@ -2,8 +2,12 @@ import React from "react";
 import { createPortal } from "react-dom";
 import Fade from "../Fade/Fade";
 
-const Loading = React.memo(() => {
-    return createPortal(<Fade className="loading-container" show>
+type Props = {
+    show: boolean,
+}
+
+const Loading = React.memo((props: Props) => {
+    return createPortal(<Fade className="loading-container" show={props.show}>
         <svg
             className="cart"
             role="img"

@@ -42,7 +42,7 @@ const Cart = React.memo(() => {
                 <CartItemsList />
                 <CartSummary />
             </>}
-            {!cart && <Loading />}
+            <Loading show={!cart}/>
         </Fade>
     </CartContext.Provider>
 });

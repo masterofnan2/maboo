@@ -1,6 +1,6 @@
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit"
-import { getAuth, getCart, getCategories, getCategoryProducts, getFeaturedProducts, getProduct } from "../../api/customer/actions";
-import { CartItem, CategoriesHierarchy, Product, User } from "../../constants/types";
+import { getAllOrders, getAuth, getCart, getCategories, getCategoryProducts, getFeaturedProducts, getProduct } from "../../api/customer/actions";
+import { CartItem, CategoriesHierarchy, Order, Product, User } from "../../constants/types";
 
 interface CustomerState {
     auth: User | false | null,
@@ -13,6 +13,12 @@ interface CustomerState {
         [key: string]: Product | undefined,
     },
     cart: CartItem[] | null,
+    orders: {
+        all: Order[] | null,
+        order: {
+            [key: string]: Order,
+        }
+    }
 }
 
 const initialState: CustomerState = {
@@ -22,6 +28,10 @@ const initialState: CustomerState = {
     categoryProducts: {},
     products: {},
     cart: null,
+    orders: {
+        all: null,
+        order: {}
+    }
 }
 
 const customerSlice = createSlice({
@@ -58,6 +68,9 @@ const customerSlice = createSlice({
             })
             .addCase(refreshCart.fulfilled, (state, action: PayloadAction<CartItem[]>) => {
                 state.cart = action.payload;
+            })
+            .addCase(refreshAllOrders.fulfilled, (state, action: PayloadAction<Order[]>) => {
+                state.orders.all = action.payload;
             });
     }
 });
@@ -114,6 +127,14 @@ export const refreshCart = createAsyncThunk(
     async () => {
         const response = await getCart();
         return response.data?.cart;
+    }
+)
+
+export const refreshAllOrders = createAsyncThunk(
+    'customer/refreshAllOrders',
+    async () => {
+        const response = await getAllOrders();
+        return response.data?.orders;
     }
 )
 

@@ -18,7 +18,6 @@ const Search = React.memo(() => {
     const inputRef = React.createRef<HTMLInputElement>();
 
     const toggleShow = React.useCallback(() => setState(s => ({ ...s, show: !s.show })), []);
-    console.log(state.show);
 
     const handleSearch = React.useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
         const { value } = e.target;

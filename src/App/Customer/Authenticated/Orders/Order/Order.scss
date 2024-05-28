@@ -1,5 +1,4 @@
 .order-container {
-    margin-top: 6rem;
     display: flex;
     justify-content: space-between;
 
@@ -8,11 +7,11 @@
     }
 
     .order-section {
-        padding: 2rem 0;
+        padding: 1rem 0;
         border-bottom: 2px solid rgba($dark, .3);
     }
 
     .order-section-title {
-        font-size: 1.8rem;
+        font-size: 1.3rem;
     }
 }

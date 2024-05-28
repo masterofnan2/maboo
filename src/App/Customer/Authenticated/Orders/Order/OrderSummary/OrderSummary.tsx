@@ -1,11 +1,11 @@
 import React from "react";
-import Input from "../../../../../utilities/minitiatures/Input/Input";
-import Button from "../../../../../utilities/minitiatures/Button/Button";
-import Price from "../../../../../utilities/minitiatures/Price/Price";
+import Input from "../../../../../../utilities/minitiatures/Input/Input";
+import Button from "../../../../../../utilities/minitiatures/Button/Button";
+import Price from "../../../../../../utilities/minitiatures/Price/Price";
 import { useOrder, usePaymentMethod } from "../Order";
-import { initOrderTransaction } from "../../../../../utilities/api/customer/actions";
-import useToasts from "../../../../../utilities/minitiatures/Toast/hooks/useToasts";
-import usePagePreloader from "../../../../../utilities/minitiatures/PagePreloader/hooks/usePagePreloader";
+import { initOrderTransaction } from "../../../../../../utilities/api/customer/actions";
+import useToasts from "../../../../../../utilities/minitiatures/Toast/hooks/useToasts";
+import usePagePreloader from "../../../../../../utilities/minitiatures/PagePreloader/hooks/usePagePreloader";
 
 const OrderSummary = React.memo(() => {
     const order = useOrder()!;
@@ -13,7 +13,7 @@ const OrderSummary = React.memo(() => {
     const toasts = useToasts();
     const pagePreloader = usePagePreloader();
 
-    const paymentTax = React.useMemo(() => 2500, []);
+    const paymentTax = React.useMemo(() => 50, []);
 
     const total = React.useMemo(() => (order.total_price + paymentTax), [order.total_price, paymentTax]);
 
@@ -51,7 +51,7 @@ const OrderSummary = React.memo(() => {
             </div>
             <div className="order-detail-item">
                 <h6 className="">Taxes de paiement</h6>
-                <Price amount={2500} />
+                <Price amount={paymentTax} />
             </div>
         </div>
         <div className="order-total">

@@ -15,7 +15,9 @@ import Profile from "../../../App/Customer/Authenticated/User/Profile/Profile";
 import Category from "../../../App/Customer/Category/Category";
 import Product from "../../../App/Customer/Product/Product";
 import Cart from "../../../App/Customer/Authenticated/Cart/Cart";
-import Order from "../../../App/Customer/Authenticated/Order/Order";
+import Orders from "../../../App/Customer/Authenticated/Orders/Orders";
+import All from "../../../App/Customer/Authenticated/Orders/All/All";
+import Order from "../../../App/Customer/Authenticated/Orders/Order/Order";
 
 export default function () {
     return <Routes>
@@ -34,7 +36,10 @@ export default function () {
             </Route>
             <Route element={<Authenticated />} path='/'>
                 <Route element={<Cart />} path="cart" />
-                <Route element={<Order />} path="order/:id" />
+                <Route element={<Orders />} path="orders">
+                    <Route element={<All />} path="all" />
+                    <Route element={<Order />} path="order/:id" />
+                </Route>
                 <Route element={<Auth />} path="auth">
                     <Route element={<Confirmation />} path="confirmation" />
                 </Route>

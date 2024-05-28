@@ -25,7 +25,7 @@ const Product = React.memo(() => {
             <LeftSide />
             <RightSide />
         </>}
-        {!product && <Loading />}
+        <Loading show={!product}/>
     </Fade>
 })
 

@@ -74,6 +74,17 @@ export type OrderItem = {
     cart_item: CartItem,
 }
 
+export type Transaction = {
+    id: number,
+    transactionnable_id: string,
+    user_id: number,
+    created_at: string,
+    updated_at: string,
+    method: string,
+    status: string,
+    type: string,
+}
+
 export type Order = {
     id: string,
     created_at: string,
@@ -82,4 +93,5 @@ export type Order = {
     transaction_id: number | null,
     user_id: number,
     order_items: OrderItem[],
+    transaction: Transaction | null,
 }

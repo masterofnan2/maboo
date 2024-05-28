@@ -99,7 +99,7 @@ const CartItem = React.memo((props: Props) => {
             onChange={handleSelectChange}/>
 
         <SquaredImage
-            image={appImage(cartItem.product.images[0]?.name)} />
+            image={appImage(cartItem.product.images[0]?.name)}/>
 
         <div className="col-3">
             <Link className="product-title" to={`/product/${cartItem.product.slug}`}>

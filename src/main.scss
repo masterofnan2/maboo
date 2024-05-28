@@ -56,11 +56,14 @@
     @import './App/Customer/Authenticated/Cart/CartEmpty/CartEmpty.scss';
     @import './App/Customer/Authenticated/Cart/CartSummary/CartSummary.scss';
     @import './App/Customer/Authenticated/Cart/CartItemsList/CartItemsList.scss';
-    @import './App/Customer/Authenticated/Order/Order.scss';
-    @import './App/Customer/Authenticated/Order/PaymentMethod/PaymentMethod.scss';
-    @import './App/Customer/Authenticated/Order/Items/Items.scss';
-    @import './App/Customer/Authenticated/Order/OrderSummary/OrderSummary.scss';
     @import './App/Customer/Navbar/Search/Search.scss';
+    @import './App/Customer/Authenticated/Orders/Orders.scss';
+    @import './App/Customer/Authenticated/Orders/Order/Order.scss';
+    @import './App/Customer/Authenticated/Orders/Order/PaymentMethod/PaymentMethod.scss';
+    @import './App/Customer/Authenticated/Orders/Items/Items.scss';
+    @import './App/Customer/Authenticated/Orders/Order/OrderSummary/OrderSummary.scss';
+    @import './App/Customer/Authenticated/Orders/OrderItemsGroup/OrderItemsGroup.scss';
+    @import './App/Customer/Authenticated/Orders/EmptyOrders/EmptyOrders.scss';
 }
 
 // Admin
