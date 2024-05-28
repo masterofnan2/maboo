@@ -15,10 +15,9 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        User::factory(10)->create();
+        User::factory(10)->create(['type' => ADMIN]);
         User::factory(10)->create(['type' => SELLER]);
         User::factory(10)->create(['type' => CUSTOMER]);
-        User::factory(10)->create(['type' => ADMIN]);
 
         Category::factory(2)->create();
         Category::factory(4)->create(['parent_id' => 1]);

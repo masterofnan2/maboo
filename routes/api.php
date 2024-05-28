@@ -27,6 +27,8 @@ Route::prefix('search')->controller(SearchController::class)->group(function () 
 Route::prefix('order')->controller(OrderController::class)->middleware('auth:sanctum')->group(function () {
     Route::post('make', 'make');
     Route::get('get/{id}', 'get');
+    Route::get('all', 'all');
+    Route::delete('delete/{id}', 'delete');
 });
 
 Route::prefix('user')->controller(UserController::class)->middleware('auth:sanctum')->group(function () {

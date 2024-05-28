@@ -4,6 +4,7 @@ namespace App\Providers\Helpers;
 
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Storage;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class Helpers
 {
@@ -48,5 +49,10 @@ class Helpers
         return $entries->map(function ($entry) use ($key) {
             return $entry->$key;
         })->toArray();
+    }
+
+    public static function debugVar($variable)
+    {
+        throw new HttpException(300, json_encode($variable));
     }
 }

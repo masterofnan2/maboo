@@ -23,4 +23,4 @@ jobs:
           user: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
           local_dir: "./"
-          remote_dir: "/domains/maboo-preprod.c1.is/public_html/api"
+          remote_dir: "/htdocs/api"

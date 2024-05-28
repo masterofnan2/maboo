@@ -26,8 +26,7 @@
             "Database\\Seeders\\": "database/seeders/"
         },
         "files": [
-            "app/Providers/Helpers/Constants.php",
-            "app/Functions/Functions.php"
+            "app/Providers/Helpers/Constants.php"
         ]
     },
     "autoload-dev": {

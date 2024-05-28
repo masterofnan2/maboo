@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Order;
 use App\Models\Transaction;
 use App\Notifications\Transaction\AdminTransactionNotification;
 use App\Notifications\Transaction\CustomerTransactionNotification;
@@ -20,7 +21,7 @@ class TransactionController extends Controller
         $order_id = $request->order_id;
         $method = $request->method;
 
-        $order = $orderActions->getOrder($order_id);
+        $order = Order::find($order_id);
 
         $transactionData['transactionnable_id'] = $order_id;
         $transactionData['method'] = $method;

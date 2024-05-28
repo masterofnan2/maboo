@@ -80,12 +80,18 @@ class CartActions extends Actions
         return $deleted;
     }
 
+    public function getProductPrice(Model|Product $product, $quantity)
+    {
+        $productPrice = ($product->sale_price > 0 ? $product->sale_price : $product->price);
+        return $productPrice * $quantity;
+    }
+
     public function getRowSubtotal($productId, $quantity): int
     {
         $product = Product::find($productId);
 
         if ($product) {
-            $subtotal = ($product->sale_price > 0 ? $product->sale_price : $product->price) * $quantity;
+            $subtotal = $this->getProductPrice($product, $quantity);
             return $subtotal;
         } else {
             throw ValidationException::withMessages([

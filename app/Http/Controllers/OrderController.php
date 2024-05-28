@@ -32,8 +32,20 @@ class OrderController extends Controller
         }
     }
 
+    public function delete(string $id)
+    {
+        $deleted = Order::find($id)->delete();
+        return response()->json(['deleted' => $deleted]);
+    }
+
     public function get(string $id, OrderActions $orderActions)
     {
-        return response()->json(['order' => $orderActions->getOrder($id)]);
+        return response()->json(['order' => $orderActions->getRefreshedOrder($id)]);
+    }
+
+    public function all()
+    {
+        $orders = Order::where('user_id', Auth::id())->get();
+        return response()->json(['orders' => $orders]);
     }
 }

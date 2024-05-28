@@ -10,14 +10,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class OrderActions extends Actions
 {
-    public function getOrder(string $id)
-    {
-        return Order::find($id);
-    }
 
     public function getUser(string $order_id)
     {
-        $order = $this->getOrder($order_id)->with('user')->first();
+        $order = Order::with('user')->find($order_id);
         return $order->user;
     }
 
@@ -77,7 +73,43 @@ class OrderActions extends Actions
                 $dispatched[$merchant_id] = [$orderItem];
             }
         }
-        
+
         return $dispatched;
     }
-}   
+
+    public function getOrderTotalPrice(Order|int $orderInfo)
+    {
+        $order = $orderInfo;
+        $sum = 0;
+
+        if (gettype($orderInfo) === "integer") {
+            $order = Order::find($orderInfo);
+        }
+
+        $orderItems = $order->order_items;
+        $cartActions = new CartActions();
+
+        foreach ($orderItems as $orderItem) {
+            $cartItem = $orderItem->cart_item;
+            $product = $cartItem->product;
+
+            $subTotal = $cartActions->getProductPrice($product, $cartItem->quantity);
+            $sum += $subTotal;
+        }
+
+        return $sum;
+    }
+
+    public function getRefreshedOrder(string $order_id)
+    {
+        $order = Order::find($order_id);
+        $newTotal = $this->getOrderTotalPrice($order);
+
+        if ($order->total_price !== $newTotal) {
+            $order->total_price = $newTotal;
+            $order->save();
+        }
+
+        return $order;
+    }
+}

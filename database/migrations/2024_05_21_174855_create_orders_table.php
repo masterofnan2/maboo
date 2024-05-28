@@ -16,6 +16,7 @@ return new class extends Migration {
             $table->integer('total_price')->default(0);
             $table->foreignId('transaction_id')->nullable();
             $table->foreignId('user_id');
+            $table->softDeletes();
         });
     }
 
