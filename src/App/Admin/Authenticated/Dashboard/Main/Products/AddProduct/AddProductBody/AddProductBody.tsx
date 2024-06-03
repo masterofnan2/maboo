@@ -161,7 +161,6 @@ const AddProductBody = React.memo((props: Props) => {
                 </label>
 
                 <NumberInput
-                    type="text"
                     placeholder="prix du produit"
                     id="product-price"
                     name="price"
@@ -176,7 +175,6 @@ const AddProductBody = React.memo((props: Props) => {
                 
                 <NumberInput
                     onChange={handleNumberInputChange}
-                    type="text"
                     placeholder="nombre en stock"
                     id="product-instock"
                     name="inStock"
@@ -197,10 +195,8 @@ const AddProductBody = React.memo((props: Props) => {
             <div className="col-5 my-3">
                 <label htmlFor="product-sale-price" className="form-label">Prix de promotion</label>
                 <NumberInput
-                    type="text"
                     name="sale_price"
                     id="product-sale-price"
-                    
                     placeholder="Prix en promotion"
                     aria-describedby="produc-sale-price-help"
                     onChange={handleNumberInputChange}

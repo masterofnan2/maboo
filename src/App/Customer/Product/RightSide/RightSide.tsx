@@ -8,7 +8,9 @@ import Button from "../../../../utilities/minitiatures/Button/Button";
 import DoublePrice from "../../../../utilities/minitiatures/DoublePrice/DoublePrice";
 import ProductMerchant from "../../../../utilities/minitiatures/ProductMerchant/ProductMerchant";
 import Fade from "../../../../utilities/minitiatures/Fade/Fade";
-import { useAddToCart } from "../../../../utilities/api/customer/hooks";
+import { Payload, useAddToCart } from "../../../../utilities/api/customer/hooks";
+import ProductVariants from "./ProductVariants/ProductVariants";
+import { ProductVariant } from "../../../../utilities/constants/types";
 
 const RightSide = React.memo(() => {
 
@@ -16,9 +18,18 @@ const RightSide = React.memo(() => {
     const slug = useParams().slug!;
     const product = useSelector((state: Rootstate) => state.customer.products[slug]!);
 
+    const defaultVariant = React.useMemo(() => {
+        if (product.variants.length > 0) {
+            return product.variants[0];
+        }
+
+        return null;
+    }, [product.variants]) as ProductVariant | null;
+
     const [state, setState] = React.useState({
         count: 1,
         loading: false,
+        variant: defaultVariant,
     });
 
     const handleCountChange = React.useCallback((count: number) => {
@@ -26,15 +37,36 @@ const RightSide = React.memo(() => {
     }, []);
 
     const handleAddToCart = React.useCallback(() => {
+        const payload = {
+            product_id: product.id,
+            quantity: state.count,
+        } as Payload;
+
+        if (state.variant) {
+            payload.product_variant_id = state.variant.id;
+        }
+
         addToCart({
-            payload: {
-                product_id: product.id,
-                quantity: state.count
-            },
+            payload,
             onInit: () => setState(s => ({ ...s, loading: true })),
             onFinally: () => setState(s => ({ ...s, loading: false }))
         })
-    }, [product.id, state.count]);
+    }, [product.id, state.count, state.variant]);
+
+    const price = React.useMemo(() => {
+        const others = state.variant?.price || product.sale_price;
+        const current = others || product.price;
+
+        if (state.count > 1) {
+            return current * state.count;
+        }
+
+        return others || undefined;
+    }, [state.count, state.variant, product.sale_price, product.price]);
+
+    const handleVariantChange = React.useCallback((variant: ProductVariant) => {
+        setState(s => ({ ...s, variant }));
+    }, []);
 
     return <Fade className="right-side-container" show>
         <div className="product-hierarchy">
@@ -49,7 +81,7 @@ const RightSide = React.memo(() => {
 
         <DoublePrice
             firstPrice={product.price}
-            secondPrice={product.sale_price || undefined} />
+            secondPrice={price} />
 
         <div className="d-flex gap-3">
             <CountButton
@@ -64,6 +96,10 @@ const RightSide = React.memo(() => {
                 onClick={handleAddToCart}
                 options={{ loading: state.loading }}><i className="fa fa-cart-plus"></i> Ajouter au panier</Button>
         </div>
+
+        <ProductVariants
+            onChange={handleVariantChange}
+            active={state.variant} />
 
         <div className="product-merchant">
             <h6>Marchand: </h6>

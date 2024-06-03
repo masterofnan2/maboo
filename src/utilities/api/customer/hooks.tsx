@@ -6,11 +6,14 @@ import { refreshCart } from "../../redux/customer/customerSlice";
 import { AppDispatch } from "../../redux/store";
 import { AxiosError } from "axios";
 
+export type Payload = {
+    product_id: number,
+    quantity: number,
+    product_variant_id?: number,
+}
+
 type UseAddToCartProps = {
-    payload: {
-        product_id: number,
-        quantity: number,
-    },
+    payload: Payload,
     onInit?: Function,
     onSuccess?: Function,
     onError?: Function,

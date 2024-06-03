@@ -10,13 +10,13 @@ const Offer2 = React.memo(() => {
         whileInView={{ opacity: 1, transition: { delay: .5 } }}
         className='subscription-item'>
         <div>
-            <div className='subscription-name'>Trimium</div>
+            <div className='subscription-name'>Boo Prestige</div>
             <div className='subscription-price'>200.000 Ariary</div>
         </div>
         <div className="subscription-pack-items">
             <div className='subscription-pack-item'>
                 <Checkbox
-                    label="12 mois d'accès"
+                    label="3 mois d'accès"
                     defaultChecked={true}
                     disabled={true}></Checkbox>
             </div>

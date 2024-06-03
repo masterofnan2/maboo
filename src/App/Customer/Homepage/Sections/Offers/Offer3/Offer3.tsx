@@ -10,7 +10,7 @@ const Offer3 = React.memo(() => {
         whileInView={{ opacity: 1, x: 0, transition: { delay: .5, duration: .5 } }}
         className='subscription-item'>
         <div>
-            <div className='subscription-name'>Premium</div>
+            <div className='subscription-name'>Boo Privilège</div>
             <div className='subscription-price'>150.000 Ariary</div>
         </div>
         <div className="subscription-pack-items">

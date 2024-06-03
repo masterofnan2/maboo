@@ -2,7 +2,6 @@ import React from "react";
 import Input from "../Input/Input";
 
 type Props = {
-    type?: string,
     placeholder?: string,
     id?: string,
     name?: string,
@@ -16,7 +15,7 @@ type Props = {
 }
 
 const NumberInput = React.forwardRef((props: Props, ref: any) => {
-    const { onChange, options, ...inputProps } = props;
+    const { onChange, ...inputProps } = props;
 
     const handleChange = React.useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
         const { value } = e.target;
@@ -33,7 +32,7 @@ const NumberInput = React.forwardRef((props: Props, ref: any) => {
     }, [onChange]);
 
     return <Input
-        options={options}
+        type="text"
         {...inputProps}
         onChange={handleChange}
         ref={ref}

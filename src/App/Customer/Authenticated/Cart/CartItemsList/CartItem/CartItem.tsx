@@ -78,28 +78,28 @@ const CartItem = React.memo((props: Props) => {
     }, [pagePreloader, cartItem.id, toasts.push, cartSelection.setCartItems]);
 
     const ItemSubtotal = React.useMemo(() => {
-        const productPrice = cartItem.product.sale_price || cartItem.product.price;
+        const productPrice = cartItem.product_variant?.price || cartItem.product.sale_price || cartItem.product.price;
         const intendedSubtotal = productPrice * cartItem.quantity;
 
         if (intendedSubtotal !== cartItem.subtotal) {
             return <DoublePrice
                 firstPrice={intendedSubtotal}
                 secondPrice={cartItem.subtotal}
-                className="product-price"/>
+                className="product-price" />
         } else {
             return <Price amount={cartItem.subtotal}
-             className="product-price"/>
+                className="product-price" />
         }
-    }, [cartItem.subtotal, cartItem.quantity, cartItem.product.sale_price, cartItem.product.price]);
+    }, [cartItem]);
 
     return <div className="cart-item">
         <Checkbox
             label=''
             checked={cartSelection.cartItems.some(item => item.id === cartItem.id)}
-            onChange={handleSelectChange}/>
+            onChange={handleSelectChange} />
 
         <SquaredImage
-            image={appImage(cartItem.product.images[0]?.name)}/>
+            image={appImage(cartItem.product.images[0]?.name)} />
 
         <div className="col-3">
             <Link className="product-title" to={`/product/${cartItem.product.slug}`}>
@@ -112,6 +112,8 @@ const CartItem = React.memo((props: Props) => {
                     {cartItem.product.description}
                 </SmallText>
             </p>
+            {cartItem.product_variant &&
+                <div>Variant: <span className="bold">{cartItem.product_variant.name}</span></div>}
         </div>
 
         {ItemSubtotal}
@@ -120,7 +122,7 @@ const CartItem = React.memo((props: Props) => {
             count={newQuantity || cartItem.quantity}
             onChange={handleQuantityChange}
             max={cartItem.product.inStock}
-            className="col-2"/>
+            className="col-2" />
 
         <Button
             type="button"

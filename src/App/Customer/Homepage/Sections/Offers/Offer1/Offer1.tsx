@@ -8,7 +8,7 @@ const Offer1 = React.memo(() => {
         whileInView={{ opacity: 1, x: 0, transition: { delay: .5, duration: .5 } }}
         className='subscription-item'>
         <div>
-            <div className='subscription-name'>Discovery <small>(actuel)</small></div>
+            <div className='subscription-name'>Boo Essentiel <small>(actuel)</small></div>
             <div className='subscription-price'>Essai gratuit en 1 mois</div>
         </div>
         <div className='subscription-pack-items'>

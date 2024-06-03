@@ -1,11 +1,11 @@
 import React from "react";
-import appImage from "../../../../../utilities/helpers/appImage";
-import SquaredImage from "../../../../../utilities/minitiatures/SquaredImage/SquaredImage";
-import ProductMerchant from "../../../../../utilities/minitiatures/ProductMerchant/ProductMerchant";
-import Price from "../../../../../utilities/minitiatures/Price/Price";
-import SmallText from "../../../../../utilities/minitiatures/SmallText/SmallText";
-import { useOrder } from "../Order/Order";
-import { fakeCartItem } from "../../../../../utilities/constants/fakes";
+import appImage from "../../../../../../utilities/helpers/appImage";
+import SquaredImage from "../../../../../../utilities/minitiatures/SquaredImage/SquaredImage";
+import ProductMerchant from "../../../../../../utilities/minitiatures/ProductMerchant/ProductMerchant";
+import Price from "../../../../../../utilities/minitiatures/Price/Price";
+import SmallText from "../../../../../../utilities/minitiatures/SmallText/SmallText";
+import { useOrder } from "../../Order/Order";
+import { fakeCartItem } from "../../../../../../utilities/constants/fakes";
 
 const Items = React.memo(() => {
     const order = useOrder()!;

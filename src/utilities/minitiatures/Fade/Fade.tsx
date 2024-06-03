@@ -7,6 +7,7 @@ type Props = {
     className?: string,
     id?: string,
     layout?: boolean,
+    onClick?: () => void,
 };
 
 const variants = {

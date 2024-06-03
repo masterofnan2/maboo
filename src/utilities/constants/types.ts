@@ -28,10 +28,29 @@ export type CategoriesHierarchy = {
     children: CategoriesHierarchy
 }[];
 
-export type Product_Image = {
+export type ProductImage = {
     id: number,
     name: string,
     product_id: number,
+    created_at: string,
+    updated_at: string,
+}
+
+export type ProductVariant = {
+    id: number,
+    image: string,
+    name: string,
+    price: number,
+    product_id: number,
+    created_at: string,
+    updated_at: string,
+}
+
+export type ProductColor = {
+    id: number,
+    code: string,
+    name: string,
+    product_id: string,
     created_at: string,
     updated_at: string,
 }
@@ -45,7 +64,9 @@ export type Product = {
     price: number,
     sale_price: number,
     category_id: number,
-    images: Product_Image[],
+    variants: ProductVariant[],
+    colors: ProductColor[],
+    images: ProductImage[],
     category: Category | null,
     inStock: number,
     slug: string,
@@ -63,6 +84,7 @@ export type CartItem = {
     quantity: number,
     product: Product,
     subtotal: number,
+    product_variant: ProductVariant | null,
 }
 
 export type OrderItem = {

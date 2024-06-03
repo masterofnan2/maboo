@@ -59,7 +59,9 @@ const DeleteProduct = React.memo(() => {
         <Modal.Body>
             <div className="on-deleting-products d-flex flex-column gap-2">
                 {onDelete.current?.map((product) => {
-                    return <div className="product-item d-flex gap-3 align-items-center">
+                    return <div
+                        className="product-item d-flex gap-3 align-items-center"
+                        key={product.id}>
                         <Checkbox
                             label=''
                             checked

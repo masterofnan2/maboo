@@ -229,7 +229,6 @@ const EditProductBody = React.memo(() => {
                     Prix du produit *
                 </label>
                 <NumberInput
-                    type="text"
                     placeholder="prix du produit"
                     id="product-price"
                     name="price"
@@ -242,7 +241,6 @@ const EditProductBody = React.memo(() => {
                 <label htmlFor="product-instock">Nombre en stock *</label>
                 <NumberInput
                     onChange={handleNumberInputChange}
-                    type="text"
                     placeholder="nombre en stock"
                     id="product-instock"
                     name="inStock"
@@ -264,7 +262,6 @@ const EditProductBody = React.memo(() => {
             <div className="col-5 my-3">
                 <label htmlFor="product-sale-price" className="form-label">Prix de promotion</label>
                 <NumberInput
-                    type="text"
                     name="sale_price"
                     id="product-sale-price"
                     placeholder="Prix en promotion"

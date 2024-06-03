@@ -10,6 +10,7 @@ import { GlobalsContext } from "../../globals/GlobalsProvider";
 import { useSelector } from "react-redux";
 import { Rootstate } from "../../redux/store";
 import useUserType from "../../hooks/useUserType";
+import CategoriesEmpty from "../../../App/Admin/Authenticated/Dashboard/Main/Categories/CategoriesEmpty/CategoriesEmpty";
 
 type OnFinish = (selected: Category | null) => void;
 
@@ -63,11 +64,11 @@ const CategorySelect = React.memo(() => {
         }
     }, [open]);
 
-    if (categories && categories.length > 0) {
-        return <Modal show={show} onHide={handleFinish} centered size="lg" className="category-select-container">
-            <Modal.Header closeButton>
-                <Modal.Title>Séléctionner une catégorie</Modal.Title>
-            </Modal.Header>
+    return <Modal show={show} onHide={handleFinish} centered size="lg" className="category-select-container nth-modal">
+        <Modal.Header closeButton>
+            <Modal.Title>Séléctionner une catégorie</Modal.Title>
+        </Modal.Header>
+        {(categories && categories.length > 0) &&
             <Modal.Body as='ul'>
                 <li>
                     <input type="radio" name="category" id="not-assigned" onChange={() => handleChange(null)} defaultChecked={!defaultCheckedId} />
@@ -90,16 +91,19 @@ const CategorySelect = React.memo(() => {
                     }
                 })}
             </Modal.Body>
-            <Modal.Footer>
-                <Button
-                    type="button"
-                    className="btn btn-primary"
-                    onClick={handleFinish}>
-                    <i className="fa fa-check"></i> Séléctionner
-                </Button>
-            </Modal.Footer>
-        </Modal>
-    }
+        }
+        {categories && categories.length === 0 && <Modal.Body>
+            <CategoriesEmpty />
+        </Modal.Body>}
+        <Modal.Footer>
+            <Button
+                type="button"
+                className="btn btn-primary"
+                onClick={handleFinish}>
+                <i className="fa fa-check"></i> Séléctionner
+            </Button>
+        </Modal.Footer>
+    </Modal>
 });
 
 export default CategorySelect;

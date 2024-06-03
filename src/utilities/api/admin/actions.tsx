@@ -1,4 +1,6 @@
 import { EditProductData } from "../../../App/Admin/Authenticated/Dashboard/Main/Products/EditProduct/EditProductBody/EditProductBody";
+import { EditProductColorData } from "../../../App/Admin/Authenticated/Dashboard/Main/Products/ProductColor/ColorsList/ColorItem/Edit/Edit";
+import { EditProductVariantData } from "../../../App/Admin/Authenticated/Dashboard/Main/Products/ProductVariant/VariantsList/VariantItem/Edit/Edit";
 import toFormData from "../../helpers/toFormData";
 import AppAxios from "../AppAxios";
 
@@ -162,4 +164,51 @@ export const getAdminRequests = () => {
 
 export const validateUser = (ids: number[]) => {
     return axios.post('/admin/user/validate', { ids });
+}
+
+export const createProductVariant = (payload: {
+    image: File,
+    name: string,
+    product_id: number,
+    price?: number,
+}) => {
+    return axios.payloadHasFile().post('/product/variant/create', toFormData(payload))
+}
+
+export const deleteProductVariants = (ids: number[]) => {
+    return axios.post('/product/variant/delete', { ids });
+}
+
+export const updateProductVariant = (id: number, payload: EditProductVariantData) => {
+    let data = { ...payload } as EditProductVariantData | FormData;
+
+    if (payload.image) {
+        data = toFormData(payload);
+        axios.payloadHasFile();
+    }
+
+    return axios.post(`/product/variant/update/${id}`, data);
+}
+
+export const createProductColor = (payload: {
+    name: string,
+    product_id: number,
+    code?: string,
+}) => {
+    return axios.payloadHasFile().post('/product/color/create', toFormData(payload))
+}
+
+export const deleteProductColors = (ids: number[]) => {
+    return axios.post('/product/color/delete', { ids });
+}
+
+export const updateProductColor = (id: number, payload: EditProductColorData) => {
+    let data = { ...payload } as EditProductColorData | FormData;
+
+    if (payload.image) {
+        data = toFormData(payload);
+        axios.payloadHasFile();
+    }
+
+    return axios.post(`/product/color/update/${id}`, data);
 }

@@ -73,4 +73,5 @@ export const fakeOrder: Order = {
     transaction_id: null,
     created_at: isoString,
     updated_at: isoString,
+    transaction: null,
 }

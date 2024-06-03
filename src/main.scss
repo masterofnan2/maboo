@@ -23,6 +23,8 @@
 @import './utilities/minitiatures/Price/Price.scss';
 @import './utilities/minitiatures/CountButton/CountButton.scss';
 @import './utilities/minitiatures/Loading/Loading.scss';
+@import './utilities/minitiatures/ColorBubble/ColorBubble.scss';
+@import './utilities/minitiatures/ImagePreview/ImagePreview.scss';
 
 
 // --------------------------------------------Components------------------------------------------
@@ -64,6 +66,7 @@
     @import './App/Customer/Authenticated/Orders/Order/OrderSummary/OrderSummary.scss';
     @import './App/Customer/Authenticated/Orders/OrderItemsGroup/OrderItemsGroup.scss';
     @import './App/Customer/Authenticated/Orders/EmptyOrders/EmptyOrders.scss';
+    @import './App/Customer/Product/RightSide/ProductVariants/ProductVariants.scss';
 }
 
 // Admin
@@ -81,7 +84,7 @@
     @import './App/Admin/Authenticated/Dashboard/Navbar/Search/Search.scss';
 }
 
-// CreatePortals 
+// Portals 
 
 // ---------------------------------------------- Admin ----------------------------------------------
 
@@ -96,6 +99,9 @@
 @import './App/Admin/Authenticated/Dashboard/Main/Products/AddImages/AddImages.scss';
 @import './App/Admin/Authenticated/Dashboard/Main/Products/AddProduct/AddProduct.scss';
 @import './App/Admin/Authenticated/Dashboard/Main/Products/AddProduct/AddProductBody/AddProductBody.scss';
+@import './App/Admin/Authenticated/Dashboard/Main/Products/ProductVariant/ProductVariant.scss';
+@import './App/Admin/Authenticated/Dashboard/Main/Products/ProductColor/ProductColor.scss';
+
 
 
 // -----------------------------------------------Customer -------------------------------------------

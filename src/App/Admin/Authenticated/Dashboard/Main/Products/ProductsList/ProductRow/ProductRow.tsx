@@ -4,7 +4,7 @@ import RoundedImage from "../../../../../../../../utilities/minitiatures/Rounded
 import SmallText from "../../../../../../../../utilities/minitiatures/SmallText/SmallText";
 import appImage from "../../../../../../../../utilities/helpers/appImage";
 import { Dropdown } from "react-bootstrap";
-import { useDeleteProduct, useEditProduct } from "../../Products";
+import { useColor, useDeleteProduct, useEditProduct, useVariant } from "../../Products";
 import Checkbox from "../../../../../../../../utilities/minitiatures/Checkbox/Checkbox";
 import Price from "../../../../../../../../utilities/minitiatures/Price/Price";
 
@@ -20,6 +20,8 @@ const ProductRow = (props: Props) => {
     const { product, addToSelected, removeFromSelected, selected, toggleSelected } = props;
     const { setCurrent } = useEditProduct();
     const onDelete = useDeleteProduct();
+    const variant = useVariant();
+    const color = useColor();
 
     const handleSelect = React.useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
         const { checked } = e.target;
@@ -56,7 +58,7 @@ const ProductRow = (props: Props) => {
             </SmallText>
         </td>
         <td>
-            <Price amount={product.price}/>
+            <Price amount={product.price} />
         </td>
         <td>
             {new Date(product.created_at).toLocaleDateString()}
@@ -80,6 +82,12 @@ const ProductRow = (props: Props) => {
                     <Dropdown.Item
                         onClick={() => setCurrent(product)}>
                         <i className="fa fa-pencil"></i> Modifier
+                    </Dropdown.Item>
+                    <Dropdown.Item onClick={() => variant.setCurrent(product)}>
+                        <i className="fa-light fa-table"></i> variants
+                    </Dropdown.Item>
+                    <Dropdown.Item onClick={() => color.setCurrent(product)}>
+                        <i className="fa-solid fa-droplet"></i> Couleurs
                     </Dropdown.Item>
                     <Dropdown.Item
                         className="text-danger"
