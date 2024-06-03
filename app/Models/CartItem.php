@@ -30,12 +30,12 @@ class CartItem extends Model
 
     public function product_color()
     {
-        return $this->belongsTo(ProductColor::class, 'product_color_id');
+        return $this->belongsTo(ProductColor::class);
     }
 
     public function product_variant()
     {
-        return $this->belongsTo(ProductVariant::class, 'product_variant_id');
+        return $this->belongsTo(ProductVariant::class);
     }
 
     protected static function booted(): void

@@ -4,7 +4,9 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\Customer\CartController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\ProductColorController;
 use App\Http\Controllers\ProductsController;
+use App\Http\Controllers\ProductVariantController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\UserController;
@@ -14,7 +16,7 @@ Route::prefix('transaction')->controller(TransactionController::class)->group(fu
     Route::prefix('order')->group(function () {
         Route::post('make', 'purchaseOrder');
     });
-    
+
     Route::prefix('status')->group(function () {
         Route::post('orange-money/:transactionnable_id', 'orangeMoneyStatus');
     });
@@ -55,21 +57,36 @@ Route::prefix('cart')->controller(CartController::class)->middleware('auth:sanct
     Route::post('delete', 'delete');
 });
 
-Route::prefix('product')->controller(ProductsController::class)->group(function () {
-    Route::middleware('auth:sanctum')->group(function () {
-        Route::post('/create', 'create');
-        Route::post('/update', 'update');
-        Route::post('/cancel-update', 'cancelUpdate');
-        Route::post('/delete', 'delete');
+Route::prefix('product')->group(function () {
+    Route::controller(ProductsController::class)->group(function () {
+        Route::middleware('auth:sanctum')->group(function () {
+            Route::post('/create', 'create');
+            Route::post('/update', 'update');
+            Route::post('/cancel-update', 'cancelUpdate');
+            Route::post('/delete', 'delete');
 
-        Route::prefix('image')->group(function () {
-            Route::delete('/delete/{id}', 'deleteImage');
+            Route::prefix('image')->group(function () {
+                Route::delete('/delete/{id}', 'deleteImage');
+            });
         });
+
+        Route::get('/get/{slug}', 'get');
+        Route::get('/featured', 'featured');
     });
 
-    Route::get('/get/{slug}', 'get');
-    Route::get('/featured', 'featured');
+    Route::prefix('variant')->controller(ProductVariantController::class)->middleware('auth:sanctum')->group(function () {
+        Route::post('create', 'create');
+        Route::post('delete', 'delete');
+        Route::post('update/{id}', 'update');
+    });
+
+    Route::prefix('color')->controller(ProductColorController::class)->middleware('auth:sanctum')->group(function () {
+        Route::post('create', 'create');
+        Route::post('delete', 'delete');
+        Route::post('update/{id}', 'update');
+    });
 });
+
 
 Route::prefix('auth')->controller(AuthController::class)->group(function () {
     Route::middleware('auth:sanctum')->group(function () {

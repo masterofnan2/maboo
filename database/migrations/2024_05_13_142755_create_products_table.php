@@ -23,7 +23,7 @@ return new class extends Migration {
             $table->float('sale_price')->default(0);
         });
 
-        Schema::create('products_images', function (Blueprint $table) {
+        Schema::create('product_images', function (Blueprint $table) {
             $table->id();
             $table->string('name');
             $table->foreignId('product_id');
@@ -31,18 +31,20 @@ return new class extends Migration {
             $table->timestamps();
         });
 
-        Schema::create('products_colors', function (Blueprint $table) {
+        Schema::create('product_colors', function (Blueprint $table) {
             $table->id();
-            $table->string('code');
+            $table->string('code', 10);
+            $table->string('name', 20);
             $table->foreignId('product_id');
             $table->timestamps();
         });
 
-        Schema::create('products_variants', function (Blueprint $table) {
+        Schema::create('product_variants', function (Blueprint $table) {
             $table->id();
             $table->string('image')->nullable();
             $table->string('name');
             $table->float('price')->default(0);
+            $table->smallInteger('inStock')->default(0);
             $table->foreignId('product_id');
             $table->timestamps();
         });
@@ -54,8 +56,8 @@ return new class extends Migration {
     public function down(): void
     {
         Schema::dropIfExists('products');
-        Schema::dropIfExists('products_images');
-        Schema::dropIfExists('products_colors');
-        Schema::dropIfExists('products_variants');
+        Schema::dropIfExists('product_images');
+        Schema::dropIfExists('product_colors');
+        Schema::dropIfExists('product_variants');
     }
 };

@@ -1,19 +1,20 @@
 <?php
 
-namespace App\Http\Requests\Cart;
+namespace App\Http\Requests\ProductVariant;
 
-use App\Models\CartItem;
+use App\Models\ProductVariant;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rules\File;
 
-class AddToCartRequest extends FormRequest
+class UpdateProductVariantRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return Auth::user()->can('create', CartItem::class);
+        return true;
     }
 
     /**
@@ -24,9 +25,9 @@ class AddToCartRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'product_id' => 'required|exists:products,id',
-            'product_variant_id' => 'nullable|exists:product_variants,id',
-            'quantity' => 'required|numeric|min:1',
+            'name' => ['bail', 'nullable', 'min:2', 'max:20'],
+            'image' => ['bail', 'nullable', File::image()],
+            'price' => ['bail', 'nullable', 'numeric', 'max:999999999'],
         ];
     }
 }

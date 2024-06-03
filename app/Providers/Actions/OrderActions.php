@@ -93,7 +93,10 @@ class OrderActions extends Actions
             $cartItem = $orderItem->cart_item;
             $product = $cartItem->product;
 
-            $subTotal = $cartActions->getProductPrice($product, $cartItem->quantity);
+            $subTotal = $cartActions->getProductPrice($product, [
+                'quantity' => $cartItem->quantity,
+                'product_variant_id' => $cartItem->product_variant_id,
+            ]);
             $sum += $subTotal;
         }
 

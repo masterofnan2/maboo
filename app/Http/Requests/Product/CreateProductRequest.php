@@ -42,7 +42,7 @@ class CreateProductRequest extends FormRequest
     public function prepareForValidation()
     {
         $this->merge([
-            'slug' => Str::slug($this->title),
+            'slug' => Str::random() . Str::slug($this->title),
             'title' => $this->title ? Helpers::capitalizeWords($this->title) : '',
             'user_id' => Auth::id(),
         ]);

@@ -53,6 +53,6 @@ class Helpers
 
     public static function debugVar($variable)
     {
-        throw new HttpException(300, json_encode($variable));
+        throw new HttpException(300, json_encode(['variable' => $variable]));
     }
 }
