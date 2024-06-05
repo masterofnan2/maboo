@@ -20,6 +20,7 @@ import { ProductVariant } from "../../../../../../../../../../utilities/constant
 type Edits = {
     name: string,
     price: number | '',
+    inStock: number | '',
     image: Image,
 }
 
@@ -27,11 +28,13 @@ export type EditProductVariantData = {
     name?: string,
     price?: number,
     image?: File,
+    inStock?: number,
 }
 
 type ValidationMessages = {
     name?: string,
     price?: string,
+    inStock?: string,
 }
 
 const DEFAULT_EDIT_IMAGE: Image = {
@@ -42,6 +45,7 @@ const DEFAULT_EDIT_IMAGE: Image = {
 const DEFAULT_EDITS: Edits = {
     name: '',
     price: '',
+    inStock: '',
     image: { ...DEFAULT_EDIT_IMAGE },
 }
 
@@ -70,13 +74,33 @@ const Edit = React.memo((props: PartialsProps) => {
         setState(s => ({ ...s, edits: { ...s.edits, name: value } }));
     }, []);
 
-    const handlePriceChange = React.useCallback((price: number | '') => {
-        setState(s => ({ ...s, edits: { ...s.edits, price } }));
+    const handleNumberChange = React.useCallback((value: number | '', e: React.ChangeEvent<HTMLInputElement>) => {
+        const { name } = e.target;
+        console.log(name, value);
+
+        switch (name) {
+            case 'product_variant_price':
+                setState(s => ({ ...s, edits: { ...s.edits, price: value } }));
+
+                break;
+
+            case 'product_variant_in_stock':
+                setState(s => ({ ...s, edits: { ...s.edits, inStock: value } }));
+                break;
+
+            default:
+                break;
+        }
     }, []);
 
     const handleSubmit = React.useCallback(() => {
         const { image, ...newData } = state.edits;
-        let edited: EditProductVariantData | null = changedDataOnly(newData, { name: variant.name, price: variant.price });
+
+        let edited: EditProductVariantData | null = changedDataOnly(newData, {
+            name: variant.name,
+            price: variant.price,
+            inStock: variant.inStock,
+        });
 
         if (image.imageData) {
             if (edited) {
@@ -102,7 +126,7 @@ const Edit = React.memo((props: PartialsProps) => {
                                 newVariant,
                                 contextVariant.current.variants)
                         }
-                        
+
                         contextVariant.setCurrent(newProduct)
                     }
 
@@ -147,6 +171,7 @@ const Edit = React.memo((props: PartialsProps) => {
         newEdits.name = variant.name;
         newEdits.price = variant.price;
         newEdits.image.imageUrl = appImage(variant.image);
+        newEdits.inStock = variant.inStock;
 
         setState(s => ({ ...s, edits: newEdits }))
     }, [variant]);
@@ -171,8 +196,16 @@ const Edit = React.memo((props: PartialsProps) => {
         <td className="variant-item-price">
             <NumberInput
                 value={state.edits.price.toLocaleString()}
-                onChange={handlePriceChange}
-                options={{ error: state.validationMessages?.price }} />
+                onChange={handleNumberChange}
+                options={{ error: state.validationMessages?.price }}
+                name="product_variant_price" />
+        </td>
+        <td className="variant-item-instock">
+            <NumberInput
+                value={state.edits.inStock.toLocaleString()}
+                onChange={handleNumberChange}
+                options={{ error: state.validationMessages?.inStock }}
+                name="product_variant_in_stock" />
         </td>
         <td>
             <Dropdown className="actions-dropdown">

@@ -5,11 +5,13 @@ import SquaredImage from "../../../../../../../../../../utilities/minitiatures/S
 import Price from "../../../../../../../../../../utilities/minitiatures/Price/Price";
 import { Dropdown } from "react-bootstrap";
 import appImage from "../../../../../../../../../../utilities/helpers/appImage";
+import toFormatedString from "../../../../../../../../../../utilities/helpers/toFormatedString";
 
 const Default = React.memo((props: PartialsProps) => {
     const { variant, toggleEditMode } = props;
     const deleteProductVariants = useDeleteProductVariant();
-
+    console.log(variant);
+    
     return <>
         <td>
             <SquaredImage
@@ -21,6 +23,9 @@ const Default = React.memo((props: PartialsProps) => {
         </td>
         <td className="variant-item-price">
             <Price amount={variant.price} />
+        </td>
+        <td>
+            {toFormatedString(variant.inStock)}
         </td>
         <td>
             <Dropdown className="actions-dropdown">

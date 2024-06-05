@@ -40,7 +40,9 @@ export const fakeProduct: Product = {
     slug: 'product-deleted',
     title: 'Produit supprimé',
     category: fakeCategory,
-    merchant: fakeUser
+    merchant: fakeUser,
+    variants: [],
+    colors: [],
 }
 
 export const fakeCartItem: CartItem = {
@@ -54,6 +56,7 @@ export const fakeCartItem: CartItem = {
     subtotal: 0,
     updated_at: isoString,
     user_id: 0,
+    product_variant: null,
 }
 
 export const fakeOrderItem: OrderItem = {

@@ -17,6 +17,7 @@ const VariantsList = React.memo(() => {
                         <th className="col-3"></th>
                         <th className="col-3">Nom</th>
                         <th className="col-3">Prix</th>
+                        <th className="col-3">En stock</th>
                         <th className="col-1"></th>
                     </tr>
                 </thead>

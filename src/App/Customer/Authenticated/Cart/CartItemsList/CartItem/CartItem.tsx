@@ -92,6 +92,14 @@ const CartItem = React.memo((props: Props) => {
         }
     }, [cartItem]);
 
+    const image = React.useMemo(() => {
+        if (cartItem.product_variant) {
+            return appImage(cartItem.product_variant.image);
+        }
+
+        return appImage(cartItem.product.images[0]?.name)
+    }, []);
+
     return <div className="cart-item">
         <Checkbox
             label=''
@@ -99,7 +107,7 @@ const CartItem = React.memo((props: Props) => {
             onChange={handleSelectChange} />
 
         <SquaredImage
-            image={appImage(cartItem.product.images[0]?.name)} />
+            image={image} />
 
         <div className="col-3">
             <Link className="product-title" to={`/product/${cartItem.product.slug}`}>

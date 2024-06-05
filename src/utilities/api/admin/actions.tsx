@@ -171,6 +171,7 @@ export const createProductVariant = (payload: {
     name: string,
     product_id: number,
     price?: number,
+    inStock: number,
 }) => {
     return axios.payloadHasFile().post('/product/variant/create', toFormData(payload))
 }
@@ -203,12 +204,5 @@ export const deleteProductColors = (ids: number[]) => {
 }
 
 export const updateProductColor = (id: number, payload: EditProductColorData) => {
-    let data = { ...payload } as EditProductColorData | FormData;
-
-    if (payload.image) {
-        data = toFormData(payload);
-        axios.payloadHasFile();
-    }
-
-    return axios.post(`/product/color/update/${id}`, data);
+    return axios.post(`/product/color/update/${id}`, payload);
 }

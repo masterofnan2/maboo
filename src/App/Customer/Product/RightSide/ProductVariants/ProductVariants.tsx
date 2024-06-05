@@ -26,6 +26,14 @@ const ProductVariants = React.memo((props: Props) => {
         setState(s => ({ ...s, preview }));
     }, []);
 
+    const handleChange = React.useCallback((variant: ProductVariant) => {
+        variant.inStock > 0 && onChange(variant);
+    }, [onChange]);
+
+    const handleClick = React.useCallback((variant_id: number, imageUrl?: string) => {
+        (active?.id === variant_id && imageUrl) && setPreview(imageUrl);
+    }, [active]);
+
     if (product.variants?.length > 0) {
         return <>
             <h6>Variant: <span className="variant-name">{active?.name}</span></h6>
@@ -41,11 +49,12 @@ const ProductVariants = React.memo((props: Props) => {
                             id={`variant-input-${variant.id}`}
                             name="product-variant"
                             checked={checked}
-                            onChange={() => onChange(variant)} />
+                            onChange={() => handleChange(variant)}
+                            disabled={variant.inStock === 0} />
 
                         <label
                             htmlFor={`variant-input-${variant.id}`}
-                            onClick={() => setPreview(imageUrl || '')}>
+                            onClick={() => handleClick(variant.id, imageUrl)}>
 
                             <SquaredImage
                                 image={imageUrl}

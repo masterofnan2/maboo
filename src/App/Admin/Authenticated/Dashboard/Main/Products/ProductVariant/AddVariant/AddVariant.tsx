@@ -19,6 +19,7 @@ type Payload = {
     price?: number,
     image?: string,
     product_id?: number,
+    inStock?: number,
 }
 
 type FormInputData = {
@@ -31,12 +32,13 @@ const DEFAULT_IMAGE: Image = {
     imageData: null
 }
 
-const DEFAULT_PRICE = '' as number | '';
+const Number = '' as number | '';
 
 const DEFAULT_STATE = {
     image: DEFAULT_IMAGE,
-    price: DEFAULT_PRICE,
+    price: Number,
     name: '',
+    inStock: Number,
     loading: false,
     validationMessages: null as Payload | null
 }
@@ -56,8 +58,22 @@ const AddVariant = React.memo(() => {
         setState(s => ({ ...s, image: DEFAULT_IMAGE }))
     }, []);
 
-    const handlePriceChange = React.useCallback((price: number | '') => {
-        setState(s => ({ ...s, price }));
+    const handleNumberChange = React.useCallback((value: number | '', e: React.ChangeEvent<HTMLInputElement>) => {
+        const { name } = e.target;
+
+        switch (name) {
+            case 'product_variant_price':
+                setState(s => ({ ...s, price: value }));
+
+                break;
+
+            case 'product_variant_inStock':
+                setState(s => ({ ...s, inStock: value }));
+                break;
+
+            default:
+                break;
+        }
     }, []);
 
     const handleNameChange = React.useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
@@ -65,7 +81,10 @@ const AddVariant = React.memo(() => {
         setState(s => ({ ...s, name: value }));
     }, []);
 
-    const allowed = React.useMemo(() => Boolean(state.image.imageData && state.name), [state.image.imageData, state.name]);
+    const allowed = React.useMemo(() => Boolean(
+        state.image.imageData &&
+        state.name &&
+        state.inStock), [state]);
 
     const handleSubmit = React.useCallback((e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -90,6 +109,7 @@ const AddVariant = React.memo(() => {
             const payload = {
                 name: state.name,
                 price: state.price || 0,
+                inStock: state.inStock || 1,
                 image: state.image.imageData!,
                 product_id: current.id,
             }
@@ -159,7 +179,7 @@ const AddVariant = React.memo(() => {
         <div className="mb-3">
             <label htmlFor="price" className="form-label">Prix du variant</label>
             <NumberInput
-                onChange={handlePriceChange}
+                onChange={handleNumberChange}
                 value={state.price.toLocaleString()}
                 className="add-variant-price"
                 name="product_variant_price"
@@ -169,6 +189,22 @@ const AddVariant = React.memo(() => {
                 options={{ error: state.validationMessages?.price }} />
 
             <small id="add-variant-price-help" className="text-muted">Si défini, ce prix sera le prix du produit affiché</small>
+        </div>
+
+        <div className="mb-3">
+            <label htmlFor="inStock" className="form-label">Nombre en stock *</label>
+            <NumberInput
+                onChange={handleNumberChange}
+                value={state.inStock.toLocaleString()}
+                className="add-variant-inStock"
+                name="product_variant_inStock"
+                id="inStock"
+                placeholder="Prix du variant"
+                aria-describedby="add-variant-inStock-help"
+                options={{ error: state.validationMessages?.inStock }}
+                required />
+
+            <small id="add-variant-inStock-help" className="text-muted">Le nombre de stock pour ce variant</small>
         </div>
 
         <div className="add-product-variant-action">

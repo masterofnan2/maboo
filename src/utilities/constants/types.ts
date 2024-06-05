@@ -44,6 +44,7 @@ export type ProductVariant = {
     product_id: number,
     created_at: string,
     updated_at: string,
+    inStock: number,
 }
 
 export type ProductColor = {
