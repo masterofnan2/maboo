@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\Transaction\OrderConfirmedEvent;
 use App\Models\Order;
+use App\Models\CartItem;
+use App\Models\SoldItem;
 use App\Models\Transaction;
 use App\Notifications\Transaction\AdminTransactionNotification;
 use App\Notifications\Transaction\CustomerTransactionNotification;
@@ -14,6 +17,7 @@ use Illuminate\Support\Facades\Notification;
 
 class TransactionController extends Controller
 {
+
     public function purchaseOrder(Request $request, OrderActions $orderActions)
     {
         $transactionData = $response = [];
@@ -75,6 +79,16 @@ class TransactionController extends Controller
 
         (new UserActions())
             ->notifyAdmins(new AdminTransactionNotification($request->status, $user));
+
+        switch ($transaction->type) {
+            case Transaction::$TRANSACTION_TYPE_ORDER:
+                event(new OrderConfirmedEvent(Order::find($transactionnable_id)));
+                break;
+
+            default:
+                # code...
+                break;
+        }
 
         $transaction->update([
             'status' => $request->status

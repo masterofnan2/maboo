@@ -28,6 +28,7 @@ class UpdateProductVariantRequest extends FormRequest
             'name' => ['bail', 'nullable', 'min:2', 'max:20'],
             'image' => ['bail', 'nullable', File::image()],
             'price' => ['bail', 'nullable', 'numeric', 'max:999999999'],
+            'inStock' => ['bail', 'nullable', 'numeric', 'max:999'],
         ];
     }
 }

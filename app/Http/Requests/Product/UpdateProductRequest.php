@@ -44,7 +44,6 @@ class UpdateProductRequest extends FormRequest
         $merge = [];
 
         if ($this->title) {
-            $merge['slug'] = Str::slug($this->title);
             $merge['title'] = Helpers::capitalizeWords($this->title);
         }
 

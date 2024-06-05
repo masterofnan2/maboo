@@ -53,7 +53,7 @@ class ProductVariantController extends Controller
         if (!Auth::user()->can('update', $productVariant))
             abort('403');
 
-        $data = $request->only('name', 'price');
+        $data = $request->only('name', 'price', 'inStock');
 
         if ($request->hasFile('image')) {
             if ($productVariant->image)

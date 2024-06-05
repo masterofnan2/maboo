@@ -20,19 +20,16 @@ class CategoryActions
         return $path;
     }
 
-    public function getHierarchy(?int $id = null)
+    public function getHierarchy(?int $id = null): array
     {
         $categories = Category::where('parent_id', $id ?? null)->get();
-        $hierarchy = [];
 
-        if (!$categories->isEmpty()) {
-            foreach ($categories as $category) {
-                $hierarchy[] = [
-                    'category' => $category,
-                    'children' => $this->getHierarchy($category->id)
-                ];
-            }
-        }
+        $hierarchy = $categories->map(function (Category $category) {
+            return [
+                'category' => $category,
+                'children' => $this->getHierarchy($category->id),
+            ];
+        })->all();
 
         return $hierarchy;
     }

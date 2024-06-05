@@ -29,6 +29,7 @@ class CreateProductVariantRequest extends FormRequest
             'name' => ['bail', 'required', 'min:2', 'max:20'],
             'image' => ['bail', 'required', File::image()],
             'price' => ['bail', 'nullable', 'numeric', 'max:999999999'],
+            'inStock' => ['bail', 'required', 'numeric'],
         ];
     }
 }

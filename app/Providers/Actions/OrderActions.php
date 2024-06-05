@@ -115,4 +115,26 @@ class OrderActions extends Actions
 
         return $order;
     }
+
+    public function soldItemsData(Order $order): array
+    {
+        $soldItemsData = [];
+
+        foreach ($order->order_items as $order_item) {
+            /** @var CartItem */
+            $cart_item = $order_item->cart_item;
+
+            $soldItemsData[] = [
+                'buyer_id' => $order->user_id,
+                'product_id' => $cart_item->product_id,
+                'merchant_id' => $cart_item->product->user_id,
+                'product_variant_id' => $cart_item->product_variant_id,
+                'order_id' => $order->id,
+                'quantity' => $cart_item->quantity,
+                'subtotal' => $cart_item->subtotal,
+            ];
+        }
+
+        return $soldItemsData;
+    }
 }

@@ -9,6 +9,9 @@ class Transaction extends Model
 {
     use HasFactory;
 
+    public static $TRANSACTION_TYPE_ORDER = 'ORDER';
+    public static $TRANSACTION_TYPE_SUBSCRIPTION = 'SUBSCRIPTION';
+
     protected $fillable = [
         'description',
         'transactionnable_id',
