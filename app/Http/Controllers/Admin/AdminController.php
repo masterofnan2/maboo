@@ -10,7 +10,7 @@ class AdminController extends Controller
 {
     public function requests()
     {
-        $admins = User::where('type', ADMIN)
+        $admins = User::where('type', User::TYPE_ADMIN)
             ->where('validated_at', '=', null)
             ->get();
 

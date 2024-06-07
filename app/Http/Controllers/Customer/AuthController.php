@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Customer;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Customer\LoginRequest;
 use App\Http\Requests\Customer\SignupRequest;
-use App\Providers\Actions\AuthActions;
+use App\Actions\AuthActions;
 use Illuminate\Http\Request;
 
 

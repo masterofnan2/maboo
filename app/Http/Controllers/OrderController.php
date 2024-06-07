@@ -2,36 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\Order\MakeOrderRequest;
 use App\Models\Order;
-use App\Providers\Actions\CartActions;
-use App\Providers\Actions\OrderActions;
-use Illuminate\Support\Facades\Auth;
+use App\Models\Transaction;
+use App\Actions\OrderActions;
 
 class OrderController extends Controller
 {
-    public function make(MakeOrderRequest $request, CartActions $cartActions, OrderActions $orderActions)
-    {
-        $cartItemIds = $request->cart_item_ids;
-
-        $cartItems = $cartActions->getCartItems($cartItemIds);
-
-        if (!$cartItems->isEmpty()) {
-            $totalPrice = $cartItems->sum(fn($cartItem) => $cartItem->subtotal);
-            $orderId = uuid_create();
-
-            Order::create([
-                'id' => $orderId,
-                'total_price' => $totalPrice,
-                'user_id' => Auth::id(),
-            ]);
-
-            $orderActions->createOrderItems($cartItemIds, $orderId);
-
-            return response()->json(['order_id' => $orderId]);
-        }
-    }
-
+    
     public function delete(string $id)
     {
         $deleted = Order::find($id)->delete();
@@ -40,12 +17,17 @@ class OrderController extends Controller
 
     public function get(string $id, OrderActions $orderActions)
     {
-        return response()->json(['order' => $orderActions->getRefreshedOrder($id)]);
+        $order = $orderActions->getRefreshedOrder($id);
+        
+        if ($order->transaction?->status === Transaction::STATUS_SUCCESS)
+            abort(403);
+
+        return response()->json(['order' => $order]);
     }
 
-    public function all()
+    public function grouped(Order $order, OrderActions $orderActions)
     {
-        $orders = Order::where('user_id', Auth::id())->get();
-        return response()->json(['orders' => $orders]);
+        $grouped = $orderActions->groupedOrderItems($order);
+        return response()->json(['grouped' => $grouped]);
     }
 }

@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Providers\Actions\Mail;
+namespace App\Actions\Mail;
 
 use App\Mail\Auth\EmailConfirmation;
 use App\Models\ConfirmationCodes;
-use App\Providers\Actions\Actions;
+use App\Actions\Actions;
 use App\Providers\Helpers\Helpers;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;

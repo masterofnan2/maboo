@@ -8,9 +8,14 @@ use App\Http\Controllers\ProductColorController;
 use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\ProductVariantController;
 use App\Http\Controllers\SearchController;
+use App\Http\Controllers\SoldItemController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
+
+Route::prefix('sold-items')->controller(SoldItemController::class)->group(function () {
+    Route::get('pending', 'pending');
+});
 
 Route::prefix('transaction')->controller(TransactionController::class)->group(function () {
     Route::prefix('order')->group(function () {
@@ -18,7 +23,7 @@ Route::prefix('transaction')->controller(TransactionController::class)->group(fu
     });
 
     Route::prefix('status')->group(function () {
-        Route::post('orange-money/:transactionnable_id', 'orangeMoneyStatus');
+        Route::post('orangemoney/{transactionnable_id}', 'orangeMoneyStatus');
     });
 });
 
@@ -26,12 +31,13 @@ Route::prefix('search')->controller(SearchController::class)->group(function () 
     Route::get('/small/{query}', 'small');
 });
 
-Route::prefix('order')->controller(OrderController::class)->middleware('auth:sanctum')->group(function () {
-    Route::post('make', 'make');
-    Route::get('get/{id}', 'get');
-    Route::get('all', 'all');
-    Route::delete('delete/{id}', 'delete');
-});
+Route::prefix('order')->controller(OrderController::class)
+    ->middleware('auth:sanctum')
+    ->group(function () {
+        Route::get('get/{id}', 'get');
+        Route::delete('delete/{id}', 'delete');
+        Route::get('grouped/{id}', 'grouped');
+    });
 
 Route::prefix('user')->controller(UserController::class)->middleware('auth:sanctum')->group(function () {
     Route::post('/update', 'update');
@@ -109,6 +115,14 @@ Route::prefix('customer')->group(function () {
             Route::get('/user', 'getAuth');
         });
     });
+
+    Route::prefix('order')
+        ->middleware('auth:sanctum')
+        ->controller(\App\Http\Controllers\Customer\OrderController::class)
+        ->group(function () {
+            Route::post('make', 'make');
+            Route::get('all', 'all');
+        });
 });
 
 Route::prefix('admin')->group(function () {
@@ -137,6 +151,14 @@ Route::prefix('admin')->group(function () {
     Route::prefix('product')->controller(\App\Http\Controllers\Admin\ProductsController::class)->group(function () {
         Route::get('get', 'get');
     });
+
+    Route::prefix('order')
+        ->controller(\App\Http\Controllers\Admin\OrderController::class)
+        ->middleware('auth:sanctum')
+        ->group(function () {
+            Route::get('pending', 'pending');
+            Route::get('unchecked', 'unchecked');
+        });
 });
 
 Route::prefix('seller')->group(function () {

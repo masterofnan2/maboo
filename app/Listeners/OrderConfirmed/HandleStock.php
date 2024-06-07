@@ -1,12 +1,9 @@
 <?php
 
-namespace App\Listeners\Product;
+namespace App\Listeners\OrderConfirmed;
 
 use App\Events\Transaction\OrderConfirmedEvent;
 use App\Models\CartItem;
-use App\Models\ProductVariant;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Queue\InteractsWithQueue;
 
 class HandleStock
 {
@@ -25,7 +22,7 @@ class HandleStock
         $newStock = 0;
 
         if ($variant) {
-            $newStock = $variant->quantity - $cartItem->quantity;
+            $newStock = $variant->inStock - $cartItem->quantity;
 
             $newProductVariantData = [
                 'inStock' => $newStock,

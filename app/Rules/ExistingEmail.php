@@ -2,7 +2,7 @@
 
 namespace App\Rules;
 
-use App\Providers\Actions\AuthActions;
+use App\Actions\AuthActions;
 use Closure;
 use Illuminate\Contracts\Validation\ValidationRule;
 

@@ -15,6 +15,9 @@ return new class extends Migration {
             $table->timestamps();
             $table->foreignUuid('order_id');
             $table->foreignId('cart_item_id');
+            $table->foreignId('user_id');
+            $table->foreignId('merchant_id');
+            $table->smallInteger('status')->default(0);
             $table->softDeletes();
         });
     }

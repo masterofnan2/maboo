@@ -10,14 +10,11 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('product_reviews', function (Blueprint $table) {
+        Schema::create('order_status_histories', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->foreignId("product_id")->constrained('products');
-            $table->foreignId("user_id")->constrained('users');
-            $table->integer('note');
-            $table->text('comment')->nullable();
-            $table->text("images")->nullable();
+            $table->smallInteger('status');
+            $table->foreignUuid('order_item_id');
         });
     }
 
@@ -26,6 +23,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('product_reviews');
+        Schema::dropIfExists('order_status_histories');
     }
 };

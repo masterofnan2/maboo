@@ -4,9 +4,12 @@ namespace Database\Seeders;
 
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\ProductVariant;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Providers\Helpers\Helpers;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
@@ -15,6 +18,23 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        User::factory(1)->create([
+            'password' => Hash::make('00000000'),
+            'email' => 'josulandrie0@gmail.com',
+            'name' => 'Lucieno',
+            'firstname' => 'Zandry',
+            'type' => User::TYPE_ADMIN,
+            'validated_at' => Helpers::getIsoString(date_create()),
+        ]);
+
+        User::factory(1)->create([
+            'password' => Hash::make('00000000'),
+            'email' => 'lucieno.zafytody@gmail.com',
+            'name' => 'Lucieno',
+            'firstname' => 'Zandry',
+            'type' => User::TYPE_CUSTOMER,
+        ]);
+
         User::factory(10)->create(['type' => ADMIN]);
         User::factory(10)->create(['type' => SELLER]);
         User::factory(10)->create(['type' => CUSTOMER]);
@@ -28,5 +48,6 @@ class DatabaseSeeder extends Seeder
         }
 
         Product::factory(20)->create();
+        ProductVariant::factory(80)->create();
     }
 }

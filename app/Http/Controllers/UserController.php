@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\User\UpdateRequest;
-use App\Providers\Actions\UserActions;
+use App\Actions\UserActions;
 use App\Providers\Helpers\Helpers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;

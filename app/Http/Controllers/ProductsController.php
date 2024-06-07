@@ -7,7 +7,7 @@ use App\Http\Requests\Product\CreateProductRequest;
 use App\Http\Requests\Product\UpdateProductRequest;
 use App\Models\Product;
 use App\Models\ProductImage;
-use App\Providers\Actions\ProductActions;
+use App\Actions\ProductActions;
 use Illuminate\Http\Request;
 
 class ProductsController extends Controller

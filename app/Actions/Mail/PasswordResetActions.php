@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Providers\Actions\Mail;
+namespace App\Actions\Mail;
 
 use App\Mail\Auth\PasswordReset;
 use App\Models\User;
-use App\Providers\Actions\Actions;
+use App\Actions\Actions;
 use App\Providers\Helpers\Helpers;
 use Illuminate\Mail\SentMessage;
 use Illuminate\Support\Facades\DB;

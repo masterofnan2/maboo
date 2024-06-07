@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Providers\Actions\Transaction;
+namespace App\Actions\Transaction;
 
 use Symfony\Component\HttpKernel\Exception\HttpException;
 
@@ -69,7 +69,7 @@ class OrangeMoneyActions
     protected function configUrls()
     {
         $this->returnUrl = env('FRONTEND_URL');
-        $this->notifUrl = env('APP_URL') . '/transaction/status/orange-money/' . $this->order_id;
+        $this->notifUrl = env('APP_URL') . '/transaction/status/orangemoney/' . $this->order_id;
         $this->cancelUrl = env('FRONTEND_URL') . '/order/' . $this->order_id;
 
         return $this;

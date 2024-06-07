@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ProductVariant\CreateProductVariantRequest;
 use App\Http\Requests\ProductVariant\UpdateProductVariantRequest;
 use App\Models\ProductVariant;
-use App\Providers\Actions\ProductVariantActions;
+use App\Actions\ProductVariantActions;
 use App\Providers\Helpers\Helpers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;

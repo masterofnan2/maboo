@@ -9,8 +9,10 @@ class Transaction extends Model
 {
     use HasFactory;
 
-    public static $TRANSACTION_TYPE_ORDER = 'ORDER';
-    public static $TRANSACTION_TYPE_SUBSCRIPTION = 'SUBSCRIPTION';
+    const TYPE_ORDER = 'ORDER';
+    const TYPE_SUBSCRIPTION = 'SUBSCRIPTION';
+    const STATUS_SUCCESS = 'SUCCESS';
+    const STATUS_FAILED = 'FAILED';
 
     protected $fillable = [
         'description',
@@ -19,4 +21,9 @@ class Transaction extends Model
         'method',
         'user_id',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

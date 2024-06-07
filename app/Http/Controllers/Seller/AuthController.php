@@ -6,8 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Seller\LoginRequest;
 use App\Http\Requests\Seller\SignupRequest;
 use App\Notifications\User\RequestAccountValidation;
-use App\Providers\Actions\AuthActions;
-use App\Providers\Actions\UserActions;
+use App\Actions\AuthActions;
+use App\Actions\UserActions;
 use Illuminate\Http\Request;
 
 class AuthController extends Controller

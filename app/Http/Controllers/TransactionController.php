@@ -4,21 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Events\Transaction\OrderConfirmedEvent;
 use App\Models\Order;
-use App\Models\CartItem;
-use App\Models\SoldItem;
 use App\Models\Transaction;
-use App\Notifications\Transaction\AdminTransactionNotification;
-use App\Notifications\Transaction\CustomerTransactionNotification;
-use App\Providers\Actions\OrderActions;
-use App\Providers\Actions\Transaction\OrangeMoneyActions;
-use App\Providers\Actions\UserActions;
+use App\Actions\Transaction\OrangeMoneyActions;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Notification;
 
 class TransactionController extends Controller
 {
 
-    public function purchaseOrder(Request $request, OrderActions $orderActions)
+    public function purchaseOrder(Request $request)
     {
         $transactionData = $response = [];
 
@@ -26,6 +19,9 @@ class TransactionController extends Controller
         $method = $request->method;
 
         $order = Order::find($order_id);
+
+        if ($order->transaction?->status === Transaction::STATUS_SUCCESS)
+            abort(403);
 
         $transactionData['transactionnable_id'] = $order_id;
         $transactionData['method'] = $method;
@@ -66,22 +62,22 @@ class TransactionController extends Controller
         $transaction = Transaction::where('transactionnable_id', $transactionnable_id)->with('user')->first();
         $user = $transaction->user;
 
-        $description = json_decode($transaction?->description);
+        // $description = json_decode($transaction?->description);
 
-        if ($description?->notif_token !== $request->notif_token) {
-            abort(403);
-        }
+        // if ($description?->notif_token !== $request->notif_token) {
+        //     abort(403);
+        // }
 
-        Notification::send(
-            $user,
-            new CustomerTransactionNotification($transactionnable_id, $request->status)
-        );
+        // Notification::send(
+        //     $user,
+        //     new CustomerTransactionNotification($transactionnable_id, $request->status)
+        // );
 
-        (new UserActions())
-            ->notifyAdmins(new AdminTransactionNotification($request->status, $user));
+        // (new UserActions())
+        //     ->notifyAdmins(new AdminTransactionNotification($request->status, $user));
 
         switch ($transaction->type) {
-            case Transaction::$TRANSACTION_TYPE_ORDER:
+            case Transaction::TYPE_ORDER:
                 event(new OrderConfirmedEvent(Order::find($transactionnable_id)));
                 break;
 

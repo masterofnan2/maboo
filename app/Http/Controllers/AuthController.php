@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use App\Providers\Actions\Mail\ConfirmationActions;
-use App\Providers\Actions\Mail\PasswordResetActions;
-use App\Providers\Actions\UserActions;
+use App\Actions\Mail\ConfirmationActions;
+use App\Actions\Mail\PasswordResetActions;
+use App\Actions\UserActions;
 use App\Rules\ExistingEmail;
 use Illuminate\Http\Request;
 

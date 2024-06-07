@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\Category\CategoryCreateRequest;
 use App\Http\Requests\Category\CategoryUpdateRequest;
 use App\Models\Category;
-use App\Providers\Actions\CategoryActions;
+use App\Actions\CategoryActions;
 use App\Providers\Helpers\Helpers;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rules\File;

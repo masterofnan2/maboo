@@ -21,6 +21,7 @@ class CartItem extends Model
         'product_color_id',
         'user_id',
         'subtotal',
+        'ordered_at'
     ];
 
     public function product()

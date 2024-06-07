@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Providers\Actions;
+namespace App\Actions;
 use Illuminate\Http\UploadedFile;
 
 class ProductVariantActions

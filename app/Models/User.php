@@ -13,6 +13,21 @@ class User extends Authenticatable
 {
     use HasFactory, Notifiable, HasApiTokens, CanResetPassword;
 
+    const TYPE_ADMIN = 'ADMIN';
+    const TYPE_CUSTOMER = 'CUSTOMER';
+    const TYPE_SELLER = 'SELLER';
+    const TYPE_PROFESSIONAL = 'PROFESSIONAL';
+
+    public function types(): array
+    {
+        return [
+            self::TYPE_ADMIN,
+            self::TYPE_CUSTOMER,
+            self::TYPE_SELLER,
+            self::TYPE_PROFESSIONAL,
+        ];
+    }
+
     /**
      * The attributes that are mass assignable.
      *
@@ -28,7 +43,7 @@ class User extends Authenticatable
         'adress',
         'type',
         'image',
-    ];  
+    ];
 
     /**
      * The attributes that should be hidden for serialization.
