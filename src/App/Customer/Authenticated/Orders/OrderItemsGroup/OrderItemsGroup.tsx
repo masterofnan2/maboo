@@ -68,7 +68,9 @@ const OrderItemsGroup = React.memo((props: Props) => {
                 </Button>
             </div>
         </div>
-        <Items order={order} />
+        <Items
+            order={order}
+            className="order-section"/>
     </div>
 });
 

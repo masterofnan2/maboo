@@ -206,3 +206,11 @@ export const deleteProductColors = (ids: number[]) => {
 export const updateProductColor = (id: number, payload: EditProductColorData) => {
     return axios.post(`/product/color/update/${id}`, payload);
 }
+
+export const getPendingOrders = () => {
+    return axios.get('/admin/order/pending');
+}
+
+export const getUncheckedOrders = () => {
+    return axios.get('/admin/order/unchecked');
+}

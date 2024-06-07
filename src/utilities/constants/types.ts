@@ -118,3 +118,5 @@ export type Order = {
     order_items: OrderItem[],
     transaction: Transaction | null,
 }
+
+export type BackOfficeOrder = Order & {user: User};

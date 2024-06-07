@@ -81,7 +81,9 @@ const Order = React.memo(() => {
             <div className="col-8">
                 <PaymentMethod />
                 {state.order &&
-                    <Items order={state.order} />}
+                    <Items
+                        order={state.order}
+                        className="order-section"/>}
             </div>
             <div className="col-3">
                 <OrderSummary />

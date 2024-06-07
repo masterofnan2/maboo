@@ -108,7 +108,7 @@ export const updateCartItem = (id: number, payload: {
 }
 
 export const makeOrder = (cart_item_ids: number[]) => {
-    return axios.post('/order/make', { cart_item_ids });
+    return axios.post('/customer/order/make', { cart_item_ids });
 }
 
 export const getOrder = (id: string) => {
@@ -127,7 +127,7 @@ export const initOrderTransaction = (payload: {
 }
 
 export const getAllOrders = () => {
-    return axios.get('/order/all');
+    return axios.get('/customer/order/all');
 }
 
 export const deleteOrder = (order_id: string) => {

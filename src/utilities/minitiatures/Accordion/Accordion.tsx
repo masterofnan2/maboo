@@ -12,7 +12,7 @@ const accordionButtonIdPrefix = 'accordion-button-';
 
 
 export const AccordionButton = (props: AccordionButtonProps) => {
-    const id = accordionButtonIdPrefix + (Math.round(Math.random()));
+    const id = accordionButtonIdPrefix + (Math.round(Math.random() * 1000));
 
     return <>
         <input
@@ -23,7 +23,7 @@ export const AccordionButton = (props: AccordionButtonProps) => {
         <label htmlFor={id}>
             <div
                 className={'accordion-button ' + (props.className || '')}>
-                {props.children} <i className="fa fa-chevron-down"></i>
+                {props.children} <i className="fa fa-chevron-down accordion-icon"></i>
             </div>
         </label>
     </>

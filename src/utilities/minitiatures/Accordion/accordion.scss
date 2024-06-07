@@ -1,25 +1,25 @@
 .accordion-container {
-    
-    .accordion-body {
-        background: $success;
-        width: 100%;
-        height: 100%;
-        overflow: hidden;
-        height: 0;
-        transition: height 0.3s ease-in-out;
-    }
+  .accordion-body {
+    width: 100%;
+    overflow: hidden;
+    height: 0;
+    transition: height 0.3s ease-in-out;
+  }
 
-    // .accordion-button {
-    //     width: 100%;
-    // }
+  .accordion-icon {
+    transition: transform 0.3s ease-in-out;
+  }
 
-    .accordion-state-checkbox:checked~label>.accordion-button {
-        &::after {
-            transform: rotate(-180deg);
-        }
-    }
+  .accordion-button {
+    width: 100%;
+  }
 
-    .accordion-state-checkbox:checked~.accordion-body {
-        height: 150px;
-    }
+  .accordion-state-checkbox:checked ~ label .accordion-icon {
+    transform: rotate(-180deg);
+  }
+
+  .accordion-state-checkbox:checked ~ .accordion-body {
+    height: 20px;
+    overflow: visible;
+  }
 }

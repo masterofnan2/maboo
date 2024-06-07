@@ -1,54 +1,19 @@
 import React from "react";
-import appImage from "../../../../../utilities/helpers/appImage";
-import SquaredImage from "../../../../../utilities/minitiatures/SquaredImage/SquaredImage";
-import ProductMerchant from "../../../../../utilities/minitiatures/ProductMerchant/ProductMerchant";
-import Price from "../../../../../utilities/minitiatures/Price/Price";
-import SmallText from "../../../../../utilities/minitiatures/SmallText/SmallText";
-import { fakeCartItem } from "../../../../../utilities/constants/fakes";
 import { Order } from "../../../../../utilities/constants/types";
+import OrderItemComponent from "../../../../../utilities/minitiatures/OrderItemComponent/OrderItemComponent";
 
 type Props = {
-  order: Order;
+  order: Order,
+  className?: string,
 };
 
-const Items = React.memo(({ order }: Props) => {
+const Items = React.memo(({ order, className = '' }: Props) => {
   return (
-    <div className="items-container order-section">
+    <div className={`items-container ${className}`}>
       <div className="order-section-title">Articles</div>
-      {order.order_items.map((order_item) => {
-        const item = order_item.cart_item || fakeCartItem;
-        const { product } = item;
-        const image = item.product_variant?.image || product.images[0]?.name;
-
-        return (
-          <div key={item.id} className="item-row">
-            <SquaredImage image={appImage(image)} />
-            <div>
-              <h6 className="product-title">
-                {product.title}{" "}
-                {item.product_variant && `- ${item.product_variant.name}`}
-              </h6>
-              <div className="product-description">
-                <SmallText isExtendable={false} maxLength={50}>
-                  {product.description}
-                </SmallText>
-              </div>
-              <Price amount={item.subtotal} />
-              <div>
-                <span className="item-subtitle">quantité:</span>{" "}
-                <span>{item.quantity}</span>
-              </div>
-              <div className="d-flex gap-1 align-items-center">
-                <span className="item-subtitle">marchand: </span>{" "}
-                <ProductMerchant
-                  merchant={product.merchant}
-                  showImage={false}
-                />
-              </div>
-            </div>
-          </div>
-        );
-      })}
+      {order.order_items.map((orderItem) => <OrderItemComponent
+        orderItem={orderItem}
+        key={orderItem.id} />)}
     </div>
   );
 });

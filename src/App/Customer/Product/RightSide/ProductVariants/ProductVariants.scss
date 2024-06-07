@@ -19,6 +19,8 @@
         transition: opacity .3s ease-in-out;
         cursor: pointer;
         border-radius: $border-radius;
+        height: 100%;
+        width: 100%;
     }
 
     input:checked~label {
