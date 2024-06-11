@@ -156,8 +156,9 @@ Route::prefix('admin')->group(function () {
         ->controller(\App\Http\Controllers\Admin\OrderController::class)
         ->middleware('auth:sanctum')
         ->group(function () {
-            Route::get('pending', 'pending');
+            Route::get('processing', 'processing');
             Route::get('unchecked', 'unchecked');
+            Route::put('update-transaction/{id}', 'updateTransaction');
         });
 });
 

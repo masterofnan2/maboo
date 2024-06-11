@@ -13,6 +13,7 @@ class Transaction extends Model
     const TYPE_SUBSCRIPTION = 'SUBSCRIPTION';
     const STATUS_SUCCESS = 'SUCCESS';
     const STATUS_FAILED = 'FAILED';
+    const STATUS_CANCELLED = 'CANCELLED';
 
     protected $fillable = [
         'description',

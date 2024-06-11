@@ -56,6 +56,10 @@ class OrderPolicy
         return false;
     }
 
+    public function updateTransaction(User $user){
+        return $user->type === User::TYPE_ADMIN && $user->validated_at !== null;
+    }
+
     /**
      * Determine whether the user can permanently delete the model.
      */

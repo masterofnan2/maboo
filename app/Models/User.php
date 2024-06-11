@@ -40,6 +40,7 @@ class User extends Authenticatable
         'password',
         'phone_number',
         'email_verified_at',
+        'validated_at',
         'adress',
         'type',
         'image',

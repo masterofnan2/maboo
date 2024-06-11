@@ -78,7 +78,9 @@ class TransactionController extends Controller
 
         switch ($transaction->type) {
             case Transaction::TYPE_ORDER:
-                event(new OrderConfirmedEvent(Order::find($transactionnable_id)));
+                if ($request->status === Transaction::STATUS_SUCCESS) {
+                    event(new OrderConfirmedEvent(Order::find($transactionnable_id)));
+                }
                 break;
 
             default:
