@@ -1,8 +1,8 @@
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import {
   BackOfficeOrder,
+  BackOfficeOrderItem,
   Category,
-  OrderItem,
   Product,
   User,
 } from "../../constants/types";
@@ -12,7 +12,7 @@ import {
   getAdminRequests,
   getAllCategories,
   getAuth,
-  getPendingOrders,
+  getProcessingOrders,
   getSellerRequests,
   getUncheckedOrders,
 } from "../../api/admin/actions";
@@ -28,7 +28,7 @@ interface AdminState {
     requests: User[] | null;
   };
   order: {
-    pending: OrderItem[];
+    processing: BackOfficeOrderItem[] | null;
     unchecked: BackOfficeOrder[] | null;
   };
 }
@@ -44,7 +44,7 @@ const initialState: AdminState = {
     requests: null,
   },
   order: {
-    pending: [],
+    processing: null,
     unchecked: null,
   },
 };
@@ -93,9 +93,9 @@ const adminSlice = createSlice({
         }
       )
       .addCase(
-        refreshPendingOrder.fulfilled,
-        (state, action: PayloadAction<OrderItem[]>) => {
-          state.order.pending = action.payload;
+        refreshProcessingOrders.fulfilled,
+        (state, action: PayloadAction<BackOfficeOrderItem[]>) => {
+          state.order.processing = action.payload;
         }
       )
       .addCase(
@@ -115,10 +115,10 @@ export const refreshUncheckedOrders = createAsyncThunk(
   }
 );
 
-export const refreshPendingOrder = createAsyncThunk(
-  "admin/refreshPendingOrder",
+export const refreshProcessingOrders = createAsyncThunk(
+  "admin/refreshProcessingOrders",
   async () => {
-    const response = await getPendingOrders();
+    const response = await getProcessingOrders();
     return response.data?.orders;
   }
 );

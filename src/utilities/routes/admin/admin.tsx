@@ -20,8 +20,8 @@ import Validation from "../../../App/Admin/Guest/Auth/Validation/Validation";
 import Admins from '../../../App/Admin/Authenticated/Dashboard/Main/Admin/Admin';
 import AdminRequests from "../../../App/Admin/Authenticated/Dashboard/Main/Admin/AdminRequests/AdminRequests";
 import Orders from "../../../App/Admin/Authenticated/Dashboard/Main/Orders/Orders";
-import Pending from "../../../App/Admin/Authenticated/Dashboard/Main/Orders/Pending/Pending";
 import Unchecked from "../../../App/Admin/Authenticated/Dashboard/Main/Orders/Unchecked/Unchecked";
+import Processing from "../../../App/Admin/Authenticated/Dashboard/Main/Orders/Processing/Processing";
 
 export default function () {
     return <Routes>
@@ -48,7 +48,7 @@ export default function () {
                         <Route element={<AdminRequests />} path="requests" />
                     </Route>
                     <Route element={<Orders />} path="orders">
-                        <Route element={<Pending />} path="pending" />
+                        <Route element={<Processing />} path="processing" />
                         <Route element={<Unchecked />} path="unchecked" />
                     </Route>
                 </Route>

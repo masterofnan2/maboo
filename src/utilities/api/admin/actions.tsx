@@ -207,10 +207,25 @@ export const updateProductColor = (id: number, payload: EditProductColorData) =>
     return axios.post(`/product/color/update/${id}`, payload);
 }
 
-export const getPendingOrders = () => {
-    return axios.get('/admin/order/pending');
+export const getProcessingOrders = () => {
+    return axios.get('/admin/order/processing');
 }
 
 export const getUncheckedOrders = () => {
     return axios.get('/admin/order/unchecked');
+}
+
+export const markOrderAsConfirmed = (id: string) => {
+    return axios.put(`/admin/order/update-transaction/${id}`, { status: "SUCCESS" });
+}
+
+export const markOrderAsCancelled = (id: string) => {
+    return axios.put(`/admin/order/update-transaction/${id}`, { status: "CANCELLED" });
+}
+
+export const markOrderItemsAsDelivered = (orderItemIds: number[]) => {
+    return axios.post(`/admin/order/updateStatus`, {
+        status: 2,
+        ids: orderItemIds,
+    });
 }

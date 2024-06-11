@@ -10,15 +10,15 @@ const OrderCollapse = React.memo(() => {
         <Accordion.Collapse eventKey="2">
             <>
                 <ListOfPage
-                    icon="fa-solid fa-hourglass-end"
-                    path="/orders/pending"
-                    title="En attente"
-                    className="p-3" />
-
-                <ListOfPage
                     icon="fa-solid fa-seal-question"
                     path="/orders/unchecked"
                     title="Non vérifié"
+                    className="p-3" />
+                    
+                <ListOfPage
+                    icon="fa-solid fa-hourglass-end"
+                    path="/orders/processing"
+                    title="En cours"
                     className="p-3" />
             </>
         </Accordion.Collapse>

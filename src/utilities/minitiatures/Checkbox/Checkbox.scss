@@ -16,7 +16,7 @@ $checked-cursor: #{$light} !default;
         display: grid;
         grid-template-columns: 2em 1fr;
         grid-template-areas: 'checkbox label';
-        gap: .7em;
+        gap: .7em;  
 
         &::after,
         &::before {
