@@ -4,13 +4,21 @@ namespace App\Actions\Transaction;
 
 use Symfony\Component\HttpKernel\Exception\HttpException;
 
-const AUTHORIZATION = 'Authorization: Basic a1JYcDR0eFdCWHR4b0dBZXYyYVZUQUVicDF6cXBHVzc6S0w4dzNFMlNBb0N3ZHRQRQ==';
+// const AUTHORIZATION = 'Authorization: Basic a1JYcDR0eFdCWHR4b0dBZXYyYVZUQUVicDF6cXBHVzc6S0w4dzNFMlNBb0N3ZHRQRQ==';
+const AUTHORIZATION = 'Authorization: Basic QldqNU4wOURwQTZGdFp4Z1M3R09uSnFtQ3k3cENrUnM6YklZdHV3ZGk3Smh1QUFtYg==';
+
+// const MERCHANT_KEY = '06645cf2';
+const MERCHANT_KEY = '917554f0';
+
+// const CURRENCY = 'OUV';
+const CURRENCY = 'MGA';
+
+// const TRANSACTION_INIT_URL = 'https://api.orange.com/orange-money-webpay/dev/v1/webpayment';
+const TRANSACTION_INIT_URL = 'https://api.orange.com/orange-money-webpay/mg/v1/webpayment';
+
 const GETTOKENURL = 'https://api.orange.com/oauth/v3/token';
-const TRANSACTIONINITURL = 'https://api.orange.com/orange-money-webpay/dev/v1/webpayment';
-const MERCHANTKEY = '06645cf2';
-const CURRENCY = 'OUV';
-const MERCHANTREFERENCE = 'Ma Boo Reny sy Zanaka';
-const ORDERIDPREFIX = 'MABOO_ORDER_';
+const MERCHANT_REFERENCE = 'Ma Boo Reny sy Zanaka';
+const ORDER_ID_PREFIX = 'MABOO_ORDER_';
 
 const HEADER = [
     'Accept: application/json',
@@ -102,19 +110,19 @@ class OrangeMoneyActions
         $curl = curl_init();
 
         $postfields = json_encode([
-            'merchant_key' => MERCHANTKEY,
+            'merchant_key' => MERCHANT_KEY,
             'currency' => CURRENCY,
-            'order_id' => ORDERIDPREFIX . uniqid(),
+            'order_id' => ORDER_ID_PREFIX . uniqid(),
             'amount' => $this->amount,
             'return_url' => $this->returnUrl,
             'cancel_url' => $this->cancelUrl,
             'notif_url' => $this->notifUrl,
             'lang' => 'fr',
-            'reference' => MERCHANTREFERENCE,
+            'reference' => MERCHANT_REFERENCE,
         ]);
 
         curl_setopt_array($curl, [
-            CURLOPT_URL => TRANSACTIONINITURL,
+            CURLOPT_URL => TRANSACTION_INIT_URL,
             CURLOPT_SSL_VERIFYPEER => false,
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_HTTPHEADER => $this->getHeader(),
