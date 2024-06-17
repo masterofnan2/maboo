@@ -1,5 +1,5 @@
 # Étape de construction
-FROM node:18-alpine as builder
+FROM node:current-slim as builder
 
 WORKDIR /app
 
@@ -16,7 +16,7 @@ COPY . .
 RUN npm run build
 
 # Étape de production
-FROM node:18-alpine
+FROM node:current-slim
 
 WORKDIR /app
 

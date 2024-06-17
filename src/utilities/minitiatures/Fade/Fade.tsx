@@ -1,7 +1,7 @@
 import { AnimatePresence, motion } from "framer-motion";
 import React from "react";
 
-type Props = {
+export type FadeProps = {
     children: any,
     show: boolean,
     className?: string,
@@ -20,7 +20,7 @@ const variants = {
     }
 }
 
-const Fade = React.memo((props: Props) => {
+const Fade = React.forwardRef((props: FadeProps, ref?: React.LegacyRef<HTMLDivElement>) => {
     const { children, show, ...divProps } = props;
 
     return <AnimatePresence>
@@ -30,7 +30,8 @@ const Fade = React.memo((props: Props) => {
                 initial="hidden"
                 animate="visible"
                 exit="hidden"
-                {...divProps}>
+                {...divProps}
+                ref={ref}>
                 {children}
             </motion.div>}
     </AnimatePresence>

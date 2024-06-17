@@ -1,6 +1,7 @@
 import { EditProductData } from "../../../App/Admin/Authenticated/Dashboard/Main/Products/EditProduct/EditProductBody/EditProductBody";
 import { EditProductColorData } from "../../../App/Admin/Authenticated/Dashboard/Main/Products/ProductColor/ColorsList/ColorItem/Edit/Edit";
 import { EditProductVariantData } from "../../../App/Admin/Authenticated/Dashboard/Main/Products/ProductVariant/VariantsList/VariantItem/Edit/Edit";
+import QueryUrl from "../../helpers/QueryUrl";
 import toFormData from "../../helpers/toFormData";
 import AppAxios from "../AppAxios";
 
@@ -127,8 +128,15 @@ export const createProduct = (payload: {
     return axios.post('/product/create', data);
 }
 
-export const getAdminProducts = () => {
-    return axios.get('/admin/product/get');
+export const getAdminProducts = (options?: {
+    limit?: number,
+    offset?: number,
+}) => {
+    const Url = new QueryUrl('/admin/product/get');
+    if (options?.offset) Url.addParam('offset', options.offset);
+    if (options?.limit) Url.addParam('limit', options.limit);
+
+    return axios.get(Url.getString());
 }
 
 export const updateProduct = (payload: EditProductData) => {
@@ -224,8 +232,16 @@ export const markOrderAsCancelled = (id: string) => {
 }
 
 export const markOrderItemsAsDelivered = (orderItemIds: number[]) => {
-    return axios.post(`/admin/order/updateStatus`, {
+    return axios.post(`/order/status/update`, {
         status: 2,
         ids: orderItemIds,
     });
+}
+
+export const getClosedOrders = () => {
+    return axios.get('/admin/order/closed');
+}
+
+export const getDeliveredOrders = () => {
+    return axios.get('/admin/order/delivered');
 }

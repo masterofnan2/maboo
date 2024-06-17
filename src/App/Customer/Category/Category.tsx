@@ -1,49 +1,90 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { AppDispatch, Rootstate } from "../../../utilities/redux/store";
-import { refreshCategoryProducts } from "../../../utilities/redux/customer/customerSlice";
+import { Rootstate } from "../../../utilities/redux/store";
+import { setCategoryProducts } from "../../../utilities/redux/customer/customerSlice";
 import HoverableProduct, { HoverableProductPlaceholder } from "../../../utilities/minitiatures/HoverableProduct/HoverableProduct";
 import generateArray from "../../../utilities/helpers/generateArray";
 import Fade from "../../../utilities/minitiatures/Fade/Fade";
 import ProductsEmpty from "./ProductsEmpty/ProductsEmpty";
+import ScrollEnd from "../../../utilities/minitiatures/ScrollEnd/ScrollEnd";
+import { getCategoryProducts } from "../../../utilities/api/customer/actions";
+import arrayMerge from "../../../utilities/helpers/arrayMerge";
+import { Product } from "../../../utilities/constants/types";
 
 const randomArray = generateArray(10);
+const dataLimit = 30;
 
 const Category = React.memo(() => {
     const id = useParams().id;
-
     const selectorId = React.useMemo(() => `category-${id}`, [id]);
-    const dispatch = useDispatch<AppDispatch>()
+    const dispatch = useDispatch()
     const products = useSelector((state: Rootstate) => state.customer.categoryProducts[selectorId]);
 
+    const [state, setState] = React.useState({
+        scrollEnd: true,
+        offset: 0,
+        lastId: selectorId,
+    });
+
     React.useEffect(() => {
-        if (!products && id) {
-            dispatch(refreshCategoryProducts(parseInt(id)));
+        if (state.lastId !== selectorId) {
+            const offset = products?.length ? products.length : 0;
+            setState(s => ({ ...s, scrollEnd: true, offset, lastId: selectorId }));
         }
-    }, [products, id]);
+    }, [selectorId, products, state]);
+
+    const handleScrollEnd = React.useCallback(() => {
+        if (id) {
+            const newState = { ...state };
+            getCategoryProducts(parseInt(id), {
+                offset: state.offset,
+                limit: dataLimit,
+            })
+                .then(response => {
+                    const freshProducts: Product[] = response.data.products;
+
+                    if (freshProducts && freshProducts.length > 0) {
+                        const mergedProducts = arrayMerge<Product>(products || [], freshProducts);
+                        newState.offset = mergedProducts.length;
+
+                        if (freshProducts.length < dataLimit) {
+                            newState.scrollEnd = false;
+                        }
+
+                        dispatch(setCategoryProducts({ products: mergedProducts, selectorId }))
+                    } else {
+                        newState.scrollEnd = false;
+                    }
+
+                    setState(newState);
+                })
+        }
+    }, [products, selectorId, state]);
 
     return <div className="category-container container">
-
         <Fade show={Boolean(products && products.length > 0)} className="d-flex flex-wrap gap-4 col-12">
-            {products && products.length > 0 && products.map(product => {
-                return <HoverableProduct product={product} key={product.id} />
+            {products && products.length > 0 && products.map((product, key) => {
+                return <HoverableProduct product={product} key={key} />
             })}
         </Fade>
 
-        <Fade show={!products} className="d-flex flex-wrap gap-4 col-12">
+        <ScrollEnd
+            whileInView={handleScrollEnd}
+            show={state.scrollEnd}
+            className="d-flex flex-wrap gap-4 col-12">
             {randomArray.map((random, key) => {
                 random;
                 return <HoverableProductPlaceholder
                     index={key}
                     key={key} />
             })}
-        </Fade>
+        </ScrollEnd>
 
         <Fade show={products?.length === 0}>
             <ProductsEmpty />
         </Fade>
     </div>
-})
+});
 
 export default Category;

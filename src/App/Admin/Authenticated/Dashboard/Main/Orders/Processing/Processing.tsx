@@ -18,7 +18,7 @@ const Processing = React.memo(() => {
 
     return <div className="processing-orders-container">
         <Loading show={!processing} />
-        <OrdersEmpty show={!Boolean(processing?.length)} />
+        <OrdersEmpty show={processing?.length === 0} />
         <List />
     </div>
 });

@@ -6,7 +6,6 @@ const TablePlaceholder = React.memo(() => {
         value;
         return <div className="categories-placeholder placeholder-glow gap-5 d-flex mb-5" key={key}>
             <div className="placeholder"></div>
-            <div className="placeholder col-6"></div>
             <div className="placeholder col"></div>
         </div>
     })

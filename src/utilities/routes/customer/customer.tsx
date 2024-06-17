@@ -18,6 +18,7 @@ import Cart from "../../../App/Customer/Authenticated/Cart/Cart";
 import Orders from "../../../App/Customer/Authenticated/Orders/Orders";
 import All from "../../../App/Customer/Authenticated/Orders/All/All";
 import Order from "../../../App/Customer/Authenticated/Orders/Order/Order";
+import Search from "../../../App/Customer/Search/Search";
 
 export default function () {
     return <Routes>
@@ -25,6 +26,7 @@ export default function () {
             <Route index element={<Homepage />} />
             <Route element={<Category />} path='category/:id' />
             <Route element={<Product />} path='product/:slug' />
+            <Route element={<Search />} path='search/:words' />
 
             <Route element={<Guest />} path="/">
                 <Route element={<Auth />} path="auth">

@@ -14,6 +14,7 @@ $body_bg: #fff;
         grid-column: 1/2;
         grid-row: 1/3;
         padding: 0 1rem;
+        overflow-y: auto;
     }
 
     .navbar-container {

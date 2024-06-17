@@ -80,55 +80,56 @@ const List = React.memo(() => {
         }
     }, [state, toasts.push]);
 
-    return <>
-        <div className="d-flex justify-content-between align-items-center processing-order-list-header">
-            <Checkbox
-                label="Tout"
-                checked={state.selected.length === processing?.length}
-                onChange={handleSelectAll} />
+    if (processing && processing.length > 0) {
+        return <>
+            <div className="d-flex justify-content-between align-items-center processing-order-list-header">
+                <Checkbox
+                    label="Tout"
+                    checked={state.selected.length === processing?.length}
+                    onChange={handleSelectAll} />
 
-            <Dropdown>
-                <Dropdown.Toggle variant="secondary">
-                    Marquer comme
-                </Dropdown.Toggle>
-                <Dropdown.Menu>
-                    <Dropdown.Item
-                        disabled={state.selected.length === 0}
-                        onClick={handleMarkAsDelivered}>
-                        <i className="fa fa-check-circle"></i> Livré
-                    </Dropdown.Item>
-                </Dropdown.Menu>
-            </Dropdown>
-        </div>
-        <div className="d-flex gap-4 flex-column">
-            {processing?.map(orderItem => {
-                const row = <div key={orderItem.id} className="d-flex gap-4">
-                    <Checkbox
-                        label=''
-                        checked={state.selected.some(item => item.id === orderItem.id)}
-                        onChange={
-                            (e: React.ChangeEvent<HTMLInputElement>) => handleChange(e, orderItem)
-                        }
-                        className="align-self-center" />
+                <Dropdown>
+                    <Dropdown.Toggle variant="secondary" disabled={state.selected.length === 0}>
+                        Marquer comme
+                    </Dropdown.Toggle>
+                    <Dropdown.Menu>
+                        <Dropdown.Item
+                            onClick={handleMarkAsDelivered}>
+                            <i className="fa fa-check-circle"></i> Livré
+                        </Dropdown.Item>
+                    </Dropdown.Menu>
+                </Dropdown>
+            </div>
+            <div className="d-flex gap-4 flex-column">
+                {processing?.map(orderItem => {
+                    const row = <div key={orderItem.id} className="d-flex gap-4">
+                        <Checkbox
+                            label=''
+                            checked={state.selected.some(item => item.id === orderItem.id)}
+                            onChange={
+                                (e: React.ChangeEvent<HTMLInputElement>) => handleChange(e, orderItem)
+                            }
+                            className="align-self-center" />
 
-                    <OrderItemComponent
-                        orderItem={orderItem}
-                        className="m-0" />
-                </div>
+                        <OrderItemComponent
+                            orderItem={orderItem}
+                            className="m-0" />
+                    </div>
 
-                return filter([
-                    orderItem.cart_item.product.title,
-                    orderItem.cart_item.product.description,
-                    orderItem.user.firstname,
-                    orderItem.user.name,
-                    orderItem.user.email,
-                    orderItem.user.phone_number,
-                    orderItem.cart_item.subtotal,
-                    orderItem.cart_item.product_variant?.name || '',
-                ], row);
-            })}
-        </div>
-    </>
+                    return filter([
+                        orderItem.cart_item.product.title,
+                        orderItem.cart_item.product.description,
+                        orderItem.user.firstname,
+                        orderItem.user.name,
+                        orderItem.user.email,
+                        orderItem.user.phone_number,
+                        orderItem.cart_item.subtotal,
+                        orderItem.cart_item.product_variant?.name || '',
+                    ], row);
+                })}
+            </div>
+        </>
+    }
 });
 
 export default List;

@@ -12,6 +12,8 @@ import {
   getAdminRequests,
   getAllCategories,
   getAuth,
+  getClosedOrders,
+  getDeliveredOrders,
   getProcessingOrders,
   getSellerRequests,
   getUncheckedOrders,
@@ -30,6 +32,8 @@ interface AdminState {
   order: {
     processing: BackOfficeOrderItem[] | null;
     unchecked: BackOfficeOrder[] | null;
+    closed: BackOfficeOrderItem[] | null;
+    delivered: BackOfficeOrderItem[] | null;
   };
 }
 
@@ -46,6 +50,8 @@ const initialState: AdminState = {
   order: {
     processing: null,
     unchecked: null,
+    closed: null,
+    delivered: null,
   },
 };
 
@@ -58,6 +64,9 @@ const adminSlice = createSlice({
     },
     setCategories: (state, action: PayloadAction<Category[]>) => {
       state.categories = action.payload;
+    },
+    setAdminProducts: (state, action: PayloadAction<Product[]>) => {
+      state.products = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -103,9 +112,37 @@ const adminSlice = createSlice({
         (state, action: PayloadAction<BackOfficeOrder[]>) => {
           state.order.unchecked = action.payload;
         }
+      )
+      .addCase(
+        refreshClosedOrders.fulfilled,
+        (state, action: PayloadAction<BackOfficeOrderItem[]>) => {
+          state.order.closed = action.payload;
+        }
+      )
+      .addCase(
+        refreshDeliveredOrders.fulfilled,
+        (state, action: PayloadAction<BackOfficeOrderItem[]>) => {
+          state.order.delivered = action.payload;
+        }
       );
   },
 });
+
+export const refreshDeliveredOrders = createAsyncThunk(
+  "refreshDeliveredOrders",
+  async () => {
+    const response = await getDeliveredOrders();
+    return response.data.orders;
+  }
+);
+
+export const refreshClosedOrders = createAsyncThunk(
+  "refreshClosedOrders",
+  async () => {
+    const response = await getClosedOrders();
+    return response.data.orders;
+  }
+);
 
 export const refreshUncheckedOrders = createAsyncThunk(
   "admin/refreshUncheckedOrders",
@@ -164,5 +201,5 @@ export const refreshAdminRequests = createAsyncThunk(
   }
 );
 
-export const { setAuth } = adminSlice.actions;
+export const { setAuth, setAdminProducts, setCategories} = adminSlice.actions;
 export default adminSlice.reducer;

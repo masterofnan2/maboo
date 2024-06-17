@@ -1,3 +1,4 @@
+import QueryUrl from "../../helpers/QueryUrl";
 import toFormData from "../../helpers/toFormData";
 import AppAxios from "../AppAxios";
 
@@ -76,8 +77,16 @@ export const getFeaturedProducts = () => {
     return axios.get('/product/featured');
 }
 
-export const getCategoryProducts = (id: number) => {
-    return axios.get(`/category/${id}/products`);
+export const getCategoryProducts = (id: number, options?: {
+    offset?: number,
+    limit?: number,
+}) => {
+    const Url = new QueryUrl(`/category/${id}/products`);
+
+    if (options?.offset) Url.addParam('offset', options?.offset);
+    if (options?.limit) Url.addParam('limit', options?.limit);
+
+    return axios.get(Url.getString());
 }
 
 export const getProduct = (slug: string) => {
@@ -115,8 +124,18 @@ export const getOrder = (id: string) => {
     return axios.get(`/order/get/${id}`);
 }
 
-export const search = (keywords: string) => {
-    return axios.get(`/search/small/${keywords}`);
+export const search = (keywords: string, options?: {
+    limit?: number,
+    offset?: number,
+    type?: 'products' | 'sellers',
+}) => {
+    const Url = new QueryUrl(`/search/${keywords}`);
+
+    if (options?.limit) Url.addParam('limit', options.limit);
+    if (options?.offset) Url.addParam('offset', options.offset);
+    if (options?.type) Url.addParam('type', options.type);
+
+    return axios.get(Url.getString());
 }
 
 export const initOrderTransaction = (payload: {

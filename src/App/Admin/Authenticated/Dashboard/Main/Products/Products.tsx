@@ -4,7 +4,7 @@ import ProductsList from "./ProductsList/ProductsList";
 import AddProduct from "./AddProduct/AddProduct";
 import DeleteProduct from "./DeleteProduct/DeleteProduct";
 import EditProduct from "./EditProduct/EditProduct";
-import { refreshCategories, refreshProducts } from "../../../../../../utilities/redux/admin/adminSlice";
+import { refreshCategories, setAdminProducts } from "../../../../../../utilities/redux/admin/adminSlice";
 import { AppDispatch, Rootstate } from "../../../../../../utilities/redux/store";
 import { useDispatch, useSelector } from "react-redux";
 import { Product } from "../../../../../../utilities/constants/types";
@@ -12,6 +12,9 @@ import ProductsEmpty from "./ProductsEmpty/ProductsEmpty";
 import TablePlaceholder from "../../../../../../utilities/minitiatures/TablePlaceholder/TablePlaceholder";
 import ProductVariant from "./ProductVariant/ProductVariant";
 import ProductColor from "./ProductColor/ProductColor";
+import ScrollEnd from "../../../../../../utilities/minitiatures/ScrollEnd/ScrollEnd";
+import { getAdminProducts } from "../../../../../../utilities/api/admin/actions";
+import arrayMerge from "../../../../../../utilities/helpers/arrayMerge";
 
 const DEFAULT_EDIT = {
     current: null as Product | null,
@@ -56,6 +59,8 @@ export const useColor = () => {
     return React.useContext(ProductsContext).color;
 }
 
+const dataLimit = 20;
+
 const Products = React.memo(() => {
 
     const { categories, products } = useSelector((state: Rootstate) => state.admin);
@@ -66,6 +71,11 @@ const Products = React.memo(() => {
         onDelete: DEFAULT_DELETE,
         variant: DEFAULT_PRODUCT_VARIANT,
         color: DEFAULT_PRODUCT_COLOR,
+    });
+
+    const [query, setQuery] = React.useState({
+        offset: 0,
+        scrollEnd: true,
     });
 
     const edit = React.useMemo(() => {
@@ -111,10 +121,26 @@ const Products = React.memo(() => {
     React.useEffect(() => {
         if (!categories) {
             dispatch(refreshCategories());
-        } else if (!products) {
-            dispatch(refreshProducts());
         }
     }, [categories, products]);
+
+    const handleScrollEnd = React.useCallback(() => {
+        const newQuery = { ...query };
+        getAdminProducts({ limit: dataLimit, offset: query.offset })
+            .then(response => {
+                const freshProducts: Product[] = response.data.products;
+                const newProducts = arrayMerge<Product>(products || [], freshProducts);
+
+                newQuery.offset = newProducts.length;
+
+                if (freshProducts.length < dataLimit) {
+                    newQuery.scrollEnd = false;
+                }
+
+                dispatch(setAdminProducts(newProducts));
+                setQuery(newQuery);
+            })
+    }, [products, query]);
 
     return <ProductsContext.Provider value={{ edit, onDelete, variant, color }}>
         <div className="products-container">
@@ -124,9 +150,9 @@ const Products = React.memo(() => {
             <Fade show={products?.length === 0}>
                 <ProductsEmpty />
             </Fade>
-            <Fade show={!products}>
+            <ScrollEnd show={query.scrollEnd} whileInView={handleScrollEnd}>
                 <TablePlaceholder />
-            </Fade>
+            </ScrollEnd>
             <AddProduct />
             <DeleteProduct />
             <EditProduct />

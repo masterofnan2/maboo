@@ -18,7 +18,7 @@ const Unchecked = React.memo(() => {
 
     return <div className="unchecked-container">
         <Loading show={!orders} />
-        <OrdersEmpty show={Boolean(orders && !orders.length)} />
+        <OrdersEmpty show={orders?.length === 0} />
         {Boolean(orders?.length) && <>
             <h1 className="page-title"><i className="fa-solid fa-seal-question"></i> Commandes non vérifiées</h1>
             {orders?.map(order => <OrderItemGroup

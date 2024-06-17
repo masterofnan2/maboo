@@ -22,6 +22,7 @@ import AdminRequests from "../../../App/Admin/Authenticated/Dashboard/Main/Admin
 import Orders from "../../../App/Admin/Authenticated/Dashboard/Main/Orders/Orders";
 import Unchecked from "../../../App/Admin/Authenticated/Dashboard/Main/Orders/Unchecked/Unchecked";
 import Processing from "../../../App/Admin/Authenticated/Dashboard/Main/Orders/Processing/Processing";
+import Delivered from "../../../App/Admin/Authenticated/Dashboard/Main/Orders/Delivered/Delivered";
 
 export default function () {
     return <Routes>
@@ -50,6 +51,7 @@ export default function () {
                     <Route element={<Orders />} path="orders">
                         <Route element={<Processing />} path="processing" />
                         <Route element={<Unchecked />} path="unchecked" />
+                        <Route element={<Delivered />} path="delivered" />
                     </Route>
                 </Route>
                 <Route element={<Auth />} path="auth">
