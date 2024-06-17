@@ -4,14 +4,11 @@ namespace App\Actions;
 
 use App\Models\Category;
 use App\Models\Product;
-use App\Providers\Helpers\Helpers;
-use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\UploadedFile;
-
+    
 class CategoryActions
 {
-
     public function storeImage(UploadedFile $image): string
     {
         $path = $image->store('public/images/categories/');
@@ -34,7 +31,7 @@ class CategoryActions
         return $hierarchy;
     }
 
-    public function allChildrenIds(int $category_id, array &$categoryIds)
+    public function allChildrenIds(int $category_id, array &$categoryIds): void
     {
         $categories = Category::where('parent_id', $category_id)->get();
 
@@ -46,13 +43,4 @@ class CategoryActions
         }
     }
 
-    public function getProducts(int $category_id): Collection
-    {
-        $relatedCategoryIds = [$category_id];
-        $this->allChildrenIds($category_id, $relatedCategoryIds);
-
-        $products = Product::whereIn('category_id', $relatedCategoryIds)->get();
-
-        return $products;
-    }
 }

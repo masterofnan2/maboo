@@ -8,14 +8,9 @@ use App\Http\Controllers\ProductColorController;
 use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\ProductVariantController;
 use App\Http\Controllers\SearchController;
-use App\Http\Controllers\SoldItemController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
-
-Route::prefix('sold-items')->controller(SoldItemController::class)->group(function () {
-    Route::get('pending', 'pending');
-});
 
 Route::prefix('transaction')->controller(TransactionController::class)->group(function () {
     Route::prefix('order')->group(function () {
@@ -28,7 +23,7 @@ Route::prefix('transaction')->controller(TransactionController::class)->group(fu
 });
 
 Route::prefix('search')->controller(SearchController::class)->group(function () {
-    Route::get('/small/{query}', 'small');
+    Route::get('/{query}', 'search');
 });
 
 Route::prefix('order')->controller(OrderController::class)
@@ -37,6 +32,9 @@ Route::prefix('order')->controller(OrderController::class)
         Route::get('get/{id}', 'get');
         Route::delete('delete/{id}', 'delete');
         Route::get('grouped/{id}', 'grouped');
+        Route::prefix('status')->group(function () {
+            Route::post('update', 'updateStatus');
+        });
     });
 
 Route::prefix('user')->controller(UserController::class)->middleware('auth:sanctum')->group(function () {
@@ -157,6 +155,8 @@ Route::prefix('admin')->group(function () {
         ->middleware('auth:sanctum')
         ->group(function () {
             Route::get('processing', 'processing');
+            Route::get('closed', 'closed');
+            Route::get('delivered', 'delivered');
             Route::get('unchecked', 'unchecked');
             Route::put('update-transaction/{id}', 'updateTransaction');
         });

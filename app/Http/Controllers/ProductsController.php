@@ -82,9 +82,14 @@ class ProductsController extends Controller
         return response()->json(['restored' => $restored]);
     }
 
-    public function featured(ProductActions $productActions)
+    public function featured()
     {
-        $products = $productActions->getProductsOf(null, ADMIN)->random(5);
+        $limit = 5;
+        
+        $products = Product::adminProducts()
+            ->get()
+            ->random($limit);
+
         return response()->json(['products' => $products]);
     }
 

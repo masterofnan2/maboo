@@ -3,15 +3,21 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Actions\ProductActions;
+use App\Models\Product;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class ProductsController extends Controller
 {
-    public function get(ProductActions $productActions)
+    public function get(Request $request)
     {
-        $products = $productActions->getProductsOf(null, ADMIN);
+        $limit = $request->limit ?: 20;
+        $offset = $request->offset ?: 0;
+
+        $products = Product::adminProducts()
+            ->limit($limit)
+            ->offset($offset)
+            ->get();
+            
         return response()->json(['products' => $products]);
     }
 }

@@ -2,7 +2,10 @@
 
 namespace App\Models;
 
+use App\Actions\AdminActions;
+use App\Enums\OrderStatuses;
 use App\Models\Scopes\OrderItem\WithCartItemScope;
+use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -31,6 +34,17 @@ class OrderItem extends Model
     public function merchant()
     {
         return $this->belongsTo(User::class, 'merchant_id');
+    }
+
+    public function scopeAdminItems(Builder $builder): Builder
+    {
+        $ids = (new AdminActions)->adminIds();
+        return $builder->whereIn('merchant_id', $ids);
+    }
+
+    public function scopeWhereStatus(Builder $builder, OrderStatuses $status): Builder
+    {
+        return $builder->where('status', $status->value);
     }
 
     public function order_status_histories()

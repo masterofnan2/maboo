@@ -14,18 +14,17 @@ use Illuminate\Http\JsonResponse;
 
 class OrderController extends Controller
 {
-    public function processing(AdminActions $actions)
+    public function processing(): JsonResponse
     {
-        $ids = $actions->adminIds();
-        $orderItems = OrderItem::whereIn('merchant_id', $ids)
-            ->with('user')
-            ->where('status', OrderStatuses::PROCESSING->value)
+        $orderItems = OrderItem::with('user')
+            ->adminItems()
+            ->whereStatus(OrderStatuses::PROCESSING)
             ->get();
 
         return response()->json(['orders' => $orderItems]);
     }
 
-    public function unchecked()
+    public function unchecked(): JsonResponse
     {
         $orders = Order::where('transaction_id', '!=', null)
             ->with('user')
@@ -55,5 +54,29 @@ class OrderController extends Controller
         }
 
         return response()->json(['updated' => $updated]);
+    }
+
+    public function closed(): JsonResponse
+    {
+        $orderItems = OrderItem::with('user')
+            ->adminItems()
+            ->whereStatus(OrderStatuses::CLOSED)
+            ->get();
+
+        return response()->Json([
+            'orders' => $orderItems
+        ]);
+    }
+
+    public function delivered(): JsonResponse
+    {
+        $orderItems = OrderItem::with('user')
+            ->adminItems()
+            ->whereStatus(OrderStatuses::DELIVERED)
+            ->get();
+
+        return response()->Json([
+            'orders' => $orderItems
+        ]);
     }
 }

@@ -47,7 +47,8 @@ class DatabaseSeeder extends Seeder
             Category::factory(4)->create(['parent_id' => $i]);
         }
 
-        Product::factory(20)->create();
-        ProductVariant::factory(80)->create();
+        Product::factory(200)->create();
+        Product::factory(150)->create(['title' => 'iphone 12 pro']);
+        ProductVariant::factory(800)->create();
     }
 }

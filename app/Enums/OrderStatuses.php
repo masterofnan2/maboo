@@ -6,7 +6,6 @@ enum OrderStatuses: int
 {
     case CANCELLED = 0;
     case PROCESSING = 1;
-    case CONFIRMED = 2;
-    case DELIVERED = 3;
+    case DELIVERED = 2;
     case CLOSED = 4;
 }

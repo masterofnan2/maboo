@@ -1,9 +1,9 @@
-FROM php:8.0
+FROM php:8.3
 
 WORKDIR /app
 
 RUN apt-get update -y && apt-get install -y openssl zip unzip git
-RUN apt-get install -y default-mysql-client
+# RUN apt-get install -y default-mysql-client
 # Installer les dépendances nécessaires pour les extensions PHP
 RUN apt-get install -y libpq-dev libonig-dev
 
@@ -23,6 +23,6 @@ COPY . .
 # Installer les dépendances du projet avec Composer
 RUN composer install
 
-EXPOSE 8181
+EXPOSE 8000
 
-CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=8181"]
+CMD ["php", "artisan", "serve", "--port=8000"]

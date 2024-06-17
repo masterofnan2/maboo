@@ -20,7 +20,7 @@ class ProductVariantFactory extends Factory
             'name' => fake()->colorName(),
             'price' => fake()->numberBetween(100, 300),
             'inStock' => fake()->numberBetween(0, 50),
-            'product_id' => fake()->numberBetween(1, 20),
+            'product_id' => fake()->numberBetween(1, 200),
         ];
     }
 }

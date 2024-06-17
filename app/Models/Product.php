@@ -7,6 +7,7 @@ use App\Models\Scopes\Product\WithColorsScope;
 use App\Models\Scopes\Product\WithImagesScope;
 use App\Models\Scopes\Product\WithMerchantScope;
 use App\Models\Scopes\Product\WithVariantsScope;
+use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -48,6 +49,13 @@ class Product extends Model
     public function colors()
     {
         return $this->hasMany(ProductColor::class);
+    }
+
+    public function scopeAdminProducts(): Builder
+    {
+        return $this->whereHas('merchant', function ($query) {
+            $query->where('type', User::TYPE_ADMIN);
+        });
     }
 
     protected static function booted(): void
