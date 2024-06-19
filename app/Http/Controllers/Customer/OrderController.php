@@ -1,16 +1,31 @@
-<?php 
+<?php
 
 namespace App\Http\Controllers\Customer;
 
+use App\Enums\OrderStatuses;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Order\MakeOrderRequest;
 use App\Models\Order;
 use App\Actions\CartActions;
 use App\Actions\OrderActions;
+use App\Models\OrderItem;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
 
 
-class OrderController extends Controller{
+class OrderController extends Controller
+{
+    public function delete(Order $order): JsonResponse
+    {
+        $deleted = false;
+
+        if ($order) {
+            $deleted = !$order->transaction_id ? $order->forceDelete() : $order->delete();
+        }
+
+        return response()->json(['deleted' => $deleted]);
+    }
+
     public function make(MakeOrderRequest $request, CartActions $cartActions, OrderActions $orderActions)
     {
         $cartItemIds = $request->cart_item_ids;
@@ -32,9 +47,28 @@ class OrderController extends Controller{
         }
     }
 
-    public function all()
+    public function all(): JsonResponse
     {
         $orders = Order::where('user_id', Auth::id())->latest('created_at')->get();
         return response()->json(['orders' => $orders]);
+    }
+
+    public function cancelled(): JsonResponse
+    {
+        $orders = Order::where('user_id', Auth::id())
+            ->where('transaction_id', null)
+            ->latest()
+            ->get();
+
+        return response()->json(['orders' => $orders]);
+    }
+
+    public function processing(): JsonResponse
+    {
+        $orderItems = OrderItem::where('user_id', Auth::id())
+            ->whereStatus(OrderStatuses::PROCESSING)
+            ->get();
+
+        return response()->json(['order_items' => $orderItems]);
     }
 }

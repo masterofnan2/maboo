@@ -29,7 +29,7 @@ class ProductVariantPolicy
      */
     public function create(User $user): bool
     {
-        return ($user->type === ADMIN || $user->type === SELLER);
+        return ($user->type === User::TYPE_ADMIN || $user->type === User::TYPE_SELLER);
     }
 
     /**

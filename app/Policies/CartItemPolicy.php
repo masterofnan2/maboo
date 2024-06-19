@@ -28,7 +28,7 @@ class CartItemPolicy
      */
     public function create(User $user): bool
     {
-        return $user->type === CUSTOMER;
+        return $user->type === User::TYPE_CUSTOMER;
     }
 
     /**

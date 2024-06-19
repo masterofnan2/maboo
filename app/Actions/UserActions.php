@@ -3,7 +3,7 @@
 namespace App\Actions;
 
 use App\Models\User;
-use App\Providers\Helpers\Helpers;
+use App\Helpers\Helpers;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\UploadedFile;
@@ -53,7 +53,7 @@ class UserActions extends Actions
 
     public function notifyAdmins($notification)
     {
-        $admins = $this->getUsersOfType(ADMIN)->where('validated_at', '!==', null);
+        $admins = $this->getUsersOfType(User::TYPE_ADMIN)->where('validated_at', '!==', null);
 
         if (!$admins->isEmpty()) {
             Notification::send($admins, $notification);

@@ -4,7 +4,7 @@ namespace App\Actions;
 
 use App\Models\Product;
 use App\Models\ProductImage;
-use App\Providers\Helpers\Helpers;
+use App\Helpers\Helpers;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\UploadedFile;

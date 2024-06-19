@@ -11,12 +11,6 @@ use App\Actions\OrderActions;
 class OrderController extends Controller
 {
 
-    public function delete(string $id)
-    {
-        $deleted = Order::find($id)->delete();
-        return response()->json(['deleted' => $deleted]);
-    }
-
     public function get(string $id, OrderActions $orderActions)
     {
         $order = $orderActions->getRefreshedOrder($id);

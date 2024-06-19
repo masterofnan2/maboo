@@ -2,8 +2,11 @@
 
 namespace App\Notifications\User;
 
+use App\Models\User;
+use Illuminate\Auth\Authenticatable;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
 class RequestAccountValidation extends Notification implements ShouldQueue
@@ -13,7 +16,7 @@ class RequestAccountValidation extends Notification implements ShouldQueue
     /**
      * Create a new notification instance.
      */
-    public function __construct()
+    public function __construct(protected User|Authenticatable $user)
     {
         //
     }
@@ -31,9 +34,16 @@ class RequestAccountValidation extends Notification implements ShouldQueue
     /**
      * Get the mail representation of the notification.
      */
-    public function toMail(object $notifiable): \App\Mail\User\RequestAccountValidation
+    public function toMail(object $notifiable): MailMessage
     {
-        return (new \App\Mail\User\RequestAccountValidation())->to($notifiable->email);
+        return (new MailMessage)
+            ->subject("Vous avez une nouvelle demande d'inscription.")
+            ->action('Ouvrir le Dashboard', url(env('FRONTEND_URL') . "/admin/dashboard"))
+            ->lines([
+                "Nom de l'utilisateur: {$this->user->name}",
+                "Prénom(s) de l'utilisateur: {$this->user->firstname}",
+                "Email de l'utilisateur: {$this->user->email}",
+            ]);
     }
 
     /**

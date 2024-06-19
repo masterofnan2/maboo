@@ -35,6 +35,7 @@ class AdminTransactionNotification extends Notification implements ShouldQueue
     public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage)
+            
             ->line("Une transaction vient d'être achevée")
             ->action('Voir les détails', url(env('FRONTEND_URL') . "/admin/dashboard"))
             ->line('Etat de la transaction: ' . $this->status)

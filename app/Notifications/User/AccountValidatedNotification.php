@@ -2,22 +2,14 @@
 
 namespace App\Notifications\User;
 
-use App\Mail\User\AccountValidated;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
 class AccountValidatedNotification extends Notification implements ShouldQueue
 {
     use Queueable;
-
-    /**
-     * Create a new notification instance.
-     */
-    public function __construct()
-    {
-        //
-    }
 
     /**
      * Get the notification's delivery channels.
@@ -32,9 +24,13 @@ class AccountValidatedNotification extends Notification implements ShouldQueue
     /**
      * Get the mail representation of the notification.
      */
-    public function toMail(object $notifiable): AccountValidated
+    public function toMail(object $notifiable): MailMessage
     {
-        return (new AccountValidated($notifiable->type))->to($notifiable->email);
+        return (new MailMessage)
+            ->subject("Nous vous souhaitons la bienvenue.")
+            ->line('Votre demande d`accéder à Ma Boo a été acceptée')
+            ->action('Ouvrir le dashboard', url(env('FRONTEND_URL') . "/admin/dashboard"))
+            ->salutation("L'équipe Ma Boo vous remercie");
     }
 
     /**

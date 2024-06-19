@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests\Customer;
 
-use App\Providers\Helpers\Helpers;
+use App\Helpers\Helpers;
 use Illuminate\Foundation\Http\FormRequest;
 
 class SignupRequest extends FormRequest

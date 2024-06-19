@@ -5,7 +5,7 @@ namespace App\Actions\Mail;
 use App\Mail\Auth\PasswordReset;
 use App\Models\User;
 use App\Actions\Actions;
-use App\Providers\Helpers\Helpers;
+use App\Helpers\Helpers;
 use Illuminate\Mail\SentMessage;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -24,16 +24,16 @@ class PasswordResetActions extends Actions
         $variant = '';
 
         switch ($this->user->type) {
-            case ADMIN:
-                $variant = '/' . strtolower(ADMIN);
+            case User::TYPE_ADMIN:
+                $variant = '/' . strtolower(User::TYPE_ADMIN);
                 break;
 
-            case PROFESSIONNAL:
-                $variant = '/' . strtolower(PROFESSIONNAL);
+            case User::TYPE_PROFESSIONAL:
+                $variant = '/' . strtolower(User::TYPE_PROFESSIONAL);
                 break;
 
-            case SELLER:
-                $variant = '/' . strtolower(SELLER);
+            case User::TYPE_SELLER:
+                $variant = '/' . strtolower(User::TYPE_SELLER);
                 break;
 
             default:

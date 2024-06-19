@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Seller;
 
+use App\Models\User;
 use App\Rules\UserTypeIs;
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -23,7 +24,7 @@ class LoginRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'email' => ['bail', 'required', 'email', 'exists:users', new UserTypeIs('ADMIN')],
+            'email' => ['bail', 'required', 'email', 'exists:users', new UserTypeIs(User::TYPE_ADMIN)],
             'password' => 'bail|required|min:6'
         ];
     }

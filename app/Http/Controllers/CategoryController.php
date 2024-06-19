@@ -6,7 +6,7 @@ use App\Http\Requests\Category\CategoryCreateRequest;
 use App\Http\Requests\Category\CategoryUpdateRequest;
 use App\Models\Category;
 use App\Actions\CategoryActions;
-use App\Providers\Helpers\Helpers;
+use App\Helpers\Helpers;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rules\File;
 

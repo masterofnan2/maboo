@@ -6,7 +6,7 @@ use App\Http\Requests\ProductVariant\CreateProductVariantRequest;
 use App\Http\Requests\ProductVariant\UpdateProductVariantRequest;
 use App\Models\ProductVariant;
 use App\Actions\ProductVariantActions;
-use App\Providers\Helpers\Helpers;
+use App\Helpers\Helpers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;

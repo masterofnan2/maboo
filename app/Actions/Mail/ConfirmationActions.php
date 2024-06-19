@@ -5,7 +5,7 @@ namespace App\Actions\Mail;
 use App\Mail\Auth\EmailConfirmation;
 use App\Models\ConfirmationCodes;
 use App\Actions\Actions;
-use App\Providers\Helpers\Helpers;
+use App\Helpers\Helpers;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;

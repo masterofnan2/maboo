@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests\Product;
 
-use App\Providers\Helpers\Helpers;
+use App\Helpers\Helpers;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rules\File;

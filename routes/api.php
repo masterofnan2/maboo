@@ -30,7 +30,6 @@ Route::prefix('order')->controller(OrderController::class)
     ->middleware('auth:sanctum')
     ->group(function () {
         Route::get('get/{id}', 'get');
-        Route::delete('delete/{id}', 'delete');
         Route::get('grouped/{id}', 'grouped');
         Route::prefix('status')->group(function () {
             Route::post('update', 'updateStatus');
@@ -118,8 +117,11 @@ Route::prefix('customer')->group(function () {
         ->middleware('auth:sanctum')
         ->controller(\App\Http\Controllers\Customer\OrderController::class)
         ->group(function () {
+            Route::delete('delete/{order}', 'delete');
             Route::post('make', 'make');
             Route::get('all', 'all');
+            Route::get('cancelled', 'cancelled');
+            Route::get('processing', 'processing');
         });
 });
 

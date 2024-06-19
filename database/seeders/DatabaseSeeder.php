@@ -7,7 +7,7 @@ use App\Models\Product;
 use App\Models\ProductVariant;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-use App\Providers\Helpers\Helpers;
+use App\Helpers\Helpers;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 
@@ -35,9 +35,9 @@ class DatabaseSeeder extends Seeder
             'type' => User::TYPE_CUSTOMER,
         ]);
 
-        User::factory(10)->create(['type' => ADMIN]);
-        User::factory(10)->create(['type' => SELLER]);
-        User::factory(10)->create(['type' => CUSTOMER]);
+        User::factory(10)->create(['type' => User::TYPE_ADMIN]);
+        User::factory(10)->create(['type' => User::TYPE_SELLER]);
+        User::factory(10)->create(['type' => User::TYPE_CUSTOMER]);
 
         Category::factory(2)->create();
         Category::factory(4)->create(['parent_id' => 1]);
@@ -48,7 +48,6 @@ class DatabaseSeeder extends Seeder
         }
 
         Product::factory(200)->create();
-        Product::factory(150)->create(['title' => 'iphone 12 pro']);
         ProductVariant::factory(800)->create();
     }
 }

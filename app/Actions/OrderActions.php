@@ -5,7 +5,8 @@ namespace App\Actions;
 use App\Models\CartItem;
 use App\Models\Order;
 use App\Models\OrderItem;
-use App\Providers\Helpers\Helpers;
+use App\Helpers\Helpers;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Collection;
 
 class OrderActions extends Actions
@@ -66,7 +67,7 @@ class OrderActions extends Actions
 
                 $merchant_id = $merchant->id;
 
-                if ($merchant->type === ADMIN) {
+                if ($merchant->type === User::TYPE_ADMIN) {
                     if (!$adminId) {
                         $adminId = $merchant->id;
                     }

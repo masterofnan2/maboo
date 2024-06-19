@@ -32,7 +32,7 @@ class SearchController extends Controller
                 break;
 
             case ('sellers'):
-                $Model = User::where('type', SELLER)
+                $Model = User::where('type', User::TYPE_SELLER)
                     ->where('name', 'like', $this->keywords)
                     ->orWhere('firstname', 'like', $this->keywords);
 

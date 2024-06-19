@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests\User;
 
-use App\Providers\Helpers\Helpers;
+use App\Helpers\Helpers;
 use App\Rules\ExistingEmail;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rules\File;

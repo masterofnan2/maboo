@@ -4,7 +4,6 @@ namespace App\Policies;
 
 use App\Models\Order;
 use App\Models\User;
-use Illuminate\Auth\Access\Response;
 
 class OrderPolicy
 {
@@ -21,7 +20,7 @@ class OrderPolicy
      */
     public function view(User $user, Order $order): bool
     {
-        return $user->type === ADMIN || $user->id === $order->user_id;
+        return $user->type === User::TYPE_ADMIN || $user->id === $order->user_id;
     }
 
     /**
@@ -29,7 +28,7 @@ class OrderPolicy
      */
     public function create(User $user): bool
     {
-        return $user->type === CUSTOMER;
+        return $user->type === User::TYPE_CUSTOMER;
     }
 
     /**

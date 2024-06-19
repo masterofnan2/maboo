@@ -76,7 +76,7 @@ class OrangeMoneyActions
 
     protected function configUrls()
     {
-        $this->returnUrl = env('FRONTEND_URL');
+        $this->returnUrl = env('FRONTEND_URL') . '/orders/list?active=PROCESSING';
         $this->notifUrl = env('APP_URL') . '/transaction/status/orangemoney/' . $this->order_id;
         $this->cancelUrl = env('FRONTEND_URL') . '/order/' . $this->order_id;
 
@@ -137,7 +137,8 @@ class OrangeMoneyActions
 
         $response = json_decode($success);
 
-        if (!isset($response->payment_url)) throw new HttpException(500, "Couldn't obtain payment url");
+        if (!isset($response->payment_url))
+            throw new HttpException(500, "Couldn't obtain payment url");
 
         curl_close($curl);
         return $response;

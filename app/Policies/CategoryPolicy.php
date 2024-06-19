@@ -28,7 +28,7 @@ class CategoryPolicy
      */
     public function create(User $user): bool
     {
-        return $user->type === ADMIN;
+        return $user->type === User::TYPE_ADMIN;
     }
 
     /**
@@ -36,7 +36,7 @@ class CategoryPolicy
      */
     public function update(User $user, Category $category): bool
     {
-        return $user->type === ADMIN;
+        return $user->type === User::TYPE_ADMIN;
     }
 
     /**
@@ -44,6 +44,6 @@ class CategoryPolicy
      */
     public function delete(User $user, Category $category): bool
     {
-        return $user->type === ADMIN;
+        return $user->type === User::TYPE_ADMIN;
     }
 }

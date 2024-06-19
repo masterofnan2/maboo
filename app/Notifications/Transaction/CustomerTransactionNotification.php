@@ -2,6 +2,7 @@
 
 namespace App\Notifications\Transaction;
 
+use App\Models\Transaction;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
@@ -35,7 +36,7 @@ class CustomerTransactionNotification extends Notification implements ShouldQueu
     public function toMail(object $notifiable): MailMessage
     {
         switch ($this->status) {
-            case TRANSACTION_STATUS_SUCCESS:
+            case Transaction::STATUS_SUCCESS:
                 return (new MailMessage)
                     ->line('Commande confirmée')
                     ->action('voir la commande', url(env('FRONTEND_URL') . "/order/{$this->order_id}"))

@@ -3,7 +3,7 @@
 namespace App\Http\Requests\Category;
 
 use App\Models\Category;
-use App\Providers\Helpers\Helpers;
+use App\Helpers\Helpers;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rules\File;
