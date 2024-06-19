@@ -150,5 +150,13 @@ export const getAllOrders = () => {
 }
 
 export const deleteOrder = (order_id: string) => {
-    return axios.delete(`/order/delete/${order_id}`)
+    return axios.delete(`/customer/order/delete/${order_id}`)
+}
+
+export const cancelledOrders = () => {
+    return axios.get('/customer/order/cancelled');
+}
+
+export const processingOrders = () => {
+    return axios.get('/customer/order/processing');
 }

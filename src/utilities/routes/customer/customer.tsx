@@ -16,7 +16,7 @@ import Category from "../../../App/Customer/Category/Category";
 import Product from "../../../App/Customer/Product/Product";
 import Cart from "../../../App/Customer/Authenticated/Cart/Cart";
 import Orders from "../../../App/Customer/Authenticated/Orders/Orders";
-import All from "../../../App/Customer/Authenticated/Orders/All/All";
+import List from "../../../App/Customer/Authenticated/Orders/List/List";
 import Order from "../../../App/Customer/Authenticated/Orders/Order/Order";
 import Search from "../../../App/Customer/Search/Search";
 
@@ -39,7 +39,7 @@ export default function () {
             <Route element={<Authenticated />} path='/'>
                 <Route element={<Cart />} path="cart" />
                 <Route element={<Orders />} path="orders">
-                    <Route element={<All />} path="all" />
+                    <Route element={<List />} path="list" />
                     <Route element={<Order />} path="order/:id" />
                 </Route>
                 <Route element={<Auth />} path="auth">

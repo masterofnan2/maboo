@@ -29,6 +29,10 @@ export const useSearch = () => {
     return React.useContext(SearchContext);
 }
 
+const reset = () => {
+    if (prevKeyWords) prevKeyWords = '';
+}
+
 const Search = React.memo(() => {
     const words: string | undefined = useParams().words;
 
@@ -48,6 +52,8 @@ const Search = React.memo(() => {
         setState(s => ({ ...s, active }))
     }, []);
 
+    React.useEffect(reset, []);
+
     React.useEffect(() => {
         if (words && words !== prevKeyWords) {
             if (!state.loading) setState(s => ({ ...s, loading: true }));
@@ -59,8 +65,9 @@ const Search = React.memo(() => {
                     prevKeyWords = words;
                 });
         }
-    }, [words, state.loading]);
+    }, [words, state.loading, prevKeyWords]);
 
+    
     return <SearchContext.Provider value={{ result, setResult }}>
         <Loading show={loading} />
         <Fade className="search-page-container container" show={!loading}>

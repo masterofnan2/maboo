@@ -6,8 +6,13 @@ import { search } from "../../../../utilities/api/customer/actions";
 import StringSuggestions from "./StringSuggestions/StringSuggestions";
 import SearchFor from "./SearchFor/SearchFor";
 import Fade from "../../../../utilities/minitiatures/Fade/Fade";
+import { useNavigate } from "react-router-dom";
+
+type Target = EventTarget & { children: ({ value?: string } & Element)[] };
 
 const Search = React.memo(() => {
+    const navigate = useNavigate();
+
     const [state, setState] = React.useState({
         show: false,
         keywords: '',
@@ -28,15 +33,33 @@ const Search = React.memo(() => {
             })
     }, []);
 
+
+    const noResults = React.useMemo(() => Boolean(
+        (state.products && state.products.length === 0) && (state.sellers && state.sellers.length === 0)
+    ), [state.products, state.sellers]);
+
+    const handleSubmit: React.FormEventHandler<HTMLFormElement> = React.useCallback((e) => {
+        e.preventDefault();
+        const { children } = e.target as Target;
+        if (children.length > 0) {
+            for (const child of children) {
+                const name = child.getAttribute('name');
+                const value = child.value;
+
+                if (name === 'search-input' && value) {
+                    toggleShow();
+                    navigate(`/search/${value}`);
+                    return;
+                }
+            }
+        }
+    }, []);
+
     React.useEffect(() => {
         if (inputRef.current && state.show) {
             inputRef.current.focus();
         }
     }, [inputRef, state.show]);
-
-    const noResults = React.useMemo(() => Boolean(
-        (state.products && state.products.length === 0) && (state.sellers && state.sellers.length === 0)
-    ), [state.products, state.sellers]);
 
     return <div className="search-container">
         <button
@@ -45,13 +68,16 @@ const Search = React.memo(() => {
             onClick={toggleShow}>
             <i className="fa-solid fa-magnifying-glass"></i>
         </button>
-        <Fade show={state.show} className="search-body">
-            <Input
-                type="text"
-                placeholder="rechercher ici..."
-                onChange={handleSearch}
-                onBlur={toggleShow}
-                ref={inputRef} />
+        <Fade className="search-body" show={state.show}>
+            <form onSubmit={handleSubmit}>
+                <Input
+                    type="text"
+                    placeholder="rechercher ici..."
+                    onChange={handleSearch}
+                    onBlur={toggleShow}
+                    ref={inputRef}
+                    name="search-input" />
+            </form>
 
             <Fade show={noResults}>
                 <SearchFor

@@ -8,20 +8,16 @@ import { Link } from "react-router-dom";
 import usePagePreloader from "../../../../../utilities/minitiatures/PagePreloader/hooks/usePagePreloader";
 import { deleteOrder } from "../../../../../utilities/api/customer/actions";
 import useToasts from "../../../../../utilities/minitiatures/Toast/hooks/useToasts";
-import { useDispatch } from "react-redux";
-import { refreshAllOrders } from "../../../../../utilities/redux/customer/customerSlice";
-import { AppDispatch } from "../../../../../utilities/redux/store";
 
 type Props = {
     order: Order,
+    onDeleteSuccess: Function,
 }
 
 const OrderItemsGroup = React.memo((props: Props) => {
     const pagePreloader = usePagePreloader();
     const toasts = useToasts();
-    const dispatch = useDispatch<AppDispatch>();
-
-    const { order } = props;
+    const { order, onDeleteSuccess} = props;
 
     const handleDeleteOrder = React.useCallback(() => {
         pagePreloader.enable();
@@ -33,7 +29,7 @@ const OrderItemsGroup = React.memo((props: Props) => {
                     type: "success",
                 });
 
-                dispatch(refreshAllOrders());
+                onDeleteSuccess();
             })
             .catch(() => {
                 toasts.push({

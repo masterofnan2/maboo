@@ -32,7 +32,7 @@ const UserDropdown = React.memo(() => {
         <Dropdown.Item as={Link} to={'/user/profile'}>
             <i className="fa fa-user"></i> Profil</Dropdown.Item>
 
-        <Dropdown.Item as={Link} to={'/orders/all'}>
+        <Dropdown.Item as={Link} to={'/orders/list'}>
             <i className="fa-solid fa-cart-flatbed-boxes"></i> Commandes</Dropdown.Item>
 
         <Dropdown.Item

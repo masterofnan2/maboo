@@ -1,5 +1,6 @@
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import {
+  cancelledOrders,
   getAllOrders,
   getAuth,
   getCart,
@@ -7,11 +8,13 @@ import {
   getCategoryProducts,
   getFeaturedProducts,
   getProduct,
+  processingOrders,
 } from "../../api/customer/actions";
 import {
   CartItem,
   CategoriesHierarchy,
   Order,
+  OrderItem,
   Product,
   User,
 } from "../../constants/types";
@@ -29,6 +32,8 @@ interface CustomerState {
   cart: CartItem[] | null;
   orders: {
     all: Order[] | null;
+    cancelled: Order[] | null;
+    processing: OrderItem[] | null;
     order: {
       [key: string]: Order;
     };
@@ -44,6 +49,8 @@ const initialState: CustomerState = {
   cart: null,
   orders: {
     all: null,
+    cancelled: null,
+    processing: null,
     order: {},
   },
 };
@@ -114,9 +121,28 @@ const customerSlice = createSlice({
         (state, action: PayloadAction<Order[]>) => {
           state.orders.all = action.payload;
         }
+      )
+      .addCase(
+        refreshCancelledOrders.fulfilled,
+        (state, action: PayloadAction<Order[]>) => {
+          state.orders.cancelled = action.payload;
+        }
+      )
+      .addCase(
+        refreshProcessingOrders.fulfilled,
+        (state, action: PayloadAction<OrderItem[]>) => {
+          state.orders.processing = action.payload;
+        }
       );
   },
 });
+export const refreshProcessingOrders = createAsyncThunk(
+  "customer/refreshProcessingOrders",
+  async () => {
+    const response = await processingOrders();
+    return response.data.order_items;
+  }
+);
 
 export const refreshAuth = createAsyncThunk(
   "customer/refreshAuth",
@@ -127,6 +153,14 @@ export const refreshAuth = createAsyncThunk(
     } catch (e) {
       return false;
     }
+  }
+);
+
+export const refreshCancelledOrders = createAsyncThunk(
+  "customer/refreshCancelledOrders",
+  async () => {
+    const response = await cancelledOrders();
+    return response.data.orders;
   }
 );
 
