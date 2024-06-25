@@ -1,7 +1,7 @@
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import {
   cancelledOrders,
-  getAllOrders,
+  deliveredOrders,
   getAuth,
   getCart,
   getCategories,
@@ -31,9 +31,9 @@ interface CustomerState {
   };
   cart: CartItem[] | null;
   orders: {
-    all: Order[] | null;
     cancelled: Order[] | null;
     processing: OrderItem[] | null;
+    delivered: OrderItem[] | null;
     order: {
       [key: string]: Order;
     };
@@ -48,9 +48,9 @@ const initialState: CustomerState = {
   products: {},
   cart: null,
   orders: {
-    all: null,
     cancelled: null,
     processing: null,
+    delivered: null,
     order: {},
   },
 };
@@ -68,6 +68,12 @@ const customerSlice = createSlice({
     ) => {
       state.categoryProducts[action.payload.selectorId] =
         action.payload.products;
+    },
+    setCancelledOrders: (state, action: PayloadAction<Order[] | null>) => {
+      state.orders.cancelled = action.payload;
+    },
+    setProcessingOrders: (state, action: PayloadAction<OrderItem[] | null>) => {
+      state.orders.processing = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -117,12 +123,6 @@ const customerSlice = createSlice({
         }
       )
       .addCase(
-        refreshAllOrders.fulfilled,
-        (state, action: PayloadAction<Order[]>) => {
-          state.orders.all = action.payload;
-        }
-      )
-      .addCase(
         refreshCancelledOrders.fulfilled,
         (state, action: PayloadAction<Order[]>) => {
           state.orders.cancelled = action.payload;
@@ -133,14 +133,37 @@ const customerSlice = createSlice({
         (state, action: PayloadAction<OrderItem[]>) => {
           state.orders.processing = action.payload;
         }
+      )
+      .addCase(
+        refreshDeliveredOrders.fulfilled,
+        (state, action: PayloadAction<OrderItem[]>) => {
+          state.orders.delivered = action.payload;
+        }
       );
   },
 });
+
+export const refreshDeliveredOrders = createAsyncThunk(
+  "customer/refreshDeliveredOrders",
+  async () => {
+    const response = await deliveredOrders();
+    return response.data.order_items;
+  }
+);
+
 export const refreshProcessingOrders = createAsyncThunk(
   "customer/refreshProcessingOrders",
   async () => {
     const response = await processingOrders();
     return response.data.order_items;
+  }
+);
+
+export const refreshCancelledOrders = createAsyncThunk(
+  "customer/refreshCancelledOrders",
+  async () => {
+    const response = await cancelledOrders();
+    return response.data.orders;
   }
 );
 
@@ -153,14 +176,6 @@ export const refreshAuth = createAsyncThunk(
     } catch (e) {
       return false;
     }
-  }
-);
-
-export const refreshCancelledOrders = createAsyncThunk(
-  "customer/refreshCancelledOrders",
-  async () => {
-    const response = await cancelledOrders();
-    return response.data.orders;
   }
 );
 
@@ -204,14 +219,6 @@ export const refreshCart = createAsyncThunk(
   async () => {
     const response = await getCart();
     return response.data?.cart;
-  }
-);
-
-export const refreshAllOrders = createAsyncThunk(
-  "customer/refreshAllOrders",
-  async () => {
-    const response = await getAllOrders();
-    return response.data?.orders;
   }
 );
 

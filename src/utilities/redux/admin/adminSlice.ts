@@ -12,7 +12,6 @@ import {
   getAdminRequests,
   getAllCategories,
   getAuth,
-  getClosedOrders,
   getDeliveredOrders,
   getProcessingOrders,
   getSellerRequests,
@@ -32,7 +31,6 @@ interface AdminState {
   order: {
     processing: BackOfficeOrderItem[] | null;
     unchecked: BackOfficeOrder[] | null;
-    closed: BackOfficeOrderItem[] | null;
     delivered: BackOfficeOrderItem[] | null;
   };
 }
@@ -50,7 +48,6 @@ const initialState: AdminState = {
   order: {
     processing: null,
     unchecked: null,
-    closed: null,
     delivered: null,
   },
 };
@@ -114,12 +111,6 @@ const adminSlice = createSlice({
         }
       )
       .addCase(
-        refreshClosedOrders.fulfilled,
-        (state, action: PayloadAction<BackOfficeOrderItem[]>) => {
-          state.order.closed = action.payload;
-        }
-      )
-      .addCase(
         refreshDeliveredOrders.fulfilled,
         (state, action: PayloadAction<BackOfficeOrderItem[]>) => {
           state.order.delivered = action.payload;
@@ -132,14 +123,6 @@ export const refreshDeliveredOrders = createAsyncThunk(
   "refreshDeliveredOrders",
   async () => {
     const response = await getDeliveredOrders();
-    return response.data.orders;
-  }
-);
-
-export const refreshClosedOrders = createAsyncThunk(
-  "refreshClosedOrders",
-  async () => {
-    const response = await getClosedOrders();
     return response.data.orders;
   }
 );

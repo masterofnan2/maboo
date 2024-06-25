@@ -238,10 +238,6 @@ export const markOrderItemsAsDelivered = (orderItemIds: number[]) => {
     });
 }
 
-export const getClosedOrders = () => {
-    return axios.get('/admin/order/closed');
-}
-
 export const getDeliveredOrders = () => {
     return axios.get('/admin/order/delivered');
 }

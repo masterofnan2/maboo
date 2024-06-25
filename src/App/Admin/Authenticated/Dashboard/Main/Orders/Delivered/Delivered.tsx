@@ -15,6 +15,8 @@ const Delivered = React.memo(() => {
         }
     }, [delivered]);
 
+    console.log('render');
+
     return <div className="delivered-order-container">
         <OrdersEmpty show={Boolean(delivered && delivered.length === 0)} />
         <Loading show={!delivered} />

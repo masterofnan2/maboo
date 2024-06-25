@@ -3,19 +3,24 @@ import { NavTab } from "../../../../../utilities/minitiatures/NavTabs/NavTab/Nav
 import React from "react";
 import Cancelled from "../Cancelled/Cancelled";
 import Processing from "../Processing/Processing";
-import Closed from "../Closed/Closed";
+import Delivered from "../Delivered/Delivered";
+import QueryUrl from "../../../../../utilities/helpers/QueryUrl";
 
 const CANCELLED = 'CANCELLED';
 const PROCESSING = 'PROCESSING';
-const CLOSED = 'CLOSED';
+const DELIVERED = 'DELIVERED';
 
-type Tabs = typeof CANCELLED | typeof PROCESSING | typeof CLOSED;
-const defaultActive = CANCELLED;
+type Tabs = typeof CANCELLED | typeof PROCESSING | typeof DELIVERED;
+
+const getDefaultActive = (): string => {
+    const Url = new QueryUrl(location.href);
+    const active = Url.get('active');
+    return active || CANCELLED;
+}
 
 const List = React.memo(() => {
-
     const [state, setState] = React.useState({
-        active: defaultActive as Tabs,
+        active: getDefaultActive() as Tabs,
     });
 
     const setActive = React.useCallback((active: Tabs) => {
@@ -27,8 +32,8 @@ const List = React.memo(() => {
             case PROCESSING:
                 return Processing;
 
-            case CLOSED:
-                return Closed;
+            case DELIVERED:
+                return Delivered;
 
             default:
                 return Cancelled;
@@ -39,7 +44,7 @@ const List = React.memo(() => {
         <NavTabs active={state.active} setActive={setActive}>
             <NavTab eventKey={CANCELLED}>Annulée(s)</NavTab>
             <NavTab eventKey={PROCESSING}>En cours</NavTab>
-            <NavTab eventKey={CLOSED}>Terminée(s)</NavTab>
+            <NavTab eventKey={DELIVERED}>Livrée(s)</NavTab>
         </NavTabs>
 
         <ActiveComponent />

@@ -1,0 +1,17 @@
+# First stage: Build the frontend
+FROM node:20-alpine as frontend
+
+WORKDIR /app
+
+COPY package.json .
+
+RUN npm install
+
+COPY . .
+
+RUN npm run build
+
+# Second stage: Use the built frontend in an Apache image
+FROM httpd:2.4 as apache
+
+COPY --from=frontend /app/dist /usr/local/apache2/htdocs/

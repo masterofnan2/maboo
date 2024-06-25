@@ -145,10 +145,6 @@ export const initOrderTransaction = (payload: {
     return axios.post('/transaction/order/make', payload);
 }
 
-export const getAllOrders = () => {
-    return axios.get('/customer/order/all');
-}
-
 export const deleteOrder = (order_id: string) => {
     return axios.delete(`/customer/order/delete/${order_id}`)
 }
@@ -159,4 +155,8 @@ export const cancelledOrders = () => {
 
 export const processingOrders = () => {
     return axios.get('/customer/order/processing');
+}
+
+export const deliveredOrders = () => {
+    return axios.get('/customer/order/delivered');
 }
