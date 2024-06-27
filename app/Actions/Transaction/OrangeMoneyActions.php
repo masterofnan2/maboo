@@ -4,17 +4,17 @@ namespace App\Actions\Transaction;
 
 use Symfony\Component\HttpKernel\Exception\HttpException;
 
-// const AUTHORIZATION = 'Authorization: Basic a1JYcDR0eFdCWHR4b0dBZXYyYVZUQUVicDF6cXBHVzc6S0w4dzNFMlNBb0N3ZHRQRQ==';
-const AUTHORIZATION = 'Authorization: Basic QldqNU4wOURwQTZGdFp4Z1M3R09uSnFtQ3k3cENrUnM6YklZdHV3ZGk3Smh1QUFtYg==';
+// ******************************PRODUCTION***********************************
+// const AUTHORIZATION = 'Authorization: Basic QldqNU4wOURwQTZGdFp4Z1M3R09uSnFtQ3k3cENrUnM6YklZdHV3ZGk3Smh1QUFtYg==';
+// const MERCHANT_KEY = '917554f0';
+// const CURRENCY = 'MGA';
+// const TRANSACTION_INIT_URL = 'https://api.orange.com/orange-money-webpay/mg/v1/webpayment';
 
-// const MERCHANT_KEY = '06645cf2';
-const MERCHANT_KEY = '917554f0';
-
-// const CURRENCY = 'OUV';
-const CURRENCY = 'MGA';
-
-// const TRANSACTION_INIT_URL = 'https://api.orange.com/orange-money-webpay/dev/v1/webpayment';
-const TRANSACTION_INIT_URL = 'https://api.orange.com/orange-money-webpay/mg/v1/webpayment';
+// *********************************DEVELOPPEMENT************************************
+const CURRENCY = 'OUV';
+const MERCHANT_KEY = '06645cf2';
+const AUTHORIZATION = 'Authorization: Basic a1JYcDR0eFdCWHR4b0dBZXYyYVZUQUVicDF6cXBHVzc6S0w4dzNFMlNBb0N3ZHRQRQ==';
+const TRANSACTION_INIT_URL = 'https://api.orange.com/orange-money-webpay/dev/v1/webpayment';
 
 const GETTOKENURL = 'https://api.orange.com/oauth/v3/token';
 const MERCHANT_REFERENCE = 'Ma Boo Reny sy Zanaka';
