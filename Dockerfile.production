@@ -12,6 +12,9 @@ COPY . .
 RUN npm run build
 
 # Second stage: Use the built frontend in an Apache image
-FROM httpd:2.4 as apache
 
-COPY --from=frontend /app/dist /usr/local/apache2/htdocs/
+FROM nginx:stable-alpine3.19-slim
+
+COPY --from=frontend /app/dist /usr/share/nginx/html
+
+COPY ./default.conf /etc/nginx/conf.d
