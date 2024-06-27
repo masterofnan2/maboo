@@ -56,17 +56,6 @@ class OrderController extends Controller
         return response()->json(['updated' => $updated]);
     }
 
-    public function closed(): JsonResponse
-    {
-        $orderItems = OrderItem::with('user')
-            ->adminItems()
-            ->whereStatus(OrderStatuses::CLOSED)
-            ->get();
-
-        return response()->Json([
-            'orders' => $orderItems
-        ]);
-    }
 
     public function delivered(): JsonResponse
     {

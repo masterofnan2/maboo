@@ -122,6 +122,7 @@ Route::prefix('customer')->group(function () {
             Route::get('all', 'all');
             Route::get('cancelled', 'cancelled');
             Route::get('processing', 'processing');
+            Route::get('delivered', 'delivered');
         });
 });
 

@@ -57,6 +57,9 @@ class OrderController extends Controller
     {
         $orders = Order::where('user_id', Auth::id())
             ->where('transaction_id', null)
+            ->orWhereHas('transaction', function ($query) {
+                $query->where('status', null);
+            })
             ->latest()
             ->get();
 
@@ -67,6 +70,15 @@ class OrderController extends Controller
     {
         $orderItems = OrderItem::where('user_id', Auth::id())
             ->whereStatus(OrderStatuses::PROCESSING)
+            ->get();
+
+        return response()->json(['order_items' => $orderItems]);
+    }
+
+    public function delivered(): JsonResponse
+    {
+        $orderItems = OrderItem::where('user_id', Auth::id())
+            ->whereStatus(OrderStatuses::DELIVERED)
             ->get();
 
         return response()->json(['order_items' => $orderItems]);
