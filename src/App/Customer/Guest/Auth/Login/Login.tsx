@@ -81,7 +81,7 @@ const Login = React.memo(() => {
         <div className="actions">
             <Link to={'/auth/signup'} type="button"
                 className="other-button btn">
-                Je n'ai pas de compte
+                Créer un compte
             </Link>
             <Button
                 type="submit"

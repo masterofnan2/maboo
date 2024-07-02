@@ -10,6 +10,7 @@ logs.txt
 
 node_modules
 
+webhook.bash
 dist
 dist-ssr
 *.local
