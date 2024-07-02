@@ -74,7 +74,7 @@ const Products = React.memo(() => {
     });
 
     const [query, setQuery] = React.useState({
-        offset: 0,
+        offset: products ? products.length : 0,
         scrollEnd: true,
     });
 
@@ -129,15 +129,17 @@ const Products = React.memo(() => {
         getAdminProducts({ limit: dataLimit, offset: query.offset })
             .then(response => {
                 const freshProducts: Product[] = response.data.products;
-                const newProducts = arrayMerge<Product>(products || [], freshProducts);
 
-                newQuery.offset = newProducts.length;
+                if (freshProducts.length > 0) {
+                    const newProducts = arrayMerge<Product>(products || [], freshProducts);
+                    newQuery.offset = newProducts.length;
+                    dispatch(setAdminProducts(newProducts));
+                }
 
                 if (freshProducts.length < dataLimit) {
                     newQuery.scrollEnd = false;
                 }
 
-                dispatch(setAdminProducts(newProducts));
                 setQuery(newQuery);
             })
     }, [products, query]);
