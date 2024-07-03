@@ -11,13 +11,27 @@ use Illuminate\Notifications\Notification;
 class CustomerTransactionNotification extends Notification implements ShouldQueue
 {
     use Queueable;
+    protected string $order_id;
+    protected string $status;
 
     /**
      * Create a new notification instance.
      */
-    public function __construct(protected string $order_id, protected string $status)
+    public function __construct()
     {
         //
+    }
+
+    public function setOrderId(string $orderId)
+    {
+        $this->order_id = $orderId;
+        return $this;
+    }
+
+    public function setStatus(string $status)
+    {
+        $this->status = $status;
+        return $this;
     }
 
     /**
@@ -35,21 +49,33 @@ class CustomerTransactionNotification extends Notification implements ShouldQueu
      */
     public function toMail(object $notifiable): MailMessage
     {
+        $mail = new MailMessage;
+        $actionPath = "";
+
         switch ($this->status) {
             case Transaction::STATUS_SUCCESS:
-                return (new MailMessage)
-                    ->line('Commande confirmée')
-                    ->action('voir la commande', url(env('FRONTEND_URL') . "/order/{$this->order_id}"))
-                    ->line('Nous vous remercions pour votre confiance!')
+                $mail
+                    ->subject('Commande confirmée')
+                    ->line('Nous vous remercions de votre confiance!')
                     ->success();
 
+                $actionPath = "/orders/list?active=PROCESSING";
+                break;
+
             default:
-                return (new MailMessage)
-                    ->line('Paiement echoué!')
-                    ->action('voir la commande', url(env('FRONTEND_URL') . "/order/{$this->order_id}"))
+                $mail
+                    ->subject('Paiement echoué!')
                     ->line("Votre commande n'a pas été confirmée en raison de l'échec du paiement.")
                     ->error();
+
+                $actionPath = "/orders/order/{$this->order_id}";
+                break;
         }
+
+        $mail
+            ->action('voir la commande', url(env('FRONTEND_URL') . $actionPath));
+
+        return $mail;
     }
 
     /**

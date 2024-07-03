@@ -2,16 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Events\Transaction\OrderConfirmedEvent;
+use App\Events\OrderTransactionEvent;
+use App\Helpers\Helpers;
 use App\Models\Order;
 use App\Models\Transaction;
 use App\Actions\Transaction\OrangeMoneyActions;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class TransactionController extends Controller
 {
 
-    public function purchaseOrder(Request $request)
+    public function purchaseOrder(Request $request): JsonResponse
     {
         $transactionData = $response = [];
 
@@ -28,7 +30,7 @@ class TransactionController extends Controller
         $transactionData['user_id'] = $order->user_id;
 
         switch ($method) {
-            case 'ORANGEMONEY':
+            case Transaction::METHOD_ORANGEMONEY:
                 $details = (new OrangeMoneyActions)
                     ->setAmount($order->total_price)
                     ->setOrderId($order_id)
@@ -57,34 +59,26 @@ class TransactionController extends Controller
         return response()->json($response);
     }
 
-    public function orangeMoneyStatus(string $transactionnable_id, Request $request)
+    public function orangemoneyCallback(string $transactionnable_id, Request $request)
     {
-        $transaction = Transaction::where('transactionnable_id', $transactionnable_id)->with('user')->first();
-        $user = $transaction->user;
+        $transaction = Transaction::where('transactionnable_id', $transactionnable_id)
+            ->with('user')
+            ->latest()
+            ->first();
 
-        // $description = json_decode($transaction?->description);
+        $description = json_decode($transaction?->description);
 
-        // if ($description?->notif_token !== $request->notif_token) {
-        //     abort(403);
-        // }
-
-        // Notification::send(
-        //     $user,
-        //     new CustomerTransactionNotification($transactionnable_id, $request->status)
-        // );
-
-        // (new UserActions())
-        //     ->notifyAdmins(new AdminTransactionNotification($request->status, $user));
+        if ($description?->notif_token !== $request->notif_token) {
+            abort(403);
+        }
 
         switch ($transaction->type) {
             case Transaction::TYPE_ORDER:
-                if ($request->status === Transaction::STATUS_SUCCESS) {
-                    event(new OrderConfirmedEvent(Order::find($transactionnable_id)));
-                }
+                $order = Order::find($transactionnable_id);
+                event(new OrderTransactionEvent($order, $request->status));
                 break;
 
             default:
-                # code...
                 break;
         }
 

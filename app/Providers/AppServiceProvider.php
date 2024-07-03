@@ -2,10 +2,11 @@
 
 namespace App\Providers;
 
-use App\Events\Transaction\OrderConfirmedEvent;
-use App\Listeners\OrderConfirmed\HandleStatus;
-use App\Listeners\OrderConfirmed\HandleStock;
-use App\Listeners\OrderConfirmed\HandleSoldItems;
+use App\Events\OrderTransactionEvent;
+use App\Listeners\AdminInformTransaction;
+use App\Listeners\CustomerInformTransaction;
+use App\Listeners\HandleOrderStatus;
+use App\Listeners\HandleOrderStock;
 use App\Listeners\Initialize;
 use App\Actions\UserActions;
 use Illuminate\Support\Facades\Event;
@@ -29,10 +30,12 @@ class AppServiceProvider extends ServiceProvider
     {
         Schema::defaultStringLength(191);
 
-        Event::listen(OrderConfirmedEvent::class, [
+        Event::listen(OrderTransactionEvent::class, [
             Initialize::class,
-            HandleStock::class,
-            HandleStatus::class,
+            HandleOrderStock::class,
+            HandleOrderStatus::class,
+            CustomerInformTransaction::class,
+            AdminInformTransaction::class,
         ]);
     }
 }

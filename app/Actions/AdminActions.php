@@ -4,6 +4,7 @@ namespace App\Actions;
 
 use App\Models\User;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\Notification;
 
 class AdminActions
 {
@@ -23,5 +24,14 @@ class AdminActions
             ->toArray();
 
         return array_map(fn($user) => $user['id'], $admins);
+    }
+
+    public function notify($notification)
+    {
+        $admins = $this->admins();
+
+        if (!$admins->isEmpty()) {
+            Notification::send($admins, $notification);
+        }
     }
 }

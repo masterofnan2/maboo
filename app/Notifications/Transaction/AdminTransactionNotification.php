@@ -2,6 +2,7 @@
 
 namespace App\Notifications\Transaction;
 
+use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
@@ -11,12 +12,34 @@ class AdminTransactionNotification extends Notification implements ShouldQueue
 {
     use Queueable;
 
+    protected ?User $customer;
+    protected ?string $type;
+    protected ?string $status;
+
     /**
      * Create a new notification instance.
      */
-    public function __construct(protected string $status, protected $user)
+    public function __construct()
     {
         //
+    }
+
+    public function setCustomer(User $customer): AdminTransactionNotification
+    {
+        $this->customer = $customer;
+        return $this;
+    }
+
+    public function setType(string $type): AdminTransactionNotification
+    {
+        $this->type = $type;
+        return $this;
+    }
+
+    public function setStatus(string $status): AdminTransactionNotification
+    {
+        $this->status = $status;
+        return $this;
     }
 
     /**
@@ -34,16 +57,27 @@ class AdminTransactionNotification extends Notification implements ShouldQueue
      */
     public function toMail(object $notifiable): MailMessage
     {
-        return (new MailMessage)
-            
-            ->line("Une transaction vient d'être achevée")
-            ->action('Voir les détails', url(env('FRONTEND_URL') . "/admin/dashboard"))
-            ->line('Etat de la transaction: ' . $this->status)
-            ->lines([
-                "Nom de l'utilisateur: {$this->user->name}",
-                "Prénom(s) de l'utilisateur: {$this->user->firstname}",
-                "Email de l'utilisateur: {$this->user->email}",
-            ]);
+        $informations = [];
+        $mail = new MailMessage;
+
+        if ($this->customer) {
+            $informations[] = "Nom de l'utilisateur: {$this->customer->name}";
+            $informations[] = "Prénom(s) de l'utilisateur: {$this->customer->firstname}";
+            $informations[] = "Email de l'utilisateur: {$this->customer->email}";
+        }
+
+        if ($this->type)
+            $informations[] = "Type de la transaction : {$this->type}";
+
+        if ($this->status)
+            $informations[] = "Statut de la transaction: {$this->status}";
+
+        $mail
+            ->subject("Une transaction a eu lieu.")
+            ->lines($informations)
+            ->action('Voir les détails', url(env('FRONTEND_URL') . "/admin/dashboard"));
+
+        return $mail;
     }
 
     /**

@@ -18,7 +18,7 @@ Route::prefix('transaction')->controller(TransactionController::class)->group(fu
     });
 
     Route::prefix('status')->group(function () {
-        Route::post('orangemoney/{transactionnable_id}', 'orangeMoneyStatus');
+        Route::post('orangemoney/{transactionnable_id}', 'orangeMoneyCallback');
     });
 });
 
