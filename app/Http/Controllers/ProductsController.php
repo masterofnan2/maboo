@@ -85,10 +85,13 @@ class ProductsController extends Controller
     public function featured()
     {
         $limit = 5;
-        
+
         $products = Product::adminProducts()
-            ->get()
-            ->random($limit);
+            ->get();
+
+        if ($products->count() >= $limit) {
+            $products = $products->random($limit);
+        }
 
         return response()->json(['products' => $products]);
     }

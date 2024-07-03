@@ -4,6 +4,7 @@ namespace App\Http\Requests\Category;
 
 use App\Models\Category;
 use App\Helpers\Helpers;
+use App\Models\User;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rules\File;
@@ -15,7 +16,7 @@ class CategoryUpdateRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return Auth::user()->can('update', Category::class);
+        return $this->user()->type === User::TYPE_ADMIN;
     }
 
     /**

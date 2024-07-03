@@ -4,7 +4,8 @@ FROM php:8.2-apache as web
 # Install Additional System Dependencies
 RUN apt-get update && apt-get install -y \
     libzip-dev \
-    zip
+    zip \
+    ca-certificates
 
 # Clear cache
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
@@ -35,3 +36,5 @@ RUN composer install
 
 # Set permissions
 RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
+
+RUN php artisan storage:link
