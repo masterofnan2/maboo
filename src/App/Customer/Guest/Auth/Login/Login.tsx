@@ -93,7 +93,7 @@ const Login = React.memo(() => {
         </div>
 
         <Link
-            to='/auth/password-forgotten'>Mot de passe oublié ?</Link>
+            to='/auth/password-forgotten'>Récuperer le mot de passe</Link>
     </form>
 });
 
