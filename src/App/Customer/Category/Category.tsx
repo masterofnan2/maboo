@@ -36,31 +36,35 @@ const Category = React.memo(() => {
 
     const handleScrollEnd = React.useCallback(() => {
         if (id) {
-            const newState = { ...state };
             getCategoryProducts(parseInt(id), {
                 offset: state.offset,
                 limit: dataLimit,
             })
                 .then(response => {
-                    const freshProducts: Product[] = response.data.products;
+                    setState(state => {
+                        const newState = { ...state };
+                        const freshProducts: Product[] = response.data.products;
 
-                    if (freshProducts && freshProducts.length > 0) {
-                        const mergedProducts = arrayMerge<Product>(products || [], freshProducts);
-                        newState.offset = mergedProducts.length;
+                        if (freshProducts && freshProducts.length > 0) {
+                            const mergedProducts = arrayMerge<Product>(products || [], freshProducts);
+                            newState.offset = mergedProducts.length;
 
-                        if (freshProducts.length < dataLimit) {
+                            if (freshProducts.length < dataLimit) {
+                                newState.scrollEnd = false;
+                            }
+
+                            dispatch(setCategoryProducts({ products: mergedProducts, selectorId }))
+                        } else {
                             newState.scrollEnd = false;
                         }
 
-                        dispatch(setCategoryProducts({ products: mergedProducts, selectorId }))
-                    } else {
-                        newState.scrollEnd = false;
-                    }
-
-                    setState(newState);
+                        return newState;
+                    })
                 })
         }
-    }, [products, selectorId, state]);
+    }, [products, selectorId, state.offset]);
+
+    console.log('render');
 
     return <div className="category-container container">
         <Fade show={Boolean(products && products.length > 0)} className="d-flex flex-wrap gap-4 col-12">

@@ -13,7 +13,7 @@ const ScrollEnd = React.memo((props: Props) => {
 
     React.useEffect(() => {
         if (isInview) {
-            throttle(whileInView, 1000);
+            throttle(whileInView, 2000);
         }
     }, [isInview, whileInView])
 

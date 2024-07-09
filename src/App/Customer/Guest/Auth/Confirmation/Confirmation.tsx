@@ -7,21 +7,32 @@ import { AxiosError } from "axios";
 import CodeInput from "../../../../../utilities/minitiatures/CodeInput/CodeInput";
 import ResendEmailCountdown from "../../../../../utilities/minitiatures/ResendEmailCountdown/ResendEmailCountdown";
 import usePagePreloader from "../../../../../utilities/minitiatures/PagePreloader/hooks/usePagePreloader";
+import useToasts from "../../../../../utilities/minitiatures/Toast/hooks/useToasts";
 
 const Confirmation = () => {
     const dispatch = useDispatch<AppDispatch>();
     const user = useSelector((state: Rootstate) => state.customer.auth);
     const pagePreloader = usePagePreloader();
+    const toasts = useToasts();
 
     const [state, setState] = React.useState({
         error: ''
     });
 
+    const sendEmail = React.useCallback(() => {
+        makeEmailConfirmation()
+            .catch(() => {
+                toasts.push({
+                    title: "Email non envoyé",
+                    content: "Une erreur s'est produite lors de la tentative d'envoi d'email, veuillez réessayer plus tard",
+                    type: "danger"
+                });
+            });
+    }, [toasts.push]);
+
     React.useEffect(() => {
-        if (user && !user.email_verified_at) {
-            makeEmailConfirmation();
-        }
-    }, [user]);
+        if (user && !user.email_verified_at) sendEmail();
+    }, [user, sendEmail]);
 
     const handleComplete = React.useCallback((code: string) => {
         pagePreloader.enable();
@@ -58,7 +69,7 @@ const Confirmation = () => {
                 error={state.error}
             />
 
-            <ResendEmailCountdown initConfirmation={makeEmailConfirmation} />
+            <ResendEmailCountdown initConfirmation={sendEmail} />
         </form>
     }
 }
