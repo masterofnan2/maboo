@@ -11,9 +11,16 @@ class Dispatcher implements MessageComponentInterface
     public function onOpen($connection)
     {
         $token = Helpers::token($connection);
-
+        
+        echo "---------------------------debug----------------------------------";
+        var_dump($token);
+        var_dump(Helpers::network($connection));
+        var_dump(Helpers::side($connection));
+        echo "------------------------------debug--------------------------------";
+        
         if ($token) {
             $network = Helpers::network($connection);
+
             if ($network && class_exists($network)) {
                 if (empty($this->instances) || !isset($this->instances[$network])) {
                     $this->instances[$network] = new $network;

@@ -14,8 +14,10 @@ class Helpers
         $path = self::path($connection);
         $array = explode('/', $path);
 
-        if (isset($array[0]) && count($array) >= 2)
+        if (isset($array[0]) && count($array) >= 2) {
             array_shift($array);
+            array_shift($array);
+        }
 
         return $array;
     }
