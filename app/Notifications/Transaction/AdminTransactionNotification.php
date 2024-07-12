@@ -49,7 +49,7 @@ class AdminTransactionNotification extends Notification implements ShouldQueue
      */
     public function via(object $notifiable): array
     {
-        return ['mail'];
+        return ['mail', 'database'];
     }
 
     /**
@@ -73,9 +73,9 @@ class AdminTransactionNotification extends Notification implements ShouldQueue
             $informations[] = "Statut de la transaction: {$this->status}";
 
         $mail
-            ->subject("Une transaction a eu lieu.")
+            ->subject("Nouvelle transaction.")
             ->lines($informations)
-            ->action('Voir les détails', url(env('FRONTEND_URL') . "/admin/dashboard"));
+            ->action('Voir les détails', url(env('FRONTEND_URL') . "/admin/orders/processing"));
 
         return $mail;
     }
@@ -87,8 +87,12 @@ class AdminTransactionNotification extends Notification implements ShouldQueue
      */
     public function toArray(object $notifiable): array
     {
-        return [
-            //
-        ];
+        $data = [];
+
+        $data['title'] = 'Nouvelle transaction';
+        $data['line'] = "Type de la transaction : {$this->type}";
+        $data['action'] = url(env('FRONTEND_URL') . "/admin/orders/processing");
+
+        return $data;
     }
 }

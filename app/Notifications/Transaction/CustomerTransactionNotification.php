@@ -41,7 +41,7 @@ class CustomerTransactionNotification extends Notification implements ShouldQueu
      */
     public function via(object $notifiable): array
     {
-        return ['mail'];
+        return ['mail', 'database'];
     }
 
     /**
@@ -85,8 +85,27 @@ class CustomerTransactionNotification extends Notification implements ShouldQueu
      */
     public function toArray(object $notifiable): array
     {
-        return [
-            //
-        ];
+        $data = [];
+        $actionPath = "";
+
+        switch ($this->status) {
+            case Transaction::STATUS_SUCCESS:
+                $data['title'] = 'Commande confirmée';
+                $data['line'] = 'Nous vous remercions de votre confiance!';
+                $data['icon'] = 'fa fa-check-circle';
+                $actionPath = "/orders/list?active=PROCESSING";
+                break;
+
+            default:
+                $data['title'] = 'Paiement echoué!';
+                $data['line'] = "Votre commande n'a pas été confirmée en raison de l'échec du paiement.";
+                $data['icon'] = 'fa fa-exclamation-circle';
+                $actionPath = "/orders/order/{$this->order_id}";
+                break;
+        }
+
+        $data['action'] = url(env('FRONTEND_URL') . $actionPath);
+
+        return $data;
     }
 }

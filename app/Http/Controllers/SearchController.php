@@ -26,15 +26,24 @@ class SearchController extends Controller
         $Model = null;
 
         switch ($type) {
-            case ('products'):
+            case 'products':
+
                 $Model = Product::where('title', 'like', $this->keywords)
                     ->orWhere('description', 'like', $this->keywords);
+
+                if ($limit > 2) {
+                    $Model = $Model->orWhereHas('variants', function ($query) {
+                        $query->where('name', 'like', $this->keywords);
+                    });
+                }
+                
                 break;
 
-            case ('sellers'):
-                $Model = User::where('type', User::TYPE_SELLER)
-                    ->where('name', 'like', $this->keywords)
-                    ->orWhere('firstname', 'like', $this->keywords);
+            case 'sellers':
+                $query = preg_replace("/[\s]+/", '', $this->format($this->keywords));
+
+                $Model = User::whereRaw("CONCAT(LOWER(name), LOWER(firstname)) like LOWER(\"{$query}\")")
+                    ->orWhereRaw("CONCAT(LOWER(firstname), LOWER(name)) like LOWER(\"{$query}\")");
 
                 break;
 
@@ -50,9 +59,20 @@ class SearchController extends Controller
         return $result;
     }
 
+    protected function format(string $string): string
+    {
+        $trimed = trim($string);
+        $stripped = strip_tags($trimed);
+        $htmled = htmlspecialchars($stripped);
+
+        return $htmled;
+    }
+
     public function search(string $query, Request $request)
     {
         $results = [];
+
+
         $this->keywords = "%$query%";
         $this->request = $request;
 
