@@ -5,6 +5,7 @@ import Search from "./Search/Search";
 import { Link } from "react-router-dom";
 import CartButton from "./Cart/CartButton";
 import LogoutDialog from "./LogoutDialog/LogoutDialog";
+import Notification from "./Notification/Notification";
 
 const NavbarContext = React.createContext({
     logout: {
@@ -49,6 +50,7 @@ const Navbar = React.memo(() => {
                 <div className="collapse navbar-collapse" id="collapsibleNavId">
                     <NavItems />
                     <Search />
+                    <Notification />
                     <CartButton />
                     <UserDropdown />
                     <LogoutDialog />

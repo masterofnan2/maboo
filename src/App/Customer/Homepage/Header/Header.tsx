@@ -13,7 +13,7 @@ const Header = React.memo(() => {
                     Câlins, sourires et couches : notre spécialité.
                     Des solutions pratiques pour les parents, des rires pour les bébés
                 </p>
-                <button className="btn btn-outline-light header-action">Nos Abonnements <i className="fa fa-chevron-down"></i></button>
+                <a className="btn btn-outline-light header-action" href="#subscriptions">Nos Abonnements <i className="fa fa-chevron-down"></i></a>
             </div>
         </div>
     </motion.header>

@@ -160,3 +160,19 @@ export const processingOrders = () => {
 export const deliveredOrders = () => {
     return axios.get('/customer/order/delivered');
 }
+
+export const allNotifications = () => {
+    return axios.get('/notification/all');
+}
+
+export const unreadNotifications = () => {
+    return axios.get('/notification/unread');
+}
+
+export const getWstoken = () => {
+    return axios.get('/wstoken/get');
+}
+
+export const readNotification = (notification_id: string) => {
+    return axios.put(`/notification/read/${notification_id}`);
+}

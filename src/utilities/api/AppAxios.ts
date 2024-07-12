@@ -149,7 +149,7 @@ export default class AppAxios {
         return await this.init(() => appAxios.delete(url));
     }
 
-    public async put(url: string, payload: any) {
+    public async put(url: string, payload?: any) {
         const appAxios = this.createAxiosInstance();
         return await this.init(() => appAxios.put(url, payload));
     }

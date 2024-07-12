@@ -241,3 +241,7 @@ export const markOrderItemsAsDelivered = (orderItemIds: number[]) => {
 export const getDeliveredOrders = () => {
     return axios.get('/admin/order/delivered');
 }
+
+export const wstoken = () => {
+    return axios.get('/wstoken/get');
+}

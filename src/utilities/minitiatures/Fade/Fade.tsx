@@ -7,6 +7,7 @@ export type FadeProps = {
     className?: string,
     id?: string,
     layout?: boolean,
+    onBlur?: () => void,
     onClick?: () => void,
 };
 

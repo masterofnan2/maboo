@@ -19,8 +19,10 @@ const CartButton = React.memo(() => {
     return <Link
         to={'/cart'}
         className="btn cart-button">
-        <span >
-            <i className="fa fa-cart-shopping"></i> <small>{cartCount}</small>
+        <span>
+            <i className="fa fa-cart-shopping"></i>
+            {cartCount > 0 &&
+                <small>{cartCount}</small>}
         </span> Panier
     </Link>
 })

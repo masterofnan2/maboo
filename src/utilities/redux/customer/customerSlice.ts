@@ -1,5 +1,6 @@
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import {
+  allNotifications,
   cancelledOrders,
   deliveredOrders,
   getAuth,
@@ -9,10 +10,12 @@ import {
   getFeaturedProducts,
   getProduct,
   processingOrders,
+  unreadNotifications,
 } from "../../api/customer/actions";
 import {
   CartItem,
   CategoriesHierarchy,
+  Notification,
   Order,
   OrderItem,
   Product,
@@ -38,6 +41,10 @@ interface CustomerState {
       [key: string]: Order;
     };
   };
+  notifications: {
+    all: Notification[] | null;
+    unread: Notification[] | null;
+  };
 }
 
 const initialState: CustomerState = {
@@ -52,6 +59,10 @@ const initialState: CustomerState = {
     processing: null,
     delivered: null,
     order: {},
+  },
+  notifications: {
+    all: null,
+    unread: null,
   },
 };
 
@@ -139,9 +150,37 @@ const customerSlice = createSlice({
         (state, action: PayloadAction<OrderItem[]>) => {
           state.orders.delivered = action.payload;
         }
+      )
+      .addCase(
+        refreshAllNotifications.fulfilled,
+        (state, action: PayloadAction<Notification[]>) => {
+          state.notifications.all = action.payload;
+        }
+      )
+      .addCase(
+        refreshUnreadNotifications.fulfilled,
+        (state, action: PayloadAction<Notification[]>) => {
+          state.notifications.unread = action.payload;
+        }
       );
   },
 });
+
+export const refreshAllNotifications = createAsyncThunk(
+  "customer/refreshAllNotifications",
+  async () => {
+    const response = await allNotifications();
+    return response.data.notifications;
+  }
+);
+
+export const refreshUnreadNotifications = createAsyncThunk(
+  "customer/refreshUnreadNotifications",
+  async () => {
+    const response = await unreadNotifications();
+    return response.data.notifications;
+  }
+);
 
 export const refreshDeliveredOrders = createAsyncThunk(
   "customer/refreshDeliveredOrders",

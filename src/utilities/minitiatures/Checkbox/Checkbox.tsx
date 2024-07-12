@@ -10,7 +10,7 @@ type Props = {
     checked?: boolean,
 }
 
-const Checkbox = React.forwardRef((props: Props, ref: any) => {
+const Checkbox = React.forwardRef((props: Props, ref?: React.LegacyRef<HTMLDivElement>) => {
     const { label, className = '' } = props;
     const inputProps = getElementProps(props, ['label']);
     const id = 'checkbox' + (Math.random() * 1000).toFixed();

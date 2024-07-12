@@ -11,6 +11,12 @@ type Props = {
     className?: string
 };
 
+type Payload = {
+    product_id: number,
+    quantity: number,
+    product_variant_id?: number
+};
+
 const HoverableProduct = React.memo((props: Props) => {
     const addToCart = useAddToCart();
     const { product, className = '' } = React.useMemo(() => props, [props]);
@@ -19,16 +25,41 @@ const HoverableProduct = React.memo((props: Props) => {
         loading: false,
     });
 
+    const payload = React.useMemo(() => {
+        const payload: Payload = {
+            product_id: product.id,
+            quantity: 1,
+        }
+
+        if (product.variants.length > 0) {
+            payload.product_variant_id = product.variants[0].id
+        }
+
+        return payload;
+    }, [product.id, product.variants]);
+
+  const price = React.useMemo(() => {
+        const price = {
+            firstPrice: product.price,
+            secondPrice: product.sale_price || undefined
+        };
+
+        if (product.variants.length > 0) {
+            const variant = product.variants[0];
+            price.firstPrice = (product.price > variant.price) ? product.price : variant.price;
+            price.secondPrice = (product.price > variant.price) ? variant.price : undefined;
+        }
+
+        return price;
+    }, [product]);
+
     const handleAddToCart = React.useCallback(() => {
         addToCart({
-            payload: {
-                product_id: product.id,
-                quantity: 1
-            },
+            payload,
             onInit: () => setState(s => ({ ...s, loading: true })),
             onFinally: () => setState(s => ({ ...s, loading: false }))
         })
-    }, [product.id]);
+    }, [product.id, payload]);
 
     return <div className={"hoverable-product " + className}>
         <div className="product-image-container">
@@ -62,9 +93,7 @@ const HoverableProduct = React.memo((props: Props) => {
         </div>
         <div className="mt-3 product-card-information">
             <h6>{product.title}</h6>
-            <DoublePrice
-                firstPrice={product.price}
-                secondPrice={product.sale_price || undefined} />
+            <DoublePrice {...price} />
         </div>
     </div>
 });

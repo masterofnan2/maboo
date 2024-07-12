@@ -8,10 +8,11 @@ type Props = {
     sellers: User[] | null,
     keywords: string,
     show: boolean,
+    onClick: () => void,
 }
 
 const StringSuggestions = React.memo((props: Props) => {
-    const { products, sellers, keywords, show } = props;
+    const { products, sellers, keywords, show, onClick} = props;
 
     const format = React.useCallback((text: string) => {
         const formated = text.toLowerCase().replace(keywords.toLowerCase(), `<strong>${keywords}</strong>`);
@@ -20,7 +21,8 @@ const StringSuggestions = React.memo((props: Props) => {
 
     return <Fade
         className="string-suggestions"
-        show={show}>
+        show={show}
+        onClick={onClick}>
         {products?.map(product => {
             return <Link to={`/search/${product.title}`} key={product.id} dangerouslySetInnerHTML={{ __html: format(product.title) }} />
         })}

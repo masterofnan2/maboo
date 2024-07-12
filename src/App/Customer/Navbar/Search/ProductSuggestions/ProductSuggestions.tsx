@@ -11,11 +11,12 @@ import Fade from "../../../../../utilities/minitiatures/Fade/Fade";
 
 type Props = {
     products: Product[] | null,
+    onClick: () => void,
 }
 
 const ProductSuggestions = React.memo((props: Props) => {
     const dispatch = useDispatch<AppDispatch>();
-    const { products } = props;
+    const { products, onClick} = props;
     const navigate = useNavigate();
 
     const featuredProducts = useSelector((state: Rootstate) => state.customer.featuredProducts);
@@ -29,6 +30,7 @@ const ProductSuggestions = React.memo((props: Props) => {
     return <Fade
         className="product-suggestions flex-wrap"
         show={Boolean(suggestions?.length)}
+        onClick={onClick}
         layout>
 
         <h5 className="product-suggestion-title col-12">Produits suggérés</h5>

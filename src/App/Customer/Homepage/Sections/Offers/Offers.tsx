@@ -10,7 +10,8 @@ const Offers = React.memo(() => {
     return <motion.section
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1, transition: { delay: .3, duration: .5 } }}
-        className="offers-container">
+        className="offers-container"
+        id="subscriptions">
         <div className="section-information">
             <h5 className="display-6">Nos Offres</h5>
             <p>

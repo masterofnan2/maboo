@@ -121,3 +121,21 @@ export type Order = {
 
 export type BackOfficeOrder = Order & { user: User };
 export type BackOfficeOrderItem = OrderItem & { user: User };
+
+export type NotificationData = {
+  title: string,
+  line: string,
+  icon: string,
+  action: string,
+}
+
+export type Notification = {
+  id: string,
+  type: string,
+  notifiable_type: string,
+  notifiable_id: number,
+  data: string,
+  read_at: string | null,
+  created_at: string,
+  updated_at: string,
+}
