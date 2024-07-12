@@ -10,13 +10,13 @@ class NotificationController extends Controller
 {
     public function unreadList(): JsonResponse
     {
-        $notifications = auth()->user()->notifications()->unread();
+        $notifications = Notification::unread()->get();
         return response()->json(['notifications' => $notifications]);
     }
 
     public function all(): JsonResponse
     {
-        $notifications = Notification::where('notifiable_id', auth()->id())->get();
+        $notifications = Notification::all();
         return response()->json(['notifications' => $notifications]);
     }
 
