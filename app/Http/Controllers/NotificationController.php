@@ -10,13 +10,13 @@ class NotificationController extends Controller
 {
     public function unreadList(): JsonResponse
     {
-        $notifications = Notification::unread()->get();
+        $notifications = Notification::unread()->latest()->get();
         return response()->json(['notifications' => $notifications]);
     }
 
     public function all(): JsonResponse
     {
-        $notifications = Notification::all();
+        $notifications = Notification::latest()->get();
         return response()->json(['notifications' => $notifications]);
     }
 

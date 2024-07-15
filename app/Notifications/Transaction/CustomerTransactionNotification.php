@@ -2,6 +2,7 @@
 
 namespace App\Notifications\Transaction;
 
+use App\Actions\WstokenActions;
 use App\Models\Transaction;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -41,7 +42,7 @@ class CustomerTransactionNotification extends Notification implements ShouldQueu
      */
     public function via(object $notifiable): array
     {
-        return ['mail', 'database'];
+        return ['mail', 'database', 'websocket'];
     }
 
     /**

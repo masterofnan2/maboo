@@ -7,10 +7,17 @@ use Str;
 
 class WstokenActions
 {
+    protected $tokenable_id;
+
+    public function __construct(?int $tokenable_id = null)
+    {
+        $this->tokenable_id = $tokenable_id ?? auth()->id();
+    }
+
     private function createToken(): Wstoken
     {
         $token = Wstoken::create([
-            'user_id' => auth()->id(),
+            'user_id' => $this->tokenable_id,
             'uuid' => Str::random(),
         ]);
 
@@ -19,7 +26,7 @@ class WstokenActions
 
     public function getToken(): WsToken
     {
-        $token = Wstoken::where('user_id', auth()->id())->latest()->first();
+        $token = Wstoken::where('user_id', $this->tokenable_id)->latest()->first();
 
         if (!$token) {
             $token = $this->createToken();
