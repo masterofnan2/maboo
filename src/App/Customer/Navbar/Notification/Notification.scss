@@ -1,6 +1,12 @@
 .notification-dropdown {
+
+  .dropdown-menu{
+    max-height: calc(100vh - 8rem);
+    overflow: auto;
+  }
+
   .notification-item {
-    margin: 0.5rem 0;
+    margin: .5rem 0;
   }
 
   .notification-item.placeholder-glow {

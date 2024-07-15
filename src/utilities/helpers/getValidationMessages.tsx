@@ -4,6 +4,11 @@ type JsObject = {
     [key: string]: any,
 }
 
+/**
+ * Applique une validation pour chaque entrée de l'objet
+ * @param formData l'objet qui contient les données de formulaire
+ * @returns l'objet qui contient les données de validation
+ */
 function getValidationMessages<Obj>(formData: JsObject): Obj | null {
     let messages = {} as JsObject;
     

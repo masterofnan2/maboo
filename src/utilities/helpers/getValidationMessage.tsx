@@ -1,3 +1,9 @@
+/**
+ * Applique une vérification sur la valeur d'un `name` défini et retourne le message de validation qui correspond
+ * @param type la valeur de l'attribut `name`
+ * @param value la valeur du champ
+ * @returns Le message d'erreur trouvé ou null s'il n'y en a pas
+ */
 const getValidationMessage = (type: string, value: string): string | null => {
     let message = null;
     let regexPattern = null;

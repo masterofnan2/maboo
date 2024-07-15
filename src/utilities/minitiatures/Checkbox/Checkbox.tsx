@@ -1,24 +1,17 @@
 import React from "react";
-import getElementProps from "../../helpers/getElementProps";
 
 type Props = {
-    label: any,
-    className?: string,
-    onChange?: Function,
-    defaultChecked?: boolean,
-    disabled?: boolean,
-    checked?: boolean,
-}
+    label:  React.ReactNode,
+} & React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>
 
 const Checkbox = React.forwardRef((props: Props, ref?: React.LegacyRef<HTMLDivElement>) => {
-    const { label, className = '' } = props;
-    const inputProps = getElementProps(props, ['label']);
-    const id = 'checkbox' + (Math.random() * 1000).toFixed();
+    const { label, className = '', id = '', ...inputProps} = props;
+    const randomId = 'checkbox' + (Math.random() * 1000).toFixed();
 
     return <div className={"checkbox " + className} ref={ref}>
         <input
             type='checkbox'
-            id={id}
+            id={`${randomId} ${id}`}
             {...inputProps} />
         <label htmlFor={id}>
             {label}

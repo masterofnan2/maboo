@@ -1,12 +1,13 @@
-/**
- * Permet de convertir le contenu d'un formulaire en JS Object à partir de son attribut `name`
- * @param {*} event l'évennement qui résulte de la submission du formulaire
- * @returns {Object} les données du formulaire formatées en JS Object
- */
+
 type formData = {
     [key: string]: string
 };
 
+/**
+ * Permet de convertir le contenu d'un formulaire en JS Object à partir de son attribut `name`
+ * @param {*} event l'évenement qui résulte de la submission du formulaire
+ * @returns {Object} les données du formulaire formatées en {[key]: value}
+ */
 const getFormData = (event: any) => {
     let formData: formData = {};
 

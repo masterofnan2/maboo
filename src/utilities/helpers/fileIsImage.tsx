@@ -1,3 +1,8 @@
+/**
+ * Vérifie si le type d'un fichier est de type image.
+ * @param file Le fichier à vérifier
+ * @returns True si le fichier est de type image, sinon False.
+ */
 function fileIsImage(file: File) {
 
     const validImageTypes = [

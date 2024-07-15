@@ -116,7 +116,6 @@ const Public = React.memo(() => {
         />
 
         <FormFloating
-            
             type="email"
             name="email"
             id="email"
