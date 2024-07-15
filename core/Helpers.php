@@ -15,8 +15,7 @@ class Helpers
         $array = explode('/', $path);
 
         if (isset($array[0]) && count($array) >= 2) {
-            array_shift($array);
-            array_shift($array);
+            $array = array_slice($array, 2);
         }
 
         return $array;

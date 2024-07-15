@@ -29,23 +29,26 @@ class Notification implements MessageComponentInterface
 
     public function onOpen($connection)
     {
+        $token = Helpers::token($connection);
 
-        $side = Helpers::side($connection);
+        if ($token) {
+            $side = Helpers::side($connection);
 
-        switch ($side) {
-            case 'client':
-                $this->clientOnOpen($connection);
-                break;
+            switch ($side) {
+                case 'client':
+                    $this->clientOnOpen($connection);
+                    break;
 
-            default:
-                break;
+                default:
+                    break;
+            }
         }
     }
 
     public function onMessage(\Ratchet\ConnectionInterface $connection, $message)
     {
         $side = Helpers::side($connection);
-        
+
         switch ($side) {
             case 'server':
                 $token = Helpers::token($connection);
