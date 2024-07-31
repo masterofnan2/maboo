@@ -9,35 +9,15 @@ class ChatUser extends Model
 {
     use HasFactory;
 
-    protected function chat_ids(): array
-    {
-        $chatUsers = $this->chats()->get()->toArray();
-
-        if (count($chatUsers) > 0) {
-            return array_map(fn($chatUser) => $chatUser['chat_id'], $chatUsers);
-        }
-
-        return [];
-    }
-
-    public function chatUsers()
-    {
-        $chatUsers = $this->where("user_id", auth()->id());
-        return $chatUsers;
-    }
-
-    public function getChat(int $other_user_id)
-    {
-        $chat = $this->whereIn('chat_id', $this->chat_ids())->where('user_id', $other_user_id)->get();
-        return $chat;
-    }
-
-    public function users(){
-        return $this->hasMany(User::class);
-    }
+    protected $table = "chats_users";
 
     public function chat()
     {
-        
+        return $this->belongsTo(Chat::class, 'chat_id');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(Chat::class, 'user_id');
     }
 }

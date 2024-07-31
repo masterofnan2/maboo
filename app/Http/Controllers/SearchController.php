@@ -19,7 +19,7 @@ class SearchController extends Controller
     protected string $keywords;
     protected Request $request;
 
-    protected function searchByType(string $type): Collection
+    protected function searchByType(string $type): Collection|\Illuminate\Support\Collection
     {
         $limit = $this->request->limit ?: 2;
         $offset = $this->request->offset ?: 0;
@@ -27,16 +27,16 @@ class SearchController extends Controller
 
         switch ($type) {
             case 'products':
-
-                $Model = Product::where('title', 'like', $this->keywords)
+                $Model = Product::selectRaw('products.*')
+                    ->where('title', 'like', $this->keywords)
                     ->orWhere('description', 'like', $this->keywords);
 
                 if ($limit > 2) {
-                    $Model = $Model->orWhereHas('variants', function ($query) {
-                        $query->where('name', 'like', $this->keywords);
-                    });
+                    $Model = $Model
+                        ->join('product_variants', 'product_variants.product_id', 'products.id')
+                        ->orWhere('product_variants.name', 'like', $this->keywords);
                 }
-                
+
                 break;
 
             case 'sellers':
@@ -54,6 +54,7 @@ class SearchController extends Controller
         $result = $Model
             ->limit($limit)
             ->offset($offset)
+            ->distinct()
             ->get();
 
         return $result;

@@ -2,17 +2,28 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ChatController;
 use App\Http\Controllers\Customer\CartController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductColorController;
 use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\ProductVariantController;
+use App\Http\Controllers\SalesController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WstokenController;
 use Illuminate\Support\Facades\Route;
+
+Route::prefix('sales')->controller(SalesController::class)->middleware('auth:sanctum')->group(function () {
+    Route::get('total', 'total');
+});
+
+Route::prefix('chat')->controller(ChatController::class)->middleware('auth:sanctum')->group(function () {
+    Route::get('chats', 'chats');
+    Route::get('users', 'users');
+});
 
 Route::prefix('wstoken')->controller(WstokenController::class)->middleware('auth:sanctum')->group(function () {
     route::get('get', 'token');
@@ -151,6 +162,8 @@ Route::prefix('admin')->group(function () {
 
     Route::prefix('user')->controller(\App\Http\Controllers\Admin\UserController::class)->group(function () {
         Route::post('/validate', 'validate');
+        Route::get('/count', 'count');
+        Route::get('/users', 'users');
     })->middleware('auth:sanctum');
 
     Route::prefix('seller')->controller(\App\Http\Controllers\Admin\SellerController::class)->group(function () {
@@ -163,7 +176,7 @@ Route::prefix('admin')->group(function () {
 
     Route::prefix('product')->controller(\App\Http\Controllers\Admin\ProductsController::class)->group(function () {
         Route::get('get', 'get');
-    });
+    })->middleware('auth:sanctum');
 
     Route::prefix('order')
         ->controller(\App\Http\Controllers\Admin\OrderController::class)

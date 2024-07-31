@@ -19,7 +19,7 @@ class Notification extends Model
         return $builder->where('read_at', null);
     }
 
-    protected static function booted()
+    protected static function booted(): void
     {
         static::addGlobalScope(new WhereIsAuthScope);
     }

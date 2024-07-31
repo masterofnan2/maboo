@@ -13,7 +13,7 @@ class CustomerTransactionNotification extends Notification implements ShouldQueu
 {
     use Queueable;
     protected string $order_id;
-    protected string $status;
+        protected string $status;
 
     /**
      * Create a new notification instance.
@@ -42,7 +42,7 @@ class CustomerTransactionNotification extends Notification implements ShouldQueu
      */
     public function via(object $notifiable): array
     {
-        return ['mail', 'database', 'websocket'];
+        return ['database', 'websocket', 'mail'];
     }
 
     /**

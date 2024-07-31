@@ -38,7 +38,7 @@ class RequestAccountValidation extends Notification implements ShouldQueue
     {
         return (new MailMessage)
             ->subject("Vous avez une nouvelle demande d'inscription.")
-            ->action('Ouvrir le Dashboard', url(env('FRONTEND_URL') . "/admin/dashboard"))
+            ->action('Ouvrir le Dashboard', url(env('FRONTEND_URL') . "/admin/dashboard/admins/requests"))
             ->lines([
                 "Nom de l'utilisateur: {$this->user->name}",
                 "Prénom(s) de l'utilisateur: {$this->user->firstname}",

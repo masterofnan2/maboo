@@ -3,6 +3,9 @@
 namespace Database\Seeders;
 
 use App\Models\Category;
+use App\Models\Chat;
+use App\Models\ChatUser;
+use App\Models\Message;
 use App\Models\Product;
 use App\Models\ProductVariant;
 use App\Models\User;
@@ -20,19 +23,19 @@ class DatabaseSeeder extends Seeder
     {
         User::factory(1)->create([
             'password' => Hash::make('00000000'),
-            'email' => 'josulandrie0@gmail.com',
+            'email' => 'lucieno.zafytody@gmail.com',
             'name' => 'Lucieno',
             'firstname' => 'Zandry',
             'type' => User::TYPE_ADMIN,
-            'validated_at' => Helpers::getIsoString(date_create()),
         ]);
 
         User::factory(1)->create([
             'password' => Hash::make('00000000'),
-            'email' => 'lucieno.zafytody@gmail.com',
+            'email' => 'josulandrie0@gmail.com',
             'name' => 'Lucieno',
             'firstname' => 'Zandry',
             'type' => User::TYPE_CUSTOMER,
+            'validated_at' => Helpers::getIsoString(date_create()),
         ]);
 
         User::factory(10)->create(['type' => User::TYPE_ADMIN]);
@@ -49,5 +52,14 @@ class DatabaseSeeder extends Seeder
 
         Product::factory(200)->create();
         ProductVariant::factory(800)->create();
+
+        for ($i = 1; $i < 21; $i++){
+            Chat::factory()->create(['id' => $i]);
+            Message::factory()->create(['chat_id' => $i, 'user_id' => $i, 'content' => fake()->text()]);
+            ChatUser::factory()->create(['chat_id' => $i, 'user_id' => $i]);
+
+            Message::factory()->create(['chat_id' => $i, 'user_id' => $i + 1, 'content' => fake()->text()]);
+            ChatUser::factory()->create(['chat_id' => $i, 'user_id' => $i + 1]);
+        }
     }
 }
