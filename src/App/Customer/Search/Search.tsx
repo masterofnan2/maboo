@@ -1,6 +1,6 @@
 import React from "react";
 import { useParams } from "react-router-dom";
-import { search } from "../../../utilities/api/customer/actions";
+import { search } from "../../../utilities/api/actions";
 import { Product, User } from "../../../utilities/constants/types";
 import NavTabs from "../../../utilities/minitiatures/NavTabs/NavTabs";
 import { NavTab } from "../../../utilities/minitiatures/NavTabs/NavTab/NavTab";

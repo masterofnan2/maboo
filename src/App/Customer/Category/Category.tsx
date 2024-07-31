@@ -8,7 +8,7 @@ import generateArray from "../../../utilities/helpers/generateArray";
 import Fade from "../../../utilities/minitiatures/Fade/Fade";
 import ProductsEmpty from "./ProductsEmpty/ProductsEmpty";
 import ScrollEnd from "../../../utilities/minitiatures/ScrollEnd/ScrollEnd";
-import { getCategoryProducts } from "../../../utilities/api/customer/actions";
+import { getCategoryProducts } from "../../../utilities/api/actions";
 import arrayMerge from "../../../utilities/helpers/arrayMerge";
 import { Product } from "../../../utilities/constants/types";
 

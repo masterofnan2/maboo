@@ -5,7 +5,6 @@ import Button from "../../../../../../../../utilities/minitiatures/Button/Button
 import Input from "../../../../../../../../utilities/minitiatures/Input/Input";
 import getValidationMessages from "../../../../../../../../utilities/helpers/getValidationMessages";
 import getFormData from "../../../../../../../../utilities/helpers/getFormData";
-import { createProductVariant } from "../../../../../../../../utilities/api/admin/actions";
 import { useVariant } from "../../Products";
 import { ProductVariant } from "../../../../../../../../utilities/constants/types";
 import { AxiosError } from "axios";
@@ -13,6 +12,7 @@ import useToasts from "../../../../../../../../utilities/minitiatures/Toast/hook
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../../../../../../../utilities/redux/store";
 import { refreshProducts } from "../../../../../../../../utilities/redux/admin/adminSlice";
+import { createProductVariant } from "../../../../../../../../utilities/api/actions";
 
 type Payload = {
     name?: string,

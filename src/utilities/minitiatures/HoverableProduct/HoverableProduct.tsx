@@ -38,7 +38,7 @@ const HoverableProduct = React.memo((props: Props) => {
         return payload;
     }, [product.id, product.variants]);
 
-  const price = React.useMemo(() => {
+    const price = React.useMemo(() => {
         const price = {
             firstPrice: product.price,
             secondPrice: product.sale_price || undefined
@@ -57,9 +57,10 @@ const HoverableProduct = React.memo((props: Props) => {
         addToCart({
             payload,
             onInit: () => setState(s => ({ ...s, loading: true })),
-            onFinally: () => setState(s => ({ ...s, loading: false }))
+            onFinally: () => setState(s => ({ ...s, loading: false })),
+            product_slug: product.slug,
         })
-    }, [product.id, payload]);
+    }, [product.id, payload, product.slug]);
 
     return <div className={"hoverable-product " + className}>
         <div className="product-image-container">

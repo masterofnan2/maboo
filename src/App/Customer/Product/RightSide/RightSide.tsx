@@ -54,8 +54,9 @@ const RightSide = React.memo(() => {
       payload,
       onInit: () => setState((s) => ({ ...s, loading: true })),
       onFinally: () => setState((s) => ({ ...s, loading: false })),
+      product_slug: product.slug,
     });
-  }, [product.id, state.count, state.variant]);
+  }, [product.id, state.count, state.variant, product.slug]);
 
   const price = React.useMemo(() => {
     const others = state.variant?.price || product.sale_price;

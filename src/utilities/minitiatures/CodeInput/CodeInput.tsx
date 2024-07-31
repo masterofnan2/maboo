@@ -8,17 +8,44 @@ type Props = {
     className?: string
 }
 
-const idPrefix = 'code-input-';
-
-const handlePrevNext = (key: number, value: string) => {
-    if (key < 5 && value.length > 0) {
-        const nextElement = idPrefix + (key + 1);
-        document.getElementById(nextElement)?.focus();
-    } else if (key > 0 && value.length === 0) {
+const previous = (key: number) => {
+    if (key > 0) {
         const previousElement = idPrefix + (key - 1);
         document.getElementById(previousElement)?.focus();
     }
 }
+
+const next = (key: number) => {
+    if (key < 5) {
+        const nextElement = idPrefix + (key + 1);
+        document.getElementById(nextElement)?.focus();
+    }
+}
+
+const handlePrevNext = (key: number, value: string) => {
+    if (value.length > 0) {
+        next(key);
+    } else if (value.length === 0) {
+        previous(key);
+    }
+}
+
+const CodeInputItem = React.memo((props: React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement> & { identifier: number }) => {
+    const handleKeyUp: React.KeyboardEventHandler<HTMLInputElement> = React.useCallback((e) => {
+        const { key } = e;
+        key === "Backspace" && !props.value && previous(props.identifier);
+        key === "ArrowLeft" && previous(props.identifier);
+        key === "ArrowRight" && next(props.identifier);
+
+    }, [props.identifier, props.value]);
+
+    return <input
+        {...props}
+        onKeyUp={handleKeyUp} />
+});
+
+const idPrefix = 'code-input-';
+
 
 const CodeInput = (props: Props) => {
     const { length, className = '', onComplete, error } = props;
@@ -53,13 +80,14 @@ const CodeInput = (props: Props) => {
     return <>
         <div
             className={`code-input-container ${className} ${error && 'is-invalid'}`}>
-            {state.values.map((value, key) => <input
+            {state.values.map((value, key) => <CodeInputItem
                 key={key}
                 type='text'
                 className="code-inputs col-1"
                 value={value}
                 onChange={(e) => handleChange(e, key)}
-                id={idPrefix + key} />
+                id={idPrefix + key}
+                identifier={key} />
             )}
         </div>
         {error && <p className="text-danger">{error}</p>}

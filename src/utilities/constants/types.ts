@@ -139,3 +139,5 @@ export type Notification = {
   created_at: string,
   updated_at: string,
 }
+
+export type UserType = 'customer' | 'admin' | 'seller' | 'professional';

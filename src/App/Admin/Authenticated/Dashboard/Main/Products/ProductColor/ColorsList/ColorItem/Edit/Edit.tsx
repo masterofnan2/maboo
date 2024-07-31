@@ -3,7 +3,6 @@ import { PartialsProps } from "../ColorItem";
 import Input from "../../../../../../../../../../utilities/minitiatures/Input/Input";
 import { Dropdown } from "react-bootstrap";
 import changedDataOnly from "../../../../../../../../../../utilities/helpers/changedDataOnly";
-import { updateProductColor } from "../../../../../../../../../../utilities/api/admin/actions";
 import useToasts from "../../../../../../../../../../utilities/minitiatures/Toast/hooks/useToasts";
 import { AxiosError } from "axios";
 import { useDispatch } from "react-redux";
@@ -14,6 +13,7 @@ import { useColor } from "../../../../Products";
 import arrayReplace from "../../../../../../../../../../utilities/helpers/arrayReplace";
 import { ProductColor } from "../../../../../../../../../../utilities/constants/types";
 import { HexColorPicker } from "react-colorful";
+import { updateProductColor } from "../../../../../../../../../../utilities/api/actions";
 
 type Edits = {
     name: string,

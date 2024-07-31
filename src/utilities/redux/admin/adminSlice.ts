@@ -11,7 +11,6 @@ import {
   getAdminProducts,
   getAdminRequests,
   getAllCategories,
-  getAuth,
   getDeliveredOrders,
   getProcessingOrders,
   getSellerRequests,
@@ -19,7 +18,6 @@ import {
 } from "../../api/admin/actions";
 
 interface AdminState {
-  auth: User | false | null;
   categories: Category[] | null;
   products: Product[] | null;
   seller: {
@@ -36,7 +34,6 @@ interface AdminState {
 }
 
 const initialState: AdminState = {
-  auth: null,
   categories: null,
   products: null,
   seller: {
@@ -56,9 +53,6 @@ const adminSlice = createSlice({
   name: "admin",
   initialState,
   reducers: {
-    setAuth: (state, action: PayloadAction<User | false>) => {
-      state.auth = action.payload;
-    },
     setCategories: (state, action: PayloadAction<Category[]>) => {
       state.categories = action.payload;
     },
@@ -68,12 +62,6 @@ const adminSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(
-        refreshAuth.fulfilled,
-        (state, action: PayloadAction<User | false>) => {
-          state.auth = action.payload;
-        }
-      )
       .addCase(
         refreshCategories.fulfilled,
         (state, action: PayloadAction<Category[]>) => {
@@ -143,15 +131,6 @@ export const refreshProcessingOrders = createAsyncThunk(
   }
 );
 
-export const refreshAuth = createAsyncThunk("admin/refreshAuth", async () => {
-  try {
-    const auth = await getAuth();
-    return auth.data?.user || false;
-  } catch (e) {
-    return false;
-  }
-});
-
 export const refreshCategories = createAsyncThunk(
   "admin/refreshCategories",
   async () => {
@@ -184,5 +163,5 @@ export const refreshAdminRequests = createAsyncThunk(
   }
 );
 
-export const { setAuth, setAdminProducts, setCategories} = adminSlice.actions;
+export const { setAdminProducts, setCategories} = adminSlice.actions;
 export default adminSlice.reducer;

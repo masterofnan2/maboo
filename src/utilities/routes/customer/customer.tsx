@@ -4,14 +4,8 @@ import Customer from "../../../App/Customer/Customer";
 import Homepage from "../../../App/Customer/Homepage/Homepage";
 import Guest from "../../../App/Customer/Guest/Guest";
 import Auth from "../../../App/Customer/Guest/Auth/Auth";
-import Login from "../../../App/Customer/Guest/Auth/Login/Login";
-import Signup from "../../../App/Customer/Guest/Auth/Signup/Signup";
 import Authenticated from "../../../App/Customer/Authenticated/Authenticated";
-import Confirmation from "../../../App/Customer/Guest/Auth/Confirmation/Confirmation";
-import PasswordForgotten from "../../../App/Customer/Guest/Auth/PasswordForgotten/PasswordForgotten";
-import ResetPassword from "../../../App/Customer/Guest/Auth/ResetPassword/ResetPassword";
 import User from "../../../App/Customer/Authenticated/User/User";
-import Profile from "../../../App/Customer/Authenticated/User/Profile/Profile";
 import Category from "../../../App/Customer/Category/Category";
 import Product from "../../../App/Customer/Product/Product";
 import Cart from "../../../App/Customer/Authenticated/Cart/Cart";
@@ -19,6 +13,12 @@ import Orders from "../../../App/Customer/Authenticated/Orders/Orders";
 import List from "../../../App/Customer/Authenticated/Orders/List/List";
 import Order from "../../../App/Customer/Authenticated/Orders/Order/Order";
 import Search from "../../../App/Customer/Search/Search";
+import Profile from "../../minitiatures/Profile/Profile";
+import Login from "../../minitiatures/Login/Login";
+import Signup from "../../minitiatures/Signup/Signup";
+import PasswordForgotten from "../../minitiatures/PasswordForgotten/PasswordForgotten";
+import ResetPassword from "../../minitiatures/ResetPassword/ResetPassword";
+import Confirmation from "../../minitiatures/Confirmation/Confirmation";
 
 export default function () {
     return <Routes>

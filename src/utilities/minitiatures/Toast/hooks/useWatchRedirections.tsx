@@ -1,9 +1,10 @@
 import React from "react";
-import { SESSIONREDIRECTED } from "../../../api/AppAxios";
+
+const SESSION_REDIRECTED = 'SESSION_REDIRECTED'
 
 export default function (pushToasts: Function) {
     React.useEffect(() => {
-        const justRedirected = sessionStorage.getItem(SESSIONREDIRECTED);
+        const justRedirected = sessionStorage.getItem(SESSION_REDIRECTED);
 
         if (justRedirected && pushToasts) {
             pushToasts({
@@ -12,7 +13,7 @@ export default function (pushToasts: Function) {
                 type: "default"
             })
 
-            sessionStorage.removeItem(SESSIONREDIRECTED);
+            sessionStorage.removeItem(SESSION_REDIRECTED);
         }
     }, [pushToasts]);
 }

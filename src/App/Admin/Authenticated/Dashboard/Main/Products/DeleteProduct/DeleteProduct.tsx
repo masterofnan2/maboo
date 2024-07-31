@@ -2,7 +2,6 @@ import React from "react";
 import { Modal } from "react-bootstrap";
 import { useDeleteProduct } from "../Products";
 import Button from "../../../../../../../utilities/minitiatures/Button/Button";
-import { deleteProduct } from "../../../../../../../utilities/api/admin/actions";
 import useToasts from "../../../../../../../utilities/minitiatures/Toast/hooks/useToasts";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../../../../../../utilities/redux/store";
@@ -10,6 +9,7 @@ import { refreshProducts } from "../../../../../../../utilities/redux/admin/admi
 import Checkbox from "../../../../../../../utilities/minitiatures/Checkbox/Checkbox";
 import RoundedImage from "../../../../../../../utilities/minitiatures/RoundedImage/RoundedImage";
 import appImage from "../../../../../../../utilities/helpers/appImage";
+import { deleteProduct } from "../../../../../../../utilities/api/actions";
 
 const DeleteProduct = React.memo(() => {
     const onDelete = useDeleteProduct();

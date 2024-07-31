@@ -6,7 +6,6 @@ import NumberInput from "../../../../../../../../../../utilities/minitiatures/Nu
 import { Dropdown } from "react-bootstrap";
 import appImage from "../../../../../../../../../../utilities/helpers/appImage";
 import changedDataOnly from "../../../../../../../../../../utilities/helpers/changedDataOnly";
-import { updateProductVariant } from "../../../../../../../../../../utilities/api/admin/actions";
 import useToasts from "../../../../../../../../../../utilities/minitiatures/Toast/hooks/useToasts";
 import { AxiosError } from "axios";
 import { useDispatch } from "react-redux";
@@ -16,6 +15,7 @@ import usePagePreloader from "../../../../../../../../../../utilities/minitiatur
 import { useVariant } from "../../../../Products";
 import arrayReplace from "../../../../../../../../../../utilities/helpers/arrayReplace";
 import { ProductVariant } from "../../../../../../../../../../utilities/constants/types";
+import { updateProductVariant } from "../../../../../../../../../../utilities/api/actions";
 
 type Edits = {
     name: string,

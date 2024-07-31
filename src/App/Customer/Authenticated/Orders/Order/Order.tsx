@@ -4,10 +4,10 @@ import PaymentMethod from "./PaymentMethod/PaymentMethod";
 import OrderSummary from "./OrderSummary/OrderSummary";
 import Loading from "../../../../../utilities/minitiatures/Loading/Loading";
 import { useParams } from "react-router-dom";
-import { getOrder } from "../../../../../utilities/api/customer/actions";
-import { useRedirect } from "../../../../../utilities/hooks/customer/useRedirect";
+import { getOrder } from "../../../../../utilities/api/actions";
 import * as Types from "../../../../../utilities/constants/types";
 import Fade from "../../../../../utilities/minitiatures/Fade/Fade";
+import { useRedirect } from "../../../../../utilities/hooks/useRedirect";
 
 export const ORANGEMONEY = "ORANGEMONEY";
 export const MVOLA = "MVOLA";

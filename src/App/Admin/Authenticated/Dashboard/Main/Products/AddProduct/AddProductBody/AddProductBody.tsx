@@ -9,13 +9,13 @@ import AddImages from "../../AddImages/AddImages";
 import NumberInput from "../../../../../../../../utilities/minitiatures/NumberInput/NumberInput";
 import toFormatedString from "../../../../../../../../utilities/helpers/toFormatedString";
 import { Image } from "../../../../../../../../utilities/minitiatures/ImageInputDD/ImageInputDD";
-import { createProduct } from "../../../../../../../../utilities/api/admin/actions";
 import truthyEntriesOnly from "../../../../../../../../utilities/helpers/truthyEntriesOnly";
 import { AxiosError } from "axios";
 import useToasts from "../../../../../../../../utilities/minitiatures/Toast/hooks/useToasts";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../../../../../../../utilities/redux/store";
 import { refreshProducts } from "../../../../../../../../utilities/redux/admin/adminSlice";
+import { createProduct } from "../../../../../../../../utilities/api/actions";
 
 type Props = {
     setShow: (show: boolean) => void

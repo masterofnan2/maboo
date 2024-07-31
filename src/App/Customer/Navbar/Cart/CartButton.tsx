@@ -3,18 +3,21 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, Rootstate } from "../../../../utilities/redux/store";
 import { refreshCart } from "../../../../utilities/redux/customer/customerSlice";
 import { Link } from "react-router-dom";
+import useAuth from "../../../../utilities/hooks/useAuth";
 
 const CartButton = React.memo(() => {
     const dispatch = useDispatch<AppDispatch>()
 
-    const { auth, cart } = useSelector((state: Rootstate) => state.customer);
+    const { cart } = useSelector((state: Rootstate) => state.customer);
+    const { auth } = useAuth();
+    
     const cartCount = React.useMemo(() => cart?.length || 0, [cart]);
 
     React.useEffect(() => {
-        if (!cart && auth) {
+        if (auth) {
             dispatch(refreshCart());
         }
-    }, [cart, auth]);
+    }, [auth]);
 
     return <Link
         to={'/cart'}

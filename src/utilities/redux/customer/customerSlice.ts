@@ -1,29 +1,28 @@
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+
 import {
-  allNotifications,
   cancelledOrders,
   deliveredOrders,
-  getAuth,
   getCart,
+  processingOrders,
+} from "../../api/customer/actions";
+
+import {
   getCategories,
   getCategoryProducts,
   getFeaturedProducts,
   getProduct,
-  processingOrders,
-  unreadNotifications,
-} from "../../api/customer/actions";
+} from "../../api/actions";
+
 import {
   CartItem,
   CategoriesHierarchy,
-  Notification,
   Order,
   OrderItem,
   Product,
-  User,
 } from "../../constants/types";
 
 interface CustomerState {
-  auth: User | false | null;
   categories: CategoriesHierarchy | null;
   featuredProducts: Product[] | null;
   categoryProducts: {
@@ -41,14 +40,9 @@ interface CustomerState {
       [key: string]: Order;
     };
   };
-  notifications: {
-    all: Notification[] | null;
-    unread: Notification[] | null;
-  };
 }
 
 const initialState: CustomerState = {
-  auth: null,
   categories: null,
   featuredProducts: null,
   categoryProducts: {},
@@ -60,19 +54,12 @@ const initialState: CustomerState = {
     delivered: null,
     order: {},
   },
-  notifications: {
-    all: null,
-    unread: null,
-  },
 };
 
 const customerSlice = createSlice({
   name: "customer",
   initialState,
   reducers: {
-    setAuth: (state, action: PayloadAction<User | false>) => {
-      state.auth = action.payload;
-    },
     setCategoryProducts: (
       state,
       action: PayloadAction<{ products: Product[]; selectorId: string }>
@@ -89,12 +76,6 @@ const customerSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(
-        refreshAuth.fulfilled,
-        (state, action: PayloadAction<User | false>) => {
-          state.auth = action.payload;
-        }
-      )
       .addCase(
         refreshCategories.fulfilled,
         (state, action: PayloadAction<CategoriesHierarchy>) => {
@@ -150,37 +131,10 @@ const customerSlice = createSlice({
         (state, action: PayloadAction<OrderItem[]>) => {
           state.orders.delivered = action.payload;
         }
-      )
-      .addCase(
-        refreshAllNotifications.fulfilled,
-        (state, action: PayloadAction<Notification[]>) => {
-          state.notifications.all = action.payload;
-        }
-      )
-      .addCase(
-        refreshUnreadNotifications.fulfilled,
-        (state, action: PayloadAction<Notification[]>) => {
-          state.notifications.unread = action.payload;
-        }
       );
   },
 });
 
-export const refreshAllNotifications = createAsyncThunk(
-  "customer/refreshAllNotifications",
-  async () => {
-    const response = await allNotifications();
-    return response.data.notifications;
-  }
-);
-
-export const refreshUnreadNotifications = createAsyncThunk(
-  "customer/refreshUnreadNotifications",
-  async () => {
-    const response = await unreadNotifications();
-    return response.data.notifications;
-  }
-);
 
 export const refreshDeliveredOrders = createAsyncThunk(
   "customer/refreshDeliveredOrders",
@@ -203,18 +157,6 @@ export const refreshCancelledOrders = createAsyncThunk(
   async () => {
     const response = await cancelledOrders();
     return response.data.orders;
-  }
-);
-
-export const refreshAuth = createAsyncThunk(
-  "customer/refreshAuth",
-  async () => {
-    try {
-      const auth = await getAuth();
-      return auth.data?.user || false;
-    } catch (e) {
-      return false;
-    }
   }
 );
 
@@ -261,5 +203,5 @@ export const refreshCart = createAsyncThunk(
   }
 );
 
-export const { setAuth, setCategoryProducts } = customerSlice.actions;
+export const { setCategoryProducts } = customerSlice.actions;
 export default customerSlice.reducer;

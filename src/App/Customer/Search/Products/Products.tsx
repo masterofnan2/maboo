@@ -4,7 +4,7 @@ import HoverableProduct, { HoverableProductPlaceholder } from "../../../../utili
 import Fade from "../../../../utilities/minitiatures/Fade/Fade";
 import ScrollEnd from "../../../../utilities/minitiatures/ScrollEnd/ScrollEnd";
 import generateArray from "../../../../utilities/helpers/generateArray";
-import { search } from "../../../../utilities/api/customer/actions";
+import { search } from "../../../../utilities/api/actions";
 import { useParams } from "react-router-dom";
 import arrayMerge from "../../../../utilities/helpers/arrayMerge";
 import { Product } from "../../../../utilities/constants/types";

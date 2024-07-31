@@ -2,13 +2,13 @@ import React from "react";
 import { Modal } from "react-bootstrap";
 import Button from "../../../../../../../../utilities/minitiatures/Button/Button";
 import { useDeleteProductVariant } from "../ProductVariant";
-import { deleteProductVariants } from "../../../../../../../../utilities/api/admin/actions";
 import valuesOf from "../../../../../../../../utilities/helpers/valuesOf";
 import useToasts from "../../../../../../../../utilities/minitiatures/Toast/hooks/useToasts";
 import { useDispatch } from "react-redux";
 import { refreshProducts } from "../../../../../../../../utilities/redux/admin/adminSlice";
 import { AppDispatch } from "../../../../../../../../utilities/redux/store";
 import { useVariant } from "../../Products";
+import { deleteProductVariants } from "../../../../../../../../utilities/api/actions";
 
 const DeleteVariantsDialogue = React.memo(() => {
     const { currents, setCurrents } = useDeleteProductVariant();

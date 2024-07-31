@@ -2,13 +2,13 @@ import React from "react";
 import { Modal } from "react-bootstrap";
 import Button from "../../../../../../../../utilities/minitiatures/Button/Button";
 import { useDeleteProductColor } from "../ProductColor";
-import { deleteProductColors } from "../../../../../../../../utilities/api/admin/actions";
 import valuesOf from "../../../../../../../../utilities/helpers/valuesOf";
 import useToasts from "../../../../../../../../utilities/minitiatures/Toast/hooks/useToasts";
 import { useDispatch } from "react-redux";
 import { refreshProducts } from "../../../../../../../../utilities/redux/admin/adminSlice";
 import { AppDispatch } from "../../../../../../../../utilities/redux/store";
 import { useColor } from "../../Products";
+import { deleteProductColors } from "../../../../../../../../utilities/api/actions";
 
 const DeleteColorsDialogue = React.memo(() => {
     const { currents, setCurrents } = useDeleteProductColor();

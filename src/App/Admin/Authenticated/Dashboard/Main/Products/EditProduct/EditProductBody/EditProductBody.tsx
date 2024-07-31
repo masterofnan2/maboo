@@ -15,8 +15,8 @@ import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../../../../../../../utilities/redux/store";
 import { AxiosError } from "axios";
 import { refreshProducts } from "../../../../../../../../utilities/redux/admin/adminSlice";
-import { cancelProductUpdate, deleteProductImage, updateProduct } from "../../../../../../../../utilities/api/admin/actions";
 import appImage from "../../../../../../../../utilities/helpers/appImage";
+import { cancelProductUpdate, deleteProductImage, updateProduct } from "../../../../../../../../utilities/api/actions";
 
 const MAXIMAGES = 4;
 const DEFAULTINPUTVALUES = {

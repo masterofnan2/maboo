@@ -1,7 +1,8 @@
 import React from "react";
 import UserDropdown from "./UserDropdown/UserDropdown";
-import LogoutDialog from "./LogoutDialog/LogoutDialog";
 import Search from "./Search/Search";
+import Notification from "../../../../../utilities/minitiatures/Notification/Notification";
+import LogoutDialog from "../../../../../utilities/minitiatures/LogoutDialog/LogoutDialog";
 
 const NavbarContext = React.createContext({
     logout: {
@@ -33,8 +34,9 @@ const Navbar = React.memo(() => {
     return <NavbarContext.Provider value={{ logout }}>
         <nav className="navbar-container">
             <Search />
+            <Notification />
             <UserDropdown />
-            <LogoutDialog />
+            <LogoutDialog {...logout} />
         </nav>
     </NavbarContext.Provider>
 })

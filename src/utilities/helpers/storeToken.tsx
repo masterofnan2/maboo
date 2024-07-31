@@ -1,7 +1,7 @@
-type User = 'Customer' | 'Admin' | 'Seller' | 'Professional';
+import { UserType } from "../constants/types";
 
-const storeToken = (user: User, token: string) => {
-    const tokenName = user + 'Token';
+const storeToken = (user: UserType, token: string) => {
+    const tokenName = user.toLowerCase() + 'Token';
     localStorage.setItem(tokenName, token);
 }
 

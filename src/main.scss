@@ -26,6 +26,10 @@
 @import "./utilities/minitiatures/ColorBubble/ColorBubble.scss";
 @import "./utilities/minitiatures/ImagePreview/ImagePreview.scss";
 @import "./utilities/minitiatures/OrderItemComponent/OrderItemComponent.scss";
+@import "./utilities/minitiatures/Notification/Notification.scss";
+@import "./utilities/minitiatures/LogoutDialog/LogoutDialog.scss";
+@import "./utilities/minitiatures/Profile/Profile.scss";
+@import "./utilities/minitiatures/Profile/Overview/Overview.scss";
 
 // --------------------------------------------Components------------------------------------------
 
@@ -46,8 +50,6 @@
   @import "./App/Customer/Homepage/Sections/Offers/Offers.scss";
   @import "./App/Customer/Guest/Auth/Auth.scss";
   @import "./App/Customer/Authenticated/User/User.scss";
-  @import "./App/Customer/Authenticated/User/Profile/Profile.scss";
-  @import "./App/Customer/Authenticated/User/Profile/Overview/Overview.scss";
   @import "./App/Customer/Category/Category.scss";
   @import "./App/Customer/Category/ProductsEmpty/ProductsEmpty.scss";
   @import "./App/Customer/Product/Product.scss";
@@ -67,7 +69,6 @@
   @import "./App/Customer/Authenticated/Orders/EmptyOrders/EmptyOrders.scss";
   @import "./App/Customer/Product/RightSide/ProductVariants/ProductVariants.scss";
   @import "./App/Customer/Search/Search.scss";
-  @import "./App/Customer/Navbar/Notification/Notification.scss";
 }
 
 // Admin
@@ -78,13 +79,12 @@
   @import "./App/Admin/Authenticated/Dashboard/Sidebar/Sidebar.scss";
   @import "./App/Admin/Authenticated/Dashboard/Navbar/UserDropdown/UserDropdown.scss";
   @import "./App/Admin/Authenticated/Dashboard/Main/User/User.scss";
-  @import "./App/Admin/Authenticated/Dashboard/Main/User/Profile/Profile.scss";
-  @import "./App/Admin/Authenticated/Dashboard/Main/User/Profile/Overview/Overview.scss";
   @import "./App/Admin/Authenticated/Dashboard/Main/Categories/AddCategory/AddCategory.scss";
   @import "./App/Admin/Authenticated/Dashboard/Main/Categories/CategoriesList/CategoriesList.scss";
   @import "./App/Admin/Authenticated/Dashboard/Navbar/Search/Search.scss";
   @import "./App/Admin/Authenticated/Dashboard/Main/Orders/OrderItemGroup/OrderItemGroup.scss";
   @import "./App/Admin/Authenticated/Dashboard/Main/Orders/Processing/List/List.scss";
+  @import "./App/Admin/Authenticated/Dashboard/Main/Overview/DiagramBlock/DiagramBlock.scss";
 }
 
 // Portals
@@ -106,7 +106,3 @@
 @import "./App/Admin/Authenticated/Dashboard/Main/Products/ProductColor/ProductColor.scss";
 
 // -----------------------------------------------Customer -------------------------------------------
-
-// Navbar
-
-@import "./App/Customer/Navbar/LogoutDialog/LogoutDialog.scss";

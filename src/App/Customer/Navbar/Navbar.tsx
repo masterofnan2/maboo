@@ -4,8 +4,8 @@ import NavItems from "./NavItems/NavItems";
 import Search from "./Search/Search";
 import { Link } from "react-router-dom";
 import CartButton from "./Cart/CartButton";
-import LogoutDialog from "./LogoutDialog/LogoutDialog";
-import Notification from "./Notification/Notification";
+import Notification from "../../../utilities/minitiatures/Notification/Notification";
+import LogoutDialog from "../../../utilities/minitiatures/LogoutDialog/LogoutDialog";
 
 const NavbarContext = React.createContext({
     logout: {
@@ -53,7 +53,7 @@ const Navbar = React.memo(() => {
                     <Notification />
                     <CartButton />
                     <UserDropdown />
-                    <LogoutDialog />
+                    <LogoutDialog {...logout} />
                 </div>
             </div>
         </nav>

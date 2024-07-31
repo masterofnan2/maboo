@@ -2,7 +2,7 @@ import React from "react";
 import Input from "../../../../utilities/minitiatures/Input/Input";
 import ProductSuggestions from "./ProductSuggestions/ProductSuggestions";
 import { Product, User } from "../../../../utilities/constants/types";
-import { search } from "../../../../utilities/api/customer/actions";
+import { search } from "../../../../utilities/api/actions";
 import StringSuggestions from "./StringSuggestions/StringSuggestions";
 import SearchFor from "./SearchFor/SearchFor";
 import Fade from "../../../../utilities/minitiatures/Fade/Fade";
@@ -29,7 +29,7 @@ const Search = React.memo(() => {
 
     const handleSearch = React.useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
         const { value } = e.target;
-        search(value)
+        if(value) search(value)
             .then(response => {
                 const { products, sellers } = response.data;
                 setState(s => ({ ...s, products, sellers, keywords: value }))

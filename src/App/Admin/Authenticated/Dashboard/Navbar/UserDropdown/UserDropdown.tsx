@@ -1,12 +1,11 @@
 import React from "react";
 import { Dropdown } from "react-bootstrap";
-import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import SmallText from "../../../../../../utilities/minitiatures/SmallText/SmallText";
 import appImage from "../../../../../../utilities/helpers/appImage";
-import { Rootstate } from "../../../../../../utilities/redux/store";
 import Button from "../../../../../../utilities/minitiatures/Button/Button";
 import { useLogout } from "../Navbar";
+import useAuth from "../../../../../../utilities/hooks/useAuth";
 
 const Actions = React.memo(() => {
     const logout = useLogout();
@@ -21,7 +20,7 @@ const Actions = React.memo(() => {
 
 
 const UserDropdown = React.memo(() => {
-    const user = useSelector((state: Rootstate) => state.admin.auth);
+    const user = useAuth().auth;
 
     const userProfile = React.useMemo(() => {
         if (user) {
