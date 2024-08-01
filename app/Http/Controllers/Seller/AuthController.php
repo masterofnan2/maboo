@@ -24,16 +24,16 @@ class AuthController extends Controller
         return $authActions->login($request);
     }
 
-    public function signup(SignupRequest $request, AuthActions $authActions, UserActions $userActions)
+    public function signup(SignupRequest $request, AuthActions $authActions)
     {
         $response = $authActions->signup($request, User::TYPE_SELLER);
-        $userActions->notifyAdmins(new RequestAccountValidation(Auth::user()));
+        (new UserActions())->notifyAdmins(new RequestAccountValidation(Auth::user()));
 
         return $response;
     }
 
     public function resetPassword(Request $request, AuthActions $authActions)
     {
-        return $authActions->resetPassword($request, User::TYPE_ADMIN);
+        return $authActions->resetPassword($request, User::TYPE_SELLER);
     }
 }

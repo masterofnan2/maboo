@@ -2,27 +2,15 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Enums\OrderStatuses;
 use App\Events\Transaction\OrderConfirmedEvent;
 use App\Http\Controllers\Controller;
-use App\Actions\AdminActions;
 use App\Http\Requests\Order\UpdateTransactionRequest;
 use App\Models\Order;
-use App\Models\OrderItem;
 use App\Models\Transaction;
 use Illuminate\Http\JsonResponse;
 
 class OrderController extends Controller
 {
-    public function processing(): JsonResponse
-    {
-        $orderItems = OrderItem::with('user')
-            ->adminItems()
-            ->whereStatus(OrderStatuses::PROCESSING)
-            ->get();
-
-        return response()->json(['orders' => $orderItems]);
-    }
 
     public function unchecked(): JsonResponse
     {
@@ -54,18 +42,5 @@ class OrderController extends Controller
         }
 
         return response()->json(['updated' => $updated]);
-    }
-
-
-    public function delivered(): JsonResponse
-    {
-        $orderItems = OrderItem::with('user')
-            ->adminItems()
-            ->whereStatus(OrderStatuses::DELIVERED)
-            ->get();
-
-        return response()->Json([
-            'orders' => $orderItems
-        ]);
     }
 }

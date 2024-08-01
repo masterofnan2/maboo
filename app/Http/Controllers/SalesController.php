@@ -23,9 +23,9 @@ class SalesController extends Controller
 
         $query = $userType === User::TYPE_ADMIN ?
             $query->where('users.type', $userType) :
-            $query->where('id', auth()->id());
+            $query->where('users.id', auth()->id());
 
-        $total = $query->first()->total;
+        $total = $query->first()->total ?: 0;
 
         return response()->json(['total' => $total]);
     }

@@ -24,7 +24,7 @@ class LoginRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'email' => ['bail', 'required', 'email', 'exists:users', new UserTypeIs(User::TYPE_ADMIN)],
+            'email' => ['bail', 'required', 'email', 'exists:users', new UserTypeIs(User::TYPE_SELLER)],
             'password' => 'bail|required|min:6'
         ];
     }

@@ -8,15 +8,6 @@ use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class Helpers
 {
-    public static function capitalize(string $string)
-    {
-        $firstLetter = substr($string, 0, 1);
-
-        $rest = substr($string, 1);
-        $capitalizedFirstLetter = strtoupper($firstLetter);
-
-        return $capitalizedFirstLetter . strtolower($rest);
-    }
 
     public static function getIsoString(\DateTime $datetime): string
     {
@@ -26,7 +17,7 @@ class Helpers
     public static function capitalizeWords(string $words)
     {
         $arrayOfWords = explode(' ', $words);
-        $capitalized = implode(' ', array_map(fn($value) => self::capitalize($value), $arrayOfWords));
+        $capitalized = implode(' ', array_map(fn($value) => ucfirst($value), $arrayOfWords));
 
         return $capitalized;
     }

@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\Category\CategoryDeleteRequest;
 use App\Http\Requests\Product\CreateProductRequest;
 use App\Http\Requests\Product\UpdateProductRequest;
 use App\Models\Product;
@@ -33,6 +32,9 @@ class ProductsController extends Controller
     {
         $data = $request->validated();
         $product = Product::find($request->id);
+        
+        if (!auth()->user()->can('update', $product))
+            abort(403);
 
         if (isset($data['images'])) {
             unset($data['images']);
@@ -51,12 +53,15 @@ class ProductsController extends Controller
         return response()->json(['updated' => $updated]);
     }
 
-    public function delete(CategoryDeleteRequest $request, ProductActions $productActions)
+    public function delete(Request $request, ProductActions $productActions)
     {
         $ids = $request->ids;
 
         foreach ($ids as $id) {
             $product = $productActions->getProduct($id);
+            if (!$product || !auth()->user()->can('delete', $product))
+                abort(403);
+
             $images = $product->images;
 
             if ($images->count() > 0) {
@@ -65,6 +70,8 @@ class ProductsController extends Controller
 
             $product->delete();
         }
+
+        return response()->json(['deleted' => true]);
     }
 
     public function deleteImage(int $id)

@@ -28,7 +28,7 @@ class RequestAccountValidation extends Notification implements ShouldQueue
      */
     public function via(object $notifiable): array
     {
-        return ['mail', 'database'];
+        return ['mail', 'database', 'websocket'];
     }
 
     /**
@@ -36,13 +36,16 @@ class RequestAccountValidation extends Notification implements ShouldQueue
      */
     public function toMail(object $notifiable): MailMessage
     {
+        $type =  strtolower($this->user->type);
+       
         return (new MailMessage)
-            ->subject("Vous avez une nouvelle demande d'inscription.")
-            ->action('Ouvrir le Dashboard', url(env('FRONTEND_URL') . "/admin/dashboard/admins/requests"))
+            ->subject("Quelqu'un vient de s'inscrire!")
+            ->action('Ouvrir le Dashboard', url(env('FRONTEND_URL') . "/admin/dashboard/{$type}s/requests"))
             ->lines([
                 "Nom de l'utilisateur: {$this->user->name}",
                 "Prénom(s) de l'utilisateur: {$this->user->firstname}",
                 "Email de l'utilisateur: {$this->user->email}",
+                "Type d'utilisateur: {$type}"
             ]);
     }
 
@@ -53,8 +56,13 @@ class RequestAccountValidation extends Notification implements ShouldQueue
      */
     public function toArray(object $notifiable): array
     {
-        return [
-            //
-        ];
+        $type =  strtolower($this->user->type);
+        $data = [];
+
+        $data['title'] = 'Quelqu\'un vient de s\'inscrire';
+        $data['line'] = "Veuillez vérifier la nouvelle demande d'inscription en tant que '{$type}'";
+        $data['action'] = url(env('FRONTEND_URL') . "/admin/dashboard/{$type}s/requests");
+
+        return $data;
     }
 }
