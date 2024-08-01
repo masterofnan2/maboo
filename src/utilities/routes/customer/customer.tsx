@@ -22,13 +22,13 @@ import Cart from "../../../App/Frontoffice/Cart/Cart";
 
 export default function () {
     return <Routes>
-        <Route element={<Frontoffice />} path='/'>
+        <Route element={<Frontoffice />}>
             <Route index element={<Homepage />} />
             <Route element={<Category />} path='category/:id' />
             <Route element={<Product />} path='product/:slug' />
             <Route element={<Search />} path='search/:words' />
 
-            <Route element={<Guest />} path="/">
+            <Route element={<Guest />}>
                 <Route element={<Auth />} path="auth">
                     <Route element={<Login />} path="login" />
                     <Route element={<Signup />} path="signup" />
@@ -36,7 +36,7 @@ export default function () {
                     <Route element={<ResetPassword />} path="reset-password/:token" />
                 </Route>
             </Route>
-            <Route element={<Authenticated />} path='/'>
+            <Route element={<Authenticated />}>
                 <Route element={<Cart />} path="cart" />
                 <Route element={<Orders />} path="orders">
                     <Route element={<List />} path="list" />

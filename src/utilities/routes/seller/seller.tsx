@@ -21,7 +21,7 @@ import Validation from "../../minitiatures/Validation/Validation";
 export default function () {
     return <Routes>
         <Route element={<Backoffice />} path='/seller'>
-            <Route element={<Guest />} path=''>
+            <Route element={<Guest />}>
                 <Route element={<Auth />} path="auth">
                     <Route element={<Login />} path="login" />
                     <Route element={<Signup />} path="signup" />
@@ -29,7 +29,7 @@ export default function () {
                     <Route element={<ResetPassword />} path="reset-password/:token" />
                 </Route>
             </Route>
-            <Route element={<Authenticated />} path=''>
+            <Route element={<Authenticated />}>
                 <Route element={<Dashboard />} path="dashboard">
                     <Route element={<Overview />} index />
                     <Route element={<User />} path="user">
