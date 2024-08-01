@@ -1,6 +1,6 @@
-import { EditProductData } from "../../App/Admin/Authenticated/Dashboard/Main/Products/EditProduct/EditProductBody/EditProductBody";
-import { EditProductColorData } from "../../App/Admin/Authenticated/Dashboard/Main/Products/ProductColor/ColorsList/ColorItem/Edit/Edit";
-import { EditProductVariantData } from "../../App/Admin/Authenticated/Dashboard/Main/Products/ProductVariant/VariantsList/VariantItem/Edit/Edit";
+import { EditProductData } from "../../App/Backoffice/Dashboard/Main/Products/EditProduct/EditProductBody/EditProductBody";
+import { EditProductColorData } from "../../App/Backoffice/Dashboard/Main/Products/ProductColor/ColorsList/ColorItem/Edit/Edit";
+import { EditProductVariantData } from "../../App/Backoffice/Dashboard/Main/Products/ProductVariant/VariantsList/VariantItem/Edit/Edit";
 import links from "../helpers/links";
 import QueryUrl from "../helpers/QueryUrl";
 import toFormData from "../helpers/toFormData";
@@ -225,4 +225,23 @@ export const getWstoken = () => {
 
 export const salesTotal = () => {
     return api.get('/sales/total');
+}
+
+export const getProcessingOrders = () => {
+    return api.get(`/order/processing`);
+}
+
+export const getDeliveredOrders = () => {
+    return api.get(`/order/delivered`);
+}
+
+export const getMerchantProducts = (options?: {
+    limit?: number,
+    offset?: number,
+}) => {
+    const Url = new QueryUrl(`/${userType()}/product/get`);
+    if (options?.offset) Url.addParam('offset', options.offset);
+    if (options?.limit) Url.addParam('limit', options.limit);
+
+    return api.get(Url.getString());
 }

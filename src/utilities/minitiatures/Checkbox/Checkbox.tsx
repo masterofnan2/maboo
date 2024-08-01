@@ -6,14 +6,14 @@ type Props = {
 
 const Checkbox = React.forwardRef((props: Props, ref?: React.LegacyRef<HTMLDivElement>) => {
     const { label, className = '', id = '', ...inputProps} = props;
-    const randomId = 'checkbox' + (Math.random() * 1000).toFixed();
-
+    const randomId = React.useMemo(() => 'checkbox' + (Math.random() * 1000).toFixed(), []);
+    
     return <div className={"checkbox " + className} ref={ref}>
         <input
             type='checkbox'
-            id={`${randomId} ${id}`}
+            id={id || randomId}
             {...inputProps} />
-        <label htmlFor={id}>
+        <label htmlFor={id || randomId}>
             {label}
         </label>
     </div>

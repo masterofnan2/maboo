@@ -30,79 +30,78 @@
 @import "./utilities/minitiatures/LogoutDialog/LogoutDialog.scss";
 @import "./utilities/minitiatures/Profile/Profile.scss";
 @import "./utilities/minitiatures/Profile/Overview/Overview.scss";
+@import "./utilities/minitiatures/Auth/Auth.scss";
 
 // --------------------------------------------Components------------------------------------------
 
 // Customer
-.customer-container {
-  @import "./App/Customer/Navbar/Navbar.scss";
-  @import "./App/Customer/Navbar/UserDropdown/UserDropdown.scss";
-  @import "./App/Customer/Navbar/Submenu/Submenu.scss";
-  @import "./App/Customer/Homepage/Header/Header.scss";
-  @import "./App/Customer/Homepage/Footer/Footer.scss";
-  @import "./App/Customer/Homepage/Sections/Sections.scss";
-  @import "./App/Customer/Homepage/Sections/Categories/Categories.scss";
-  @import "./App/Customer/Homepage/Sections/Categories/ForBoth/ForBoth.scss";
-  @import "./App/Customer/Homepage/Sections/Categories/ForTheBaby/ForTheBaby.scss";
-  @import "./App/Customer/Homepage/Sections/Categories/ForTheMother/ForTheMother.scss";
-  @import "./App/Customer/Homepage/Sections/Functionnalities/Functionnalities.scss";
-  @import "./App/Customer/Homepage/Sections/FeaturedProducts/FeaturedProducts.scss";
-  @import "./App/Customer/Homepage/Sections/Offers/Offers.scss";
-  @import "./App/Customer/Guest/Auth/Auth.scss";
-  @import "./App/Customer/Authenticated/User/User.scss";
-  @import "./App/Customer/Category/Category.scss";
-  @import "./App/Customer/Category/ProductsEmpty/ProductsEmpty.scss";
-  @import "./App/Customer/Product/Product.scss";
-  @import "./App/Customer/Product/LeftSide/LeftSide.scss";
-  @import "./App/Customer/Product/RightSide/RightSide.scss";
-  @import "./App/Customer/Navbar/Cart/CartButton.scss";
-  @import "./App/Customer/Authenticated/Cart/Cart.scss";
-  @import "./App/Customer/Authenticated/Cart/CartEmpty/CartEmpty.scss";
-  @import "./App/Customer/Authenticated/Cart/CartSummary/CartSummary.scss";
-  @import "./App/Customer/Authenticated/Cart/CartItemsList/CartItemsList.scss";
-  @import "./App/Customer/Navbar/Search/Search.scss";
-  @import "./App/Customer/Authenticated/Orders/Orders.scss";
-  @import "./App/Customer/Authenticated/Orders/Order/Order.scss";
-  @import "./App/Customer/Authenticated/Orders/Order/PaymentMethod/PaymentMethod.scss";
-  @import "./App/Customer/Authenticated/Orders/Order/OrderSummary/OrderSummary.scss";
-  @import "./App/Customer/Authenticated/Orders/OrderItemsGroup/OrderItemsGroup.scss";
-  @import "./App/Customer/Authenticated/Orders/EmptyOrders/EmptyOrders.scss";
-  @import "./App/Customer/Product/RightSide/ProductVariants/ProductVariants.scss";
-  @import "./App/Customer/Search/Search.scss";
+.frontoffice-container {
+  @import "./App/Frontoffice/Navbar/Navbar.scss";
+  @import "./App/Frontoffice/Navbar/UserDropdown/UserDropdown.scss";
+  @import "./App/Frontoffice/Navbar/Submenu/Submenu.scss";
+  @import "./App/Frontoffice/Homepage/Header/Header.scss";
+  @import "./App/Frontoffice/Homepage/Footer/Footer.scss";
+  @import "./App/Frontoffice/Homepage/Sections/Sections.scss";
+  @import "./App/Frontoffice/Homepage/Sections/Categories/Categories.scss";
+  @import "./App/Frontoffice/Homepage/Sections/Categories/ForBoth/ForBoth.scss";
+  @import "./App/Frontoffice/Homepage/Sections/Categories/ForTheBaby/ForTheBaby.scss";
+  @import "./App/Frontoffice/Homepage/Sections/Categories/ForTheMother/ForTheMother.scss";
+  @import "./App/Frontoffice/Homepage/Sections/Functionnalities/Functionnalities.scss";
+  @import "./App/Frontoffice/Homepage/Sections/FeaturedProducts/FeaturedProducts.scss";
+  @import "./App/Frontoffice/Homepage/Sections/Offers/Offers.scss";
+  @import "./App/Frontoffice/User/User.scss";
+  @import "./App/Frontoffice/Category/Category.scss";
+  @import "./App/Frontoffice/Category/ProductsEmpty/ProductsEmpty.scss";
+  @import "./App/Frontoffice/Product/Product.scss";
+  @import "./App/Frontoffice/Product/LeftSide/LeftSide.scss";
+  @import "./App/Frontoffice/Product/RightSide/RightSide.scss";
+  @import "./App/Frontoffice/Navbar/Cart/CartButton.scss";
+  @import "./App/Frontoffice/Cart/Cart.scss";
+  @import "./App/Frontoffice/Cart/CartEmpty/CartEmpty.scss";
+  @import "./App/Frontoffice/Cart/CartSummary/CartSummary.scss";
+  @import "./App/Frontoffice/Cart/CartItemsList/CartItemsList.scss";
+  @import "./App/Frontoffice/Navbar/Search/Search.scss";
+  @import "./App/Frontoffice/Orders/Orders.scss";
+  @import "./App/Frontoffice/Orders/Order/Order.scss";
+  @import "./App/Frontoffice/Orders/Order/PaymentMethod/PaymentMethod.scss";
+  @import "./App/Frontoffice/Orders/Order/OrderSummary/OrderSummary.scss";
+  @import "./App/Frontoffice/Orders/OrderItemsGroup/OrderItemsGroup.scss";
+  @import "./App/Frontoffice/Orders/EmptyOrders/EmptyOrders.scss";
+  @import "./App/Frontoffice/Product/RightSide/ProductVariants/ProductVariants.scss";
+  @import "./App/Frontoffice/Search/Search.scss";
 }
 
 // Admin
-.admin-container {
-  @import "./App/Admin/Guest/Auth/Auth.scss";
-  @import "./App/Admin/Authenticated/Dashboard/Dashboard.scss";
-  @import "./App/Admin/Authenticated/Dashboard/Navbar/Navbar.scss";
-  @import "./App/Admin/Authenticated/Dashboard/Sidebar/Sidebar.scss";
-  @import "./App/Admin/Authenticated/Dashboard/Navbar/UserDropdown/UserDropdown.scss";
-  @import "./App/Admin/Authenticated/Dashboard/Main/User/User.scss";
-  @import "./App/Admin/Authenticated/Dashboard/Main/Categories/AddCategory/AddCategory.scss";
-  @import "./App/Admin/Authenticated/Dashboard/Main/Categories/CategoriesList/CategoriesList.scss";
-  @import "./App/Admin/Authenticated/Dashboard/Navbar/Search/Search.scss";
-  @import "./App/Admin/Authenticated/Dashboard/Main/Orders/OrderItemGroup/OrderItemGroup.scss";
-  @import "./App/Admin/Authenticated/Dashboard/Main/Orders/Processing/List/List.scss";
-  @import "./App/Admin/Authenticated/Dashboard/Main/Overview/DiagramBlock/DiagramBlock.scss";
+.backoffice-container {
+  @import "./App/Backoffice/Dashboard/Dashboard.scss";
+  @import "./App/Backoffice/Dashboard/Navbar/Navbar.scss";
+  @import "./App/Backoffice/Dashboard/Sidebar/Sidebar.scss";
+  @import "./App/Backoffice/Dashboard/Navbar/UserDropdown/UserDropdown.scss";
+  @import "./App/Backoffice/Dashboard/Main/User/User.scss";
+  @import "./App/Backoffice/Dashboard/Main/Categories/AddCategory/AddCategory.scss";
+  @import "./App/Backoffice/Dashboard/Main/Categories/CategoriesList/CategoriesList.scss";
+  @import "./App/Backoffice/Dashboard/Navbar/Search/Search.scss";
+  @import "./App/Backoffice/Dashboard/Main/Orders/OrderItemGroup/OrderItemGroup.scss";
+  @import "./App/Backoffice/Dashboard/Main/Orders/Processing/List/List.scss";
+  @import "./App/Backoffice/Dashboard/Main/Overview/DiagramBlock/DiagramBlock.scss";
 }
 
 // Portals
 
-// ---------------------------------------------- Admin ----------------------------------------------
+// ---------------------------------------------- Backoffice ----------------------------------------------
 
 // Categories
-@import "./App/Admin/Authenticated/Dashboard/Main/Categories/AddCategory/AddCategory.scss";
-@import "src/App/Admin/Authenticated/Dashboard/Main/Categories/AddCategory/SelectedCategory/SelectedCategory.scss";
-@import "./App/Admin/Authenticated/Dashboard/Main/Categories/Categories.scss";
-@import "./App/Admin/Authenticated/Dashboard/Main/Categories/DeleteCategory/DeleteCategory.scss";
+@import "./App/Backoffice/Dashboard/Main/Categories/AddCategory/AddCategory.scss";
+@import "src/App/Backoffice/Dashboard/Main/Categories/AddCategory/SelectedCategory/SelectedCategory.scss";
+@import "./App/Backoffice/Dashboard/Main/Categories/Categories.scss";
+@import "./App/Backoffice/Dashboard/Main/Categories/DeleteCategory/DeleteCategory.scss";
 
 // Products
 
-@import "./App/Admin/Authenticated/Dashboard/Main/Products/AddImages/AddImages.scss";
-@import "./App/Admin/Authenticated/Dashboard/Main/Products/AddProduct/AddProduct.scss";
-@import "./App/Admin/Authenticated/Dashboard/Main/Products/AddProduct/AddProductBody/AddProductBody.scss";
-@import "./App/Admin/Authenticated/Dashboard/Main/Products/ProductVariant/ProductVariant.scss";
-@import "./App/Admin/Authenticated/Dashboard/Main/Products/ProductColor/ProductColor.scss";
+@import "./App/Backoffice/Dashboard/Main/Products/AddImages/AddImages.scss";
+@import "./App/Backoffice/Dashboard/Main/Products/AddProduct/AddProduct.scss";
+@import "./App/Backoffice/Dashboard/Main/Products/AddProduct/AddProductBody/AddProductBody.scss";
+@import "./App/Backoffice/Dashboard/Main/Products/ProductVariant/ProductVariant.scss";
+@import "./App/Backoffice/Dashboard/Main/Products/ProductColor/ProductColor.scss";
 
 // -----------------------------------------------Customer -------------------------------------------

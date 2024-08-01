@@ -2,7 +2,7 @@ import React from "react";
 import { addToCart } from "./actions";
 import useToasts from "../../minitiatures/Toast/hooks/useToasts";
 import { useDispatch } from "react-redux";
-import { refreshCart } from "../../redux/customer/customerSlice";
+import { refreshCart } from "../../redux/frontoffice/frontofficeSlice";
 import { AppDispatch } from "../../redux/store";
 import { AxiosError } from "axios";
 import { useNavigate } from "react-router-dom";

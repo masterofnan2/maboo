@@ -1,4 +1,3 @@
-import QueryUrl from "../../helpers/QueryUrl";
 import toFormData from "../../helpers/toFormData";
 import api from "../api";
 
@@ -38,16 +37,6 @@ export const deleteCategories = (ids: number[]) => {
     return api.post('/category/delete', { ids });
 }
 
-export const getAdminProducts = (options?: {
-    limit?: number,
-    offset?: number,
-}) => {
-    const Url = new QueryUrl('/admin/product/get');
-    if (options?.offset) Url.addParam('offset', options.offset);
-    if (options?.limit) Url.addParam('limit', options.limit);
-
-    return api.get(Url.getString());
-}
 
 export const getSellerRequests = () => {
     return api.get('/admin/seller/requests');
@@ -61,10 +50,6 @@ export const validateUser = (ids: number[]) => {
     return api.post('/admin/user/validate', { ids });
 }
 
-export const getProcessingOrders = () => {
-    return api.get('/admin/order/processing');
-}
-
 export const getUncheckedOrders = () => {
     return api.get('/admin/order/unchecked');
 }
@@ -75,10 +60,6 @@ export const markOrderAsConfirmed = (id: string) => {
 
 export const markOrderAsCancelled = (id: string) => {
     return api.put(`/admin/order/update-transaction/${id}`, { status: "CANCELLED" });
-}
-
-export const getDeliveredOrders = () => {
-    return api.get('/admin/order/delivered');
 }
 
 export const usersCount = () => {

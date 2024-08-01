@@ -1,4 +1,4 @@
-import { useSearch } from "../../../App/Admin/Authenticated/Dashboard/Dashboard"
+import { useSearch } from "../../../App/Backoffice/Dashboard/Dashboard"
 
 export const useFilterRow = () => {
     const keys = useSearch().keys.toLowerCase();

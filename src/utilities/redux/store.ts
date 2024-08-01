@@ -1,11 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
-import customerReducer from './customer/customerSlice';
-import adminReducer from './admin/adminSlice';
+import frontofficeSlice from './frontoffice/frontofficeSlice';
+import backofficeReducer from './backoffice/backofficeSlice';
 
 const store = configureStore({
     reducer: {
-        customer: customerReducer,
-        admin: adminReducer,
+        frontoffice: frontofficeSlice,
+        backoffice: backofficeReducer,
     }
 })
 

@@ -9,8 +9,7 @@ import Button from "../Button/Button";
 import { GlobalsContext } from "../../globals/GlobalsProvider";
 import { useSelector } from "react-redux";
 import { Rootstate } from "../../redux/store";
-import useUserType from "../../hooks/useUserType";
-import CategoriesEmpty from "../../../App/Admin/Authenticated/Dashboard/Main/Categories/CategoriesEmpty/CategoriesEmpty";
+import CategoriesEmpty from "../../../App/Backoffice/Dashboard/Main/Categories/CategoriesEmpty/CategoriesEmpty";
 
 type OnFinish = (selected: Category | null) => void;
 
@@ -34,8 +33,7 @@ const CategorySelect = React.memo(() => {
     const { categorySelectRef } = React.useContext(GlobalsContext);
     const [state, setState] = React.useState(DEFAULTSTATE);
 
-    const userType = useUserType().toLocaleLowerCase() as keyof Rootstate & 'admin';
-    const { categories } = useSelector((state: Rootstate) => state[userType]);
+    const { categories } = useSelector((state: Rootstate) => state.backoffice);
 
     const { show, defaultCheckedId, exceptIds, onFinish, selected } = state;
 
