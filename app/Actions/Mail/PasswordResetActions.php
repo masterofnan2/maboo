@@ -21,26 +21,8 @@ class PasswordResetActions extends Actions
 
     public function getPasswordResetPath(): string
     {
-        $variant = '';
-
-        switch ($this->user->type) {
-            case User::TYPE_ADMIN:
-                $variant = '/' . strtolower(User::TYPE_ADMIN);
-                break;
-
-            case User::TYPE_PROFESSIONAL:
-                $variant = '/' . strtolower(User::TYPE_PROFESSIONAL);
-                break;
-
-            case User::TYPE_SELLER:
-                $variant = '/' . strtolower(User::TYPE_SELLER);
-                break;
-
-            default:
-                break;
-        }
-
-        return $variant . '/auth/reset-password/';
+        $prefix = $this->user->type === User::TYPE_CUSTOMER ? '' : '/' . strtolower($this->user->type);
+        return  "$prefix/auth/reset-password/";
     }
 
     public function __construct()

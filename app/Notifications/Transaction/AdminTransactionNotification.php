@@ -91,7 +91,7 @@ class AdminTransactionNotification extends Notification implements ShouldQueue
 
         $data['title'] = 'Nouvelle transaction';
         $data['line'] = "Type de la transaction : {$this->type}";
-        $data['action'] = url(env('FRONTEND_URL') . "/admin/orders/processing");
+        $data['action'] = url(env('FRONTEND_URL') . "/admin/dashboard/orders/processing");
 
         return $data;
     }
